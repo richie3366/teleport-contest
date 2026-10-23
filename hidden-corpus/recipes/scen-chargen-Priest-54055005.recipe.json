@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Mira\rnagmnsmy  nkkujklbhknykjkjlubhkjjuuhljklhjnk#twoweapon\n__. \u001b:sybhudd#ride\nb_m.syhnllbujhujb#untrap\nuE- Elbereth\nlybuubbk#invoke\n\u001bsde#terrain\nb\nc #chat\ny#enhance\n\u001b#conduct\n byny#offer\n#conduct\n e#ride\ny_>.snynlhlkjuhujbkuy#conduct\n daa#name\ni\nbbnydebukklbjkkllhubbnn#rub\nPylnynynhynny__.s_<,.Z\u0004b#conduct\n #jump\nknju<\u0004y#ju"
+ },
+ "segments": [
+  {
+   "seed": 54055005,
+   "datetime": "20100510101017",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Mira\rnagmnsmy  nkkujklbhknykjkjlubhkjjuuhljklhjnk#twoweapon\n__. \u001b:sybhudd#ride\nb_m.syhnllbujhujb#untrap\nuE- Elbereth\nlybuubbk#invoke\n\u001bsde#terrain\nb\nc #chat\ny#enhance\n\u001b#conduct\n byny#offer\n#conduct\n e#ride\ny_>.snynlhlkjuhujbkuy#conduct\n daa#name\ni\nbbnydebukklbjkkllhubbnn#rub\nPylnynynhynny__.s_<,.Z\u0004b#conduct\n #jump\nknju<\u0004y#ju"
+  }
+ ]
+}

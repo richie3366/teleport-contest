@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of life saving\nPo\u0017blessed ring of free action\nPpr \u0017blessed shield of reflection\nWq \u0007incubus\n\u0007lich\n\u0017wand of sleep\nsuszrn  zrj zrj   \u0007succubus\n\u0007gnomish wizard\n\u0017wand of striking\nzsl  i\u001b\u0017bow\nwt   yy        \u001720 arrows\nQu\u0007jackal\nfn     tah     n  fh    ntaj fj fh     n \u0017potion of sickness\ntah \u00164\n\u0017wand of digging\n\u0017wand of death\n\u0017wand of polymorph\n\u0007acid blob\n\u0007hobbit\nzyn  n zyn zxn  zw> zw>  n zw> \u00167\n\u0007red dragon\n\u0007baby red dragon\n.ksj  n  #polyself\nblack dragon\n sm.  .m.  #monster\n#monster\n#monster\n\u0017wand of magic missile\naFh  Fu  \u0017wand of sleep\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007kobold shaman\nzsm.z.m.   zAu    n zAu  zBk   n zBy zBh zAhsm. zAh    n zAu  \u00163\n\u0017wand of cancellation\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007jackal\n\u0007jackal\nzEkzEjszD>  nzClzCnzEjzEy\u0007black dragon\n\u0007silver dragon\nsl20s   n20s  n   sm.  n  #polyself\nblac"
+ },
+ "segments": [
+  {
+   "seed": 54050018,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=fruit:durian\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of life saving\nPo\u0017blessed ring of free action\nPpr \u0017blessed shield of reflection\nWq \u0007incubus\n\u0007lich\n\u0017wand of sleep\nsuszrn  zrj zrj   \u0007succubus\n\u0007gnomish wizard\n\u0017wand of striking\nzsl  i\u001b\u0017bow\nwt   yy        \u001720 arrows\nQu\u0007jackal\nfn     tah     n  fh    ntaj fj fh     n \u0017potion of sickness\ntah \u00164\n\u0017wand of digging\n\u0017wand of death\n\u0017wand of polymorph\n\u0007acid blob\n\u0007hobbit\nzyn  n zyn zxn  zw> zw>  n zw> \u00167\n\u0007red dragon\n\u0007baby red dragon\n.ksj  n  #polyself\nblack dragon\n sm.  .m.  #monster\n#monster\n#monster\n\u0017wand of magic missile\naFh  Fu  \u0017wand of sleep\n\u0017wand of slow monster\n\u0007sewer rat\n\u0007kobold shaman\nzsm.z.m.   zAu    n zAu  zBk   n zBy zBh zAhsm. zAh    n zAu  \u00163\n\u0017wand of cancellation\n\u0017wand of digging\n\u0017wand of teleportation\n\u0007jackal\n\u0007jackal\nzEkzEjszD>  nzClzCnzEjzEy\u0007black dragon\n\u0007silver dragon\nsl20s   n20s  n   sm.  n  #polyself\nblac"
+  }
+ ]
+}

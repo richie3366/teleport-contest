@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Orr\rnpefy  nyhjjnuhl>ee ujky_<. \u001b:20s#loot\n__.s#sit\n\u001b#tip\n\u001bqd#dip\ncd#loot\n#ride\nb_>..lhbhyljyhhlhlhlhhhlhbkjh#conduct\n ,dcj#twoweapon\n\u0018\u001bullllhllnjly_m,sK#force\n>olknun\\ ,n blhuubj>\u0014hhjl_>.sef10shkjk#tip\n\u001b#conduct\n ;>.#pray\ny  j#jump\n__,.E- X marks the spot\n#ride\nk_>,.ePuybu_<.20s#untrap\nj#tip\n\u001bs#loot\nnknn#dip\ngd>wa\u0018\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 54055053,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Orr\rnpefy  nyhjjnuhl>ee ujky_<. \u001b:20s#loot\n__.s#sit\n\u001b#tip\n\u001bqd#dip\ncd#loot\n#ride\nb_>..lhbhyljyhhlhlhlhhhlhbkjh#conduct\n ,dcj#twoweapon\n\u0018\u001bullllhllnjly_m,sK#force\n>olknun\\ ,n blhuubj>\u0014hhjl_>.sef10shkjk#tip\n\u001b#conduct\n ;>.#pray\ny  j#jump\n__,.E- X marks the spot\n#ride\nk_>,.ePuybu_<.20s#untrap\nj#tip\n\u001bs#loot\nnknn#dip\ngd>wa\u0018\u001b#"
+  }
+ ]
+}

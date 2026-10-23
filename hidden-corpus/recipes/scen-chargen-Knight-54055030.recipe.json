@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Pim\rnvhny  n__, \u001b.s;k:  jynyhyhjjunk#tip\n\u001b#twoweapon\n\u0014nlyubi\u001b;>.yhhlblkb_<.sq,huhhnubnyuby#ride\nb#force\nhnhued #chat\njhbkn#jump\n#loot\n__,s#pray\ny   #turn\n\\   #untrap\nkl lbl#sit\n #invoke\n\u001b#twoweapon\n:jjnh_m..m.\u0004u \u000f\u001byulhwb #monster\nbhuhn#wipe\n_m.shljynybu#wipe\njuujhqs\\   cjjkhbE- X marks the spot\n   ,ylhuf ay k#invoke\n\u001b_<,.__.sylny#rub\ni\u001bhu  hjyljyjnkjynyklbkj\u0018\u001b\u0004u\u0014ok_<.sjllj20s  dcynyyhhnl<#turn\nkbkb_<.20sr\u001bolyjub,<\u0004hckuhhjh,hhbykbkllljyjbuu_m.s"
+ },
+ "segments": [
+  {
+   "seed": 54055030,
+   "datetime": "20131229041806",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\rnvhny  n__, \u001b.s;k:  jynyhyhjjunk#tip\n\u001b#twoweapon\n\u0014nlyubi\u001b;>.yhhlblkb_<.sq,huhhnubnyuby#ride\nb#force\nhnhued #chat\njhbkn#jump\n#loot\n__,s#pray\ny   #turn\n\\   #untrap\nkl lbl#sit\n #invoke\n\u001b#twoweapon\n:jjnh_m..m.\u0004u \u000f\u001byulhwb #monster\nbhuhn#wipe\n_m.shljynybu#wipe\njuujhqs\\   cjjkhbE- X marks the spot\n   ,ylhuf ay k#invoke\n\u001b_<,.__.sylny#rub\ni\u001bhu  hjyljyjnkjynyklbkj\u0018\u001b\u0004u\u0014ok_<.sjllj20s  dcynyyhhnl<#turn\nkbkb_<.20sr\u001bolyjub,<\u0004hckuhhjh,hhbykbkllljyjbuu_m.s"
+  }
+ ]
+}

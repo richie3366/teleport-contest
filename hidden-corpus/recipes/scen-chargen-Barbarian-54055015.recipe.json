@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Pim\rnrhfy   n#name\no\n#enhance\n\u001b#name\ni\n;u: \u001b>.luhkWafi\nohr\u001bblhu llbutbn#untrap\nb#turn\n#rub\naebs__.s#tip\nf\u001b#tip\nf\u001bck#dip\nad\\ :bjyjwai\u001b_>.s__,snykhlubujhlb_<,20sknyy#dip\nadqd"
+ },
+ "segments": [
+  {
+   "seed": 54055015,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Pim\rnrhfy   n#name\no\n#enhance\n\u001b#name\ni\n;u: \u001b>.luhkWafi\nohr\u001bblhu llbutbn#untrap\nb#turn\n#rub\naebs__.s#tip\nf\u001b#tip\nf\u001bck#dip\nad\\ :bjyjwai\u001b_>.s__,snykhlubujhlb_<,20sknyy#dip\nadqd"
+  }
+ ]
+}

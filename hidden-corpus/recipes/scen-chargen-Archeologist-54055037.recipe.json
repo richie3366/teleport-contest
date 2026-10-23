@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Kael\ryn**y  y   ,#terrain\nb\n\u001b:unhl10s#force\n_>..nhhh_<,s;m.sunjlkjkj_m,20s<#force\nykjuW\u0018\u001bbnhubukbnkhk__.s_>.s#name\nm\noyluhjnjji><#monster\nykby_<.20sjuhnol#conduct\n #force\n#untrap\njynlj#terrain\nb\nHw >__,20s_m,skljh#jump\nqt\u001bk#tip\n\u001bn<#ride\nbujhnhyuhhknyd\u001bch20sd\u001boj#offer\nhbyj#wipe\nE\u001b#sit\n\u001bi#chat\njr\u001blbuhq\u0018\u001bljnhhkkn__.set\u001b#tip\n\u001b#twoweapon\nj#conduct\n bkuj#chat\nl#force"
+ },
+ "segments": [
+  {
+   "seed": 54055037,
+   "datetime": "20260520091506",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Kael\ryn**y  y   ,#terrain\nb\n\u001b:unhl10s#force\n_>..nhhh_<,s;m.sunjlkjkj_m,20s<#force\nykjuW\u0018\u001bbnhubukbnkhk__.s_>.s#name\nm\noyluhjnjji><#monster\nykby_<.20sjuhnol#conduct\n #force\n#untrap\njynlj#terrain\nb\nHw >__,20s_m,skljh#jump\nqt\u001bk#tip\n\u001bn<#ride\nbujhnhyuhhknyd\u001bch20sd\u001boj#offer\nhbyj#wipe\nE\u001b#sit\n\u001bi#chat\njr\u001blbuhq\u0018\u001bljnhhkkn__.set\u001b#tip\n\u001b#twoweapon\nj#conduct\n bkuj#chat\nl#force"
+  }
+ ]
+}

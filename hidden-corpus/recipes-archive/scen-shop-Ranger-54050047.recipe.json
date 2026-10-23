@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPgr\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,_oo,,p_oooo.,$Fb FbFbFbFbFb_ooooo.,\u0014,.sm.  _ooooooo.,p_ooooooo._oo,,#chat\nk   _oooo.,p_ooooooo,,#chat\nk_ooooooooo.,pbly#chat\nu FuFu  nFuFuFuFu  _ooooo,,p_oooo,,\u0017worthless piece of red glass\ndi   _ooooo.,$_ooooo.,p_ooooo,,#chat\nn\u0016?\ncbhk\u0016?\n>w\u0006_{.Fu  _.Fl q\u0016?\nckhu\u0016?\n>w\u0006__. _,Fb#chat\nb#pray\ny y   _ooo,Fh_.m,  nFh_ooo.,\u0017amulet of ESP\ndk_oooooooo.,\u0017dilithium crystal\ndl_ooooooooo.,p__.Fh  n_.Fh#chat\nhFhFhFhFhFhFh_ooooooooo._"
+ },
+ "segments": [
+  {
+   "seed": 54050047,
+   "datetime": "20230228184922",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "\u00172000 gold pieces\n\u0017blessed ring of free action\nPgr\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b,_oo,,p_oooo.,$Fb FbFbFbFbFb_ooooo.,\u0014,.sm.  _ooooooo.,p_ooooooo._oo,,#chat\nk   _oooo.,p_ooooooo,,#chat\nk_ooooooooo.,pbly#chat\nu FuFu  nFuFuFuFu  _ooooo,,p_oooo,,\u0017worthless piece of red glass\ndi   _ooooo.,$_ooooo.,p_ooooo,,#chat\nn\u0016?\ncbhk\u0016?\n>w\u0006_{.Fu  _.Fl q\u0016?\nckhu\u0016?\n>w\u0006__. _,Fb#chat\nb#pray\ny y   _ooo,Fh_.m,  nFh_ooo.,\u0017amulet of ESP\ndk_oooooooo.,\u0017dilithium crystal\ndl_ooooooooo.,p__.Fh  n_.Fh#chat\nhFhFhFhFhFhFh_ooooooooo._"
+  }
+ ]
+}

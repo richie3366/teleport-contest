@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Jun\rn**fy  n__, \u001b;syybl#name\ni\ni\u001b_<..#monster\nH_>,.yjhk#chat\nn:#twoweapon\n#pray\ny buyynjbl_<.s10s#conduct\n yubu\u0004jZb\nyublhhnk#invoke\n\u001bw-_m.20s  jhyu#enhance\n\u001b\u0004ny  hjblZc\n#invoke\n\u001bkjhlhkbhyybki\u001b\u0018\u001bjykl#conduct\n #sit\n\u001bjkblE- Vlad was here\n#untrap\nujjhu#sit\n\u001b\u0014l\u0018\u001bqe#twoweapon\n#name\na\n>_m..__,20slbkbhkbujuujkyuj#sit\n Jhhkjklhnkbkn#force\n,ri y <knkh#jump\nP_m.._>,20s_<.s;m,elyhbhkjhk\u0014f $ jnykubjnl_m,.m.ynyntahP__.sH"
+ },
+ "segments": [
+  {
+   "seed": 54055060,
+   "datetime": "20130502165915",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Jun\rn**fy  n__, \u001b;syybl#name\ni\ni\u001b_<..#monster\nH_>,.yjhk#chat\nn:#twoweapon\n#pray\ny buyynjbl_<.s10s#conduct\n yubu\u0004jZb\nyublhhnk#invoke\n\u001bw-_m.20s  jhyu#enhance\n\u001b\u0004ny  hjblZc\n#invoke\n\u001bkjhlhkbhyybki\u001b\u0018\u001bjykl#conduct\n #sit\n\u001bjkblE- Vlad was here\n#untrap\nujjhu#sit\n\u001b\u0014l\u0018\u001bqe#twoweapon\n#name\na\n>_m..__,20slbkbhkbujuujkyuj#sit\n Jhhkjklhnkbkn#force\n,ri y <knkh#jump\nP_m.._>,20s_<.s;m,elyhbhkjhk\u0014f $ jnykubjnl_m,.m.ynyntahP__.sH"
+  }
+ ]
+}

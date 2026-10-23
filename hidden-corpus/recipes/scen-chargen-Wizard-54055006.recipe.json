@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Ash\rnvdy   n#wipe\n\u0004yh bhjz#rub\n,#invoke\n\u001b_>, \u001bm,skllh_<.sbkbujjllP#turn\n\u000f\u001b\u0014#force\ntbn__,20s ynyuJ,Ki\u001bnlnlbujk#loot\nh#conduct\n _m.syjyl__..lkbulhbna;y;byl"
+ },
+ "segments": [
+  {
+   "seed": 54055006,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\n",
+   "moves": "Ash\rnvdy   n#wipe\n\u0004yh bhjz#rub\n,#invoke\n\u001b_>, \u001bm,skllh_<.sbkbujjllP#turn\n\u000f\u001b\u0014#force\ntbn__,20s ynyuJ,Ki\u001bnlnlbujk#loot\nh#conduct\n _m.syjyl__..lkbulhbna;y;byl"
+  }
+ ]
+}

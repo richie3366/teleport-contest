@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Rook\rnkmn*fnpefy  nhkubukklsP\u0018\u001b#turn\nbyub,\u0014_<, \u001b;sunhkt\u001b#turn\n#wipe\n#enhance\n\u001b#wipe\n#jump\n_<,   .kbbuPf \u001bj#force\nkbub#sit\n\u001b#pray\ny   klhlP#pray\ny     t\u001bE- X marks the spot\nbkjk<\u000f\u001b_m.._m,20s rh y   lyuh:#dip\ncd_m,20s_m,.\\ W#force\n#enhance\n\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 54055032,
+   "datetime": "20060623193327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Rook\rnkmn*fnpefy  nhkubukklsP\u0018\u001b#turn\nbyub,\u0014_<, \u001b;sunhkt\u001b#turn\n#wipe\n#enhance\n\u001b#wipe\n#jump\n_<,   .kbbuPf \u001bj#force\nkbub#sit\n\u001b#pray\ny   klhlP#pray\ny     t\u001bE- X marks the spot\nbkjk<\u000f\u001b_m.._m,20s rh y   lyuh:#dip\ncd_m,20s_m,.\\ W#force\n#enhance\n\u001b#"
+  }
+ ]
+}

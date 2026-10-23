@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Tam\ryy  nl10s__. \u001b@..jujbuubkE- Elbereth\n10sy\u0004nljjy_<..njynubyl,Pllhj#invoke\n\u001bf \u001bqd\u0004kjkbhscl__.sllubhkbuai u#tip\n\u001b:jyjkhlnyhk_<.20sz#twoweapon\nnhnn#turn\n#turn\n#chat\njWukhh__,20sdalnbyynbu#invoke\n\u001b#rub\n#offer\n\u000f\u001b_m,20s#dip\nbd#loot\nljb"
+ },
+ "segments": [
+  {
+   "seed": 54055061,
+   "datetime": "20100424075611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Tam\ryy  nl10s__. \u001b@..jujbuubkE- Elbereth\n10sy\u0004nljjy_<..njynubyl,Pllhj#invoke\n\u001bf \u001bqd\u0004kjkbhscl__.sllubhkbuai u#tip\n\u001b:jyjkhlnyhk_<.20sz#twoweapon\nnhnn#turn\n#turn\n#chat\njWukhh__,20sdalnbyynbu#invoke\n\u001b#rub\n#offer\n\u000f\u001b_m,20s#dip\nbd#loot\nljb"
+  }
+ ]
+}

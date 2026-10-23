@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy  njbhlylkbujblujhhknyn_>. \u001b>.s#sit\n\u001b#offer\ni\u001b_>.su\u0014_<.._m,20s_>,20shnjyjlyknynbch,yhllhbkbhhylknnu#pray\ny  b_m,sublluoh#jump\njlbyklhhbubu#tip\n\u001b#ride\nnlhbk_>,sjblyhlnb\u000f\u001b#rub\n#force\n<_m.sbunhW10s;>.#wipe\nhnhkqdZb\nu#untrap\nblhbuhulbhjkjklnubukjyllnlkjbhujkbunlynkj_m,.kynj_m,s:\\ kybbybhkjcjE- Elbereth\n: kynhjunl_<,shnbkkjlj#name\nm\n#name\n@.hlhu"
+ },
+ "segments": [
+  {
+   "seed": 54055073,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy  njbhlylkbujblujhhknyn_>. \u001b>.s#sit\n\u001b#offer\ni\u001b_>.su\u0014_<.._m,20s_>,20shnjyjlyknynbch,yhllhbkbhhylknnu#pray\ny  b_m,sublluoh#jump\njlbyklhhbubu#tip\n\u001b#ride\nnlhbk_>,sjblyhlnb\u000f\u001b#rub\n#force\n<_m.sbunhW10s;>.#wipe\nhnhkqdZb\nu#untrap\nblhbuhulbhjkjklnubukjyllnlkjbhujkbunlynkj_m,.kynj_m,s:\\ kybbybhkjcjE- Elbereth\n: kynhjunl_<,shnbkkjlj#name\nm\n#name\n@.hlhu"
+  }
+ ]
+}

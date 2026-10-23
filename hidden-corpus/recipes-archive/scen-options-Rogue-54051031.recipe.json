@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " O>n\nb\ni\na\n\u001bw-Ogif\nm\n#dip\nc\u001b10sOel\n#conduct\n r\u001bOgml\nb\ni\no\n\u001b\u0004u#name\ni\nmO>>>>eb\n 1\n\u0018\u001bmO>>>>>dg\nj\nt\n #ride\nk#rub\nsm. .m. O>db\no\nf\n#jump\n#rub\nOhlf\n#enhance\n\u001b#tip\nf\u001bmO>>>op\nh  y  O"
+ },
+ "segments": [
+  {
+   "seed": 54051031,
+   "datetime": "20200129224552",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:explore\n",
+   "moves": " O>n\nb\ni\na\n\u001bw-Ogif\nm\n#dip\nc\u001b10sOel\n#conduct\n r\u001bOgml\nb\ni\no\n\u001b\u0004u#name\ni\nmO>>>>eb\n 1\n\u0018\u001bmO>>>>>dg\nj\nt\n #ride\nk#rub\nsm. .m. O>db\no\nf\n#jump\n#rub\nOhlf\n#enhance\n\u001b#tip\nf\u001bmO>>>op\nh  y  O"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Sable\rnRo*y  njjhy#force\n #ride\nkz#untrap\nk#rub\n\u0004yjnhk_<. \u001bm,._m..uyjk\u000f\u001bdh__,snjbu#untrap\nlL:#turn\n#chat\njdcf d   uZkbjy<Lubhk_<.20s _m,sef#loot\n#offer\nclbhlhfl#force\nububnblhujhu\u0004u:ynkkefqbnyuPqbnbl#loot\nksjnlyyububnyu_>.sbnkkbujhubub_<.sq_>.s_m.s#loot\njoli\u001ba#loot\nj#tip\n\u001bbkjhubjukbuj__,sjyujhubububjlhukbnhnkkblkbkjukbnW:hnyn10sE- X marks the spot\n__,sykjk_>"
+ },
+ "segments": [
+  {
+   "seed": 54050041,
+   "datetime": "20260724083434",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Sable\rnRo*y  njjhy#force\n #ride\nkz#untrap\nk#rub\n\u0004yjnhk_<. \u001bm,._m..uyjk\u000f\u001bdh__,snjbu#untrap\nlL:#turn\n#chat\njdcf d   uZkbjy<Lubhk_<.20s _m,sef#loot\n#offer\nclbhlhfl#force\nububnblhujhu\u0004u:ynkkefqbnyuPqbnbl#loot\nksjnlyyububnyu_>.sbnkkbujhubub_<.sq_>.s_m.s#loot\njoli\u001ba#loot\nj#tip\n\u001bbkjhubjukbuj__,sjyujhubububjlhukbnhnkkblkbkjukbnW:hnyn10sE- X marks the spot\n__,sykjk_>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  y   _ \u001b:_@hhhhk. _@llllj. s10sshnblmjmj10s10s:::s:mb10sssub10smn10smjs10ssskyu10shbss:lkuh10s:nb10s10s10ss10sss::10s10s:10s10s10s10sss:10s10sjb10s:10s:ss:mnmnmnhus10ss:::10sss:"
+ },
+ "segments": [
+  {
+   "seed": 54050068,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:lychee\nOPTIONS=disclose:+i +a -v -g +c -o\n",
+   "moves": "  y   _ \u001b:_@hhhhk. _@llllj. s10sshnblmjmj10s10s:::s:mb10sssub10smn10smjs10ssskyu10shbss:lkuh10s:nb10s10s10ss10sss::10s10s:10s10s10s10sss:10s10sjb10s:10s:ss:mnmnmnhus10ss:::10sss:"
+  }
+ ]
+}

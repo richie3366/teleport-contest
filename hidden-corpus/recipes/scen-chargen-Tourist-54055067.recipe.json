@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Bree\rnpe*y   nkuyl#monster\n\u0004n__, \u001b;sbkyjuolhlhnhnbuubjkyjln_m,sm.#twoweapon\ndf t\u001bnhybylhhl_m,20s unnhyyuklhjnrg y  #rub\n,#jump\nzqd>i\u001bnklhljkb:,#wipe\n#invoke\n\u001b\u000f\u001by,J\u000f\u001bW#tip\n\u001bqd  y\u001by  y y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 54055067,
+   "datetime": "20010720054508",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\rnpe*y   nkuyl#monster\n\u0004n__, \u001b;sbkyjuolhlhnhnbuubjkyjln_m,sm.#twoweapon\ndf t\u001bnhybylhhl_m,20s unnhyyuklhjnrg y  #rub\n,#jump\nzqd>i\u001bnklhljkb:,#wipe\n#invoke\n\u001b\u000f\u001by,J\u000f\u001bW#tip\n\u001bqd  y\u001by  y y y\u001b  y"
+  }
+ ]
+}

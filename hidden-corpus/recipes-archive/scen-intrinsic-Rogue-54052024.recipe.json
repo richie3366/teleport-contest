@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "intrinsic",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   #wizintrinsic\nfa\n sm.s20s.usnsm.sm.sm.sm.sb\u0017potion of polymorph\nqh E- ad aerarium\n,\u0018\u001b10s#sit\n10s20s20ssjsm.20s.m."
+ },
+ "segments": [
+  {
+   "seed": 54052024,
+   "datetime": "20260217084923",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   #wizintrinsic\nfa\n sm.s20s.usnsm.sm.sm.sm.sb\u0017potion of polymorph\nqh E- ad aerarium\n,\u0018\u001b10s#sit\n10s20s20ssjsm.20s.m."
+  }
+ ]
+}

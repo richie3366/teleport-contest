@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  y   : _ \u001bm.W: #rub\nulhyjl:<llbubu<><>ejyy\u0018\u001bjkjjyb#jump\nm.><nnl__.kjlkkhhbh"
+ },
+ "segments": [
+  {
+   "seed": 54051019,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:dog\n",
+   "moves": "  y   : _ \u001bm.W: #rub\nulhyjl:<llbubu<><>ejyy\u0018\u001bjkjjyb#jump\nm.><nnl__.kjlkkhhbh"
+  }
+ ]
+}

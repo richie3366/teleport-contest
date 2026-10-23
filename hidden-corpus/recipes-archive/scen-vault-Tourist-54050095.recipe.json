@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u001613\n\u0006\u001610\n\u0006\u001615\n\u0006\u0014 \u001b@HHHHHhk.,10s 20s    ss20s10sssn;<.dc   nZ#invoke\n\u001b\u00162\n\u00168\n\u0006\u00167\n \u0006\u00164\n\u0006\u0014@Hhhhhhhhk. ,s20s20s Creosote\n\u001613\n\u0006#pray\ny y :\u001618\n \u0006\u001619\n\u0006\u0014@Llllllllkk. ,10ss10s10s Fred\n  \u0017wand of digging\nznuubuu \u001618\n\u0006\u0018\u001b#conduct\n \u00163\n\u0006\u001617\n\u0006\u001616\n\u0006\u00167\n\u0006\u001613\n\u0006clch\u001611\n\u0006\u00162\n\u0006#turn\n#untrap\nn\u00165\n\u0006\u001618\n\u0006\u001617\n\u0006#ride\n.y,\u00166\n\u0006\u001618\n\u0006\u001621\n\u0006\u00167\n\u0006\u00166\n\u0006\u001615\n\u0006\u0014@HHHKhkkkk. ,20s20s Touristo\n  \u0017wand of digging\nzonlhl h\u001612\n\u0006\u001619\n\u0006\u00167\n\u0006\u001611\n\u0006#twoweapon\n,\u001618\n\u0006\u001612\n\u0006\u00168\n\u0006\u00165\n\u0006\u001616\n\u0006\u00164\n\u0006\u0014@LLkkkkkk.,s10s Kroisos\nd$srj#offer\n#dip\noh\u001613\n\u0006\u001615\n\u0006\u001611\n\u0006\u00169\n\u0006\u001619\n\u0006\u001621\n\u0006\u001615\n\u0006\u00168\n\u0006\u001618\n\u0006any         #wipe\n  \u00166\n\u0006cl_<..m.\u001615\n\u0006\u00164\n\u0006\u0014@LKllkk. ,10ssss10s20s20ss\u001611\n\u0006\u00167\n\u0006\u001619\n\u0006\u001613\n\u0006\u001613\n\u0006\u001621\n\u0006\u001615\n\u0006#twoweapon\ny\u00167\n\u0006\u001612\n\u0006,K\u001613\n\u0006\u00167\n\u0006\u001615\n\u0006\u001613\n\u0006\u001619\n\u0006\u001619\n\u0006\u001613\n\u0006\u001615\n\u0006\u00165\n\u0006\u001620\n\u0006\u00168\n\u0006\u001612\n\u0006\u00167\n\u0006\u00168\n\u0006\\ zou\u00168\n\u0006\u001615\n\u0006\u00166\n\u0006\u001616\n\u0006\u00166\n\u0006,\u0018\u001b\u001620\n\u0006\u00163\n\u0006#force\n10s\u00168\n\u0006ae j\u001612\n\u0006Z#terrain\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 54050095,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u001613\n\u0006\u001610\n\u0006\u001615\n\u0006\u0014 \u001b@HHHHHhk.,10s 20s    ss20s10sssn;<.dc   nZ#invoke\n\u001b\u00162\n\u00168\n\u0006\u00167\n \u0006\u00164\n\u0006\u0014@Hhhhhhhhk. ,s20s20s Creosote\n\u001613\n\u0006#pray\ny y :\u001618\n \u0006\u001619\n\u0006\u0014@Llllllllkk. ,10ss10s10s Fred\n  \u0017wand of digging\nznuubuu \u001618\n\u0006\u0018\u001b#conduct\n \u00163\n\u0006\u001617\n\u0006\u001616\n\u0006\u00167\n\u0006\u001613\n\u0006clch\u001611\n\u0006\u00162\n\u0006#turn\n#untrap\nn\u00165\n\u0006\u001618\n\u0006\u001617\n\u0006#ride\n.y,\u00166\n\u0006\u001618\n\u0006\u001621\n\u0006\u00167\n\u0006\u00166\n\u0006\u001615\n\u0006\u0014@HHHKhkkkk. ,20s20s Touristo\n  \u0017wand of digging\nzonlhl h\u001612\n\u0006\u001619\n\u0006\u00167\n\u0006\u001611\n\u0006#twoweapon\n,\u001618\n\u0006\u001612\n\u0006\u00168\n\u0006\u00165\n\u0006\u001616\n\u0006\u00164\n\u0006\u0014@LLkkkkkk.,s10s Kroisos\nd$srj#offer\n#dip\noh\u001613\n\u0006\u001615\n\u0006\u001611\n\u0006\u00169\n\u0006\u001619\n\u0006\u001621\n\u0006\u001615\n\u0006\u00168\n\u0006\u001618\n\u0006any         #wipe\n  \u00166\n\u0006cl_<..m.\u001615\n\u0006\u00164\n\u0006\u0014@LKllkk. ,10ssss10s20s20ss\u001611\n\u0006\u00167\n\u0006\u001619\n\u0006\u001613\n\u0006\u001613\n\u0006\u001621\n\u0006\u001615\n\u0006#twoweapon\ny\u00167\n\u0006\u001612\n\u0006,K\u001613\n\u0006\u00167\n\u0006\u001615\n\u0006\u001613\n\u0006\u001619\n\u0006\u001619\n\u0006\u001613\n\u0006\u001615\n\u0006\u00165\n\u0006\u001620\n\u0006\u00168\n\u0006\u001612\n\u0006\u00167\n\u0006\u00168\n\u0006\\ zou\u00168\n\u0006\u001615\n\u0006\u00166\n\u0006\u001616\n\u0006\u00166\n\u0006,\u0018\u001b\u001620\n\u0006\u00163\n\u0006#force\n10s\u00168\n\u0006ae j\u001612\n\u0006Z#terrain\n\u001b"
+  }
+ ]
+}

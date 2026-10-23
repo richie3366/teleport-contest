@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "death",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0007black dragon\nFh FuFu   s20ssss20s     ynny y ny  F"
+ },
+ "segments": [
+  {
+   "seed": 54052023,
+   "datetime": "20060304180805",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007black dragon\nFh FuFu   s20ssss20s     ynny y ny  F"
+  }
+ ]
+}

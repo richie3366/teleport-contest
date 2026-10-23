@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Bree\rn*h*y  y   r\u001b#loot\n#loot\n#tip\n\u001b#sit\n\u001b#jump\n\u0014#dip\n\u001bZ,jyjkuhly#name\nm\n :<llnb#loot\nw\u001bK:hbhhssluhb__.suhljhkljhnky\u0014t\u001b#chat\nh#offer\n#rub\nd\u001blljjyknyhnllkjyllnny_<,20sjhynb"
+ },
+ "segments": [
+  {
+   "seed": 54055075,
+   "datetime": "20150222043635",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Bree\rn*h*y  y   r\u001b#loot\n#loot\n#tip\n\u001b#sit\n\u001b#jump\n\u0014#dip\n\u001bZ,jyjkuhly#name\nm\n :<llnb#loot\nw\u001bK:hbhhssluhb__.suhljhkljhnky\u0014t\u001b#chat\nh#offer\n#rub\nd\u001blljjyknyhnllkjyllnny_<,20sjhynb"
+  }
+ ]
+}

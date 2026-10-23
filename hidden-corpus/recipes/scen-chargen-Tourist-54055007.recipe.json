@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Rook\ryy  nhukbujhjblblujhkjyuuhylnhububyjj,#loot\nlnlhn_>. \u001b>.20sJ,khynf by k#name\nf\nZblbuj_sP\\   K#terrain\nc\n<.jnkjkjky,Wukbblnjyhblknynhhlllynkyjnhyllhl_m.snjuhbkbl_m.shllh_>,sbkkkubuh,klnkhhlbjk kju#cond"
+ },
+ "segments": [
+  {
+   "seed": 54055007,
+   "datetime": "20240222210336",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Rook\ryy  nhukbujhjblblujhkjyuuhylnhububyjj,#loot\nlnlhn_>. \u001b>.20sJ,khynf by k#name\nf\nZblbuj_sP\\   K#terrain\nc\n<.jnkjkjky,Wukbblnjyhblknynhhlllynkyjnhyllhl_m.snjuhbkbl_m.shllh_>,sbkkkubuh,klnkhhlbjk kju#cond"
+  }
+ ]
+}

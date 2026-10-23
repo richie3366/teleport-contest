@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPm\u0017blessed 20 daggers\nQn#levelchange\n20\n                   #wizintrinsic\nh\n \u0007dwarf\n\u0007lichen\nFl  FuFhFhFh\u0017potion of levitation\nqosm.tnhfh;>. \u001b:   E-;>.E-#pray\ny y ;<.E-#pray\ny y #wizintrinsic\nh\n_,lh\u0017potion of invisibility\nqps.\u0017wand of fire\nzqj  zqlzqj \u0017wand of fire\nzrk    zrlzryzrl;u,E-#chat\nu#wizintrinsic\nh\n\u0017potion of speed\nqs20s\u0007acid blob\nFk 20s20ss\u0007lichen\nFhss.ss20s\u001620\nhkkjnjj:\u0007kobold\nFjs.s\u0017scroll of identify\nrt q\n\u0017cram ration\neu#wizintrinsic\nh\nfjflfk\u0007hobbit\nFjFjs20s.\u0017blessed spellbook of cause fear\nrv20sZa\n:\u0018\u001bykj\u0017spellbook of cause fear\nrw y sZa\n:#wizintrinsic\nh\ni\u001bkjkk\u0017blessed scroll of identify\nrx     \u0017lump of royal jelly\ney ;<.E-\u0007soldier\nFnFnFnFn FnFn #wizintrinsic\nh\n\u0017scroll of mail\nrz  \u0017potion of booze\nqAsm.\u0007owlbear\nFnFn  FjFj  Fn;n; E-\u0017blessed scroll of enchant weapon\nrB    #wizintrinsic\nh\n_:k    n k;n.E-#chat\nn;n,E-i\u001bu  uu  k\u0017wand of digging\nzCn zClzCl   n zCl \u0016?\n\u001b__.<\u0007yellow mold\n\u0007gnome\nFb FlFbFnFbFbFb #wizintrinsic\nh\n\u0017wand of striking\nzDb zDhzDjzD.\u0017spellbook of knock\nrE 20sZa\n:\u0017wand of striking\nzFyzFbzFyzFhzF.#w"
+ },
+ "segments": [
+  {
+   "seed": 54050092,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=fruit:lychee\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed leash\n\u0017blessed magic lamp\n\u0017blessed bell of opening\n\u0017blessed amulet of life saving\nPm\u0017blessed 20 daggers\nQn#levelchange\n20\n                   #wizintrinsic\nh\n \u0007dwarf\n\u0007lichen\nFl  FuFhFhFh\u0017potion of levitation\nqosm.tnhfh;>. \u001b:   E-;>.E-#pray\ny y ;<.E-#pray\ny y #wizintrinsic\nh\n_,lh\u0017potion of invisibility\nqps.\u0017wand of fire\nzqj  zqlzqj \u0017wand of fire\nzrk    zrlzryzrl;u,E-#chat\nu#wizintrinsic\nh\n\u0017potion of speed\nqs20s\u0007acid blob\nFk 20s20ss\u0007lichen\nFhss.ss20s\u001620\nhkkjnjj:\u0007kobold\nFjs.s\u0017scroll of identify\nrt q\n\u0017cram ration\neu#wizintrinsic\nh\nfjflfk\u0007hobbit\nFjFjs20s.\u0017blessed spellbook of cause fear\nrv20sZa\n:\u0018\u001bykj\u0017spellbook of cause fear\nrw y sZa\n:#wizintrinsic\nh\ni\u001bkjkk\u0017blessed scroll of identify\nrx     \u0017lump of royal jelly\ney ;<.E-\u0007soldier\nFnFnFnFn FnFn #wizintrinsic\nh\n\u0017scroll of mail\nrz  \u0017potion of booze\nqAsm.\u0007owlbear\nFnFn  FjFj  Fn;n; E-\u0017blessed scroll of enchant weapon\nrB    #wizintrinsic\nh\n_:k    n k;n.E-#chat\nn;n,E-i\u001bu  uu  k\u0017wand of digging\nzCn zClzCl   n zCl \u0016?\n\u001b__.<\u0007yellow mold\n\u0007gnome\nFb FlFbFnFbFbFb #wizintrinsic\nh\n\u0017wand of striking\nzDb zDhzDjzD.\u0017spellbook of knock\nrE 20sZa\n:\u0017wand of striking\nzFyzFbzFyzFhzF.#w"
+  }
+ ]
+}

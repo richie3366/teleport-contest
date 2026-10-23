@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Mira\rna*fy    y   nhlj,Plknk__, \u001b@.s,Zbklh_>,20s_>..hnlhhybhyljh_>,suklnZinuubhlbkf#invoke\n\u001b\u0018\u001b\\ e\u0014w\u001bclnlkk#monster\n#chat\njjkyl#dip\n\u001ba#ride\nkz\\ eybhb#rub\nd\u001boh#chat\nkqP>#dip\n\u001b_<,20skyhn_m,20s\u0004y#force\noj#loot\nynhn_>,sjujb_m.s__,sq#dip\n\u001bs\\ _>.20s_m.20s_m..#sit\n\u001b_<,subulnlhl10s#ride\nh#twoweapon\n#pray\ny i\u000f\u001b_m,20s__,slylkhnjkblykbunj_m,shlkbkklhubnyhnknZ#force\nbyjl#enhance\n\u001b#conduct"
+ },
+ "segments": [
+  {
+   "seed": 54055012,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Mira\rna*fy    y   nhlj,Plknk__, \u001b@.s,Zbklh_>,20s_>..hnlhhybhyljh_>,suklnZinuubhlbkf#invoke\n\u001b\u0018\u001b\\ e\u0014w\u001bclnlkk#monster\n#chat\njjkyl#dip\n\u001ba#ride\nkz\\ eybhb#rub\nd\u001boh#chat\nkqP>#dip\n\u001b_<,20skyhn_m,20s\u0004y#force\noj#loot\nynhn_>,sjujb_m.s__,sq#dip\n\u001bs\\ _>.20s_m.20s_m..#sit\n\u001b_<,subulnlhl10s#ride\nh#twoweapon\n#pray\ny i\u000f\u001b_m,20s__,slylkhnjkblykbunj_m,shlkbkklhubnyhnknZ#force\nbyjl#enhance\n\u001b#conduct"
+  }
+ ]
+}

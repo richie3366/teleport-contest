@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0016?\n>EuFjFj klnnkb\u0017wand of digging\nzjkunnnhj\u0017scroll of earth\nrk hkjulnluull10sn10sjkyj\u0017wand of digging\nzlnkknljjluujuknblljljjnjyh\u0007little dog\n\u0017scroll of taming\nrm \u001b\u0017saddle\nann#ride\nny#ride\nky#ride\nny#ride\nny\u0007tame saddled warhorse\n#ride\nky#ride\nby#ride\nly#ride\nhy\u0007pony\n\u0017scroll of taming\nro \u001b\u0017saddle\n apn#ride\nny#ride\nky#ride\nly#ride\nhy\u0007newt\ns20s20sukhuk,\u0006_ \u001bm,>_>,_.,>_>._.:>\u0006_>,_.,>_>._.;m,>_>,_.m.>\u0006_>._..>_>._..>_>,_.<.>\u0007Uruk-hai\nss20sss\u0007wererat\n20s.20ss\u0007stalker\n..sss.\u00161\n#levelchange\n20\n    \u0017cursed potion of see invisible\nqq \u001b\u0017blessed ice box\n\u0017blessed scroll of taming\nrs \u001bs20s\u0017uncursed spellbook of wizard lock\nrt 20s.Zc\nZc\n.s\u0017spellbook of cancellation\n\u0007couatl\nru  \u001b             n   20s sm. Zc\n Zc\n Fu Fu  sm. sm.  n \u0006\u00161\n\u0006_>>. Fl _.Fl  >Fl Fl  Fl   n  \u0006_>,Fl _,m. Fl>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>._.>\u0006_>>._.>_>>,_,>_>>._,>\u0017dwarvish mattock\nav.av\u0006_oooo.avav.hhavsavhhavy\u000f\u001b#levelchange\n16\n \u0016?\n>y  _m,Fh_.Fj#chat\nh ;h;_mmmmm,Fl _.;.Fk #chat\nk_mmmm.Fj _.#chat\nu P#offer\nag \u0017Orcrist\nww   n  FuFj Fk  X\u0007black dragon\nFyFu  n   \u0007fire giant\nsm.     sm.    n .m.  20s   n  sm.    n.b  sm.       n  20s  \u0007captain\nFk          nFj        n\u00162\n#wizintrinsic\nf\n \u0017apple\nex  \u0017cursed scroll of confuse monster\nry \u001b        n\u0017potion of oil\nqz         n ;h.20s        n su   sh   n         yy\u001by   y y y\u001b  i"
+ },
+ "segments": [
+  {
+   "seed": 54050071,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0016?\n>EuFjFj klnnkb\u0017wand of digging\nzjkunnnhj\u0017scroll of earth\nrk hkjulnluull10sn10sjkyj\u0017wand of digging\nzlnkknljjluujuknblljljjnjyh\u0007little dog\n\u0017scroll of taming\nrm \u001b\u0017saddle\nann#ride\nny#ride\nky#ride\nny#ride\nny\u0007tame saddled warhorse\n#ride\nky#ride\nby#ride\nly#ride\nhy\u0007pony\n\u0017scroll of taming\nro \u001b\u0017saddle\n apn#ride\nny#ride\nky#ride\nly#ride\nhy\u0007newt\ns20s20sukhuk,\u0006_ \u001bm,>_>,_.,>_>._.:>\u0006_>,_.,>_>._.;m,>_>,_.m.>\u0006_>._..>_>._..>_>,_.<.>\u0007Uruk-hai\nss20sss\u0007wererat\n20s.20ss\u0007stalker\n..sss.\u00161\n#levelchange\n20\n    \u0017cursed potion of see invisible\nqq \u001b\u0017blessed ice box\n\u0017blessed scroll of taming\nrs \u001bs20s\u0017uncursed spellbook of wizard lock\nrt 20s.Zc\nZc\n.s\u0017spellbook of cancellation\n\u0007couatl\nru  \u001b             n   20s sm. Zc\n Zc\n Fu Fu  sm. sm.  n \u0006\u00161\n\u0006_>>. Fl _.Fl  >Fl Fl  Fl   n  \u0006_>,Fl _,m. Fl>_>._.>_>._.>\u0006_>>,_,>_>>._.>_>>._.>\u0006_>>._.>_>>,_,>_>>._,>\u0017dwarvish mattock\nav.av\u0006_oooo.avav.hhavsavhhavy\u000f\u001b#levelchange\n16\n \u0016?\n>y  _m,Fh_.Fj#chat\nh ;h;_mmmmm,Fl _.;.Fk #chat\nk_mmmm.Fj _.#chat\nu P#offer\nag \u0017Orcrist\nww   n  FuFj Fk  X\u0007black dragon\nFyFu  n   \u0007fire giant\nsm.     sm.    n .m.  20s   n  sm.    n.b  sm.       n  20s  \u0007captain\nFk          nFj        n\u00162\n#wizintrinsic\nf\n \u0017apple\nex  \u0017cursed scroll of confuse monster\nry \u001b        n\u0017potion of oil\nqz         n ;h.20s        n su   sh   n         yy\u001by   y y y\u001b  i"
+  }
+ ]
+}

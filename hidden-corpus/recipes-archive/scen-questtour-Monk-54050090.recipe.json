@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl;l,_mm,Fn_.Fn#chat\nn;n;_mmmmm.Fl  n_.<.Fl#chat\nl;l._m,Fh   n_.#chat\nk_mmmm.   n Fl   n  n  n_.   n    n Fk   n  n  n#chat\nk#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm. Fk_.#chat\nk;l:  _m.  Fh _.#chat\nl_mmmm.    nFh _.#chat\ny      n;u;\u0017blessed amulet of reflection\nPk   \u0017blessed +3 speed boots\nWl    n \u0017blessed +3 helm of telepathy\nWm   \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,    Fk_,  Fy   n Fn       Fk    y  F"
+ },
+ "segments": [
+  {
+   "seed": 54050090,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b>.#chat\nl;l,_mm,Fn_.Fn#chat\nn;n;_mmmmm.Fl  n_.<.Fl#chat\nl;l._m,Fh   n_.#chat\nk_mmmm.   n Fl   n  n  n_.   n    n Fk   n  n  n#chat\nk#levelchange\n20\n                      \u0016?\n>>\u001b\u0016?\n>y\u0006_mmm. Fk_.#chat\nk;l:  _m.  Fh _.#chat\nl_mmmm.    nFh _.#chat\ny      n;u;\u0017blessed amulet of reflection\nPk   \u0017blessed +3 speed boots\nWl    n \u0017blessed +3 helm of telepathy\nWm   \u0017wand of lightning\n\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,    Fk_,  Fy   n Fn       Fk    y  F"
+  }
+ ]
+}

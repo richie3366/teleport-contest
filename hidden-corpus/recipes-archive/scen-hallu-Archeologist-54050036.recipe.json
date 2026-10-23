@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPj\u0017blessed magic lamp\n\u0017blessed 20 daggers\n Ql#wizintrinsic\nh\n ;k, \u001bm.E- ad aerarium\n#chat\nk#pray\ny y  \u0007acid blob\n\u0007newt\nFyFh FbFb\u0016?\nf    #levelchange\n8\n       \u0017spear\n\u0007kitten\nwmFu FuFu\u0017amulet of restful sleep\n\u0007soldier\nPnsk 20s    20s  20s  n   n  FuFu  n \u0017Fire Brand\nwo   n     nFu    n Fl    nFu    n #invoke\no<.                            X\u0017blessed black dragon scale mail\nW\u001bsssm.\u0017uncursed spellbook of haste self\nrq20ssm.Z\u0017spellbook of create familiar\nrr :   n .hsm.ZFl Fl.j20ssm.  n\u00166\n#wizintrinsic\nh\n \u0007yellow mold\nFy20ss20s20s\u0017scroll of earth\n  rs  \u0017newt corpse\net  \u0007bugbear\n\u0007yellow mold\nss20sssss#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nru.Za\n:\u0017blessed spellbook of cause fear\nrv .b Za\n:\u0007sewer rat\n\u0007hobbit\nFb    nFb   Fn   Fn  Fn   n  \u00165\n#wizintrinsic\nh\n \u0007gnome\n\u0007dwarf\nFn  Fn   Fh   nFh  Fh Fh i\u001bljjlfy   nfyfy i\u001bnk\u0017blessed spellbook of light\nrw    n20s Za\n  #turn\n:#wizintrinsic\nh\n \u0007acid blob\nFy   nFy Fh FhFy \u0007sewer rat\nFh     yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 54050036,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 helm of telepathy\nW\u001b\u0017blessed amulet of life saving\nPj\u0017blessed magic lamp\n\u0017blessed 20 daggers\n Ql#wizintrinsic\nh\n ;k, \u001bm.E- ad aerarium\n#chat\nk#pray\ny y  \u0007acid blob\n\u0007newt\nFyFh FbFb\u0016?\nf    #levelchange\n8\n       \u0017spear\n\u0007kitten\nwmFu FuFu\u0017amulet of restful sleep\n\u0007soldier\nPnsk 20s    20s  20s  n   n  FuFu  n \u0017Fire Brand\nwo   n     nFu    n Fl    nFu    n #invoke\no<.                            X\u0017blessed black dragon scale mail\nW\u001bsssm.\u0017uncursed spellbook of haste self\nrq20ssm.Z\u0017spellbook of create familiar\nrr :   n .hsm.ZFl Fl.j20ssm.  n\u00166\n#wizintrinsic\nh\n \u0007yellow mold\nFy20ss20s20s\u0017scroll of earth\n  rs  \u0017newt corpse\net  \u0007bugbear\n\u0007yellow mold\nss20sssss#wizintrinsic\nh\n \u0017blessed spellbook of slow monster\nru.Za\n:\u0017blessed spellbook of cause fear\nrv .b Za\n:\u0007sewer rat\n\u0007hobbit\nFb    nFb   Fn   Fn  Fn   n  \u00165\n#wizintrinsic\nh\n \u0007gnome\n\u0007dwarf\nFn  Fn   Fh   nFh  Fh Fh i\u001bljjlfy   nfyfy i\u001bnk\u0017blessed spellbook of light\nrw    n20s Za\n  #turn\n:#wizintrinsic\nh\n \u0007acid blob\nFy   nFy Fh FhFy \u0007sewer rat\nFh     yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Hob\rn**fcy  n_m, \u001bm,snujulhljkjjji\u001b#tip\n\u001b#rub\n_m.s_m,20sjkkjjkjj#twoweapon\nr\u001bjhlhnhkhlhlh20s10sjujjykj  l_m,s#untrap\ny#jump\nuhnynyblukbl#conduct\n #jump\nkbhk"
+ },
+ "segments": [
+  {
+   "seed": 54055033,
+   "datetime": "20100703105731",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Hob\rn**fcy  n_m, \u001bm,snujulhljkjjji\u001b#tip\n\u001b#rub\n_m.s_m,20sjkkjjkjj#twoweapon\nr\u001bjhlhnhkhlhlh20s10sjujjykj  l_m,s#untrap\ny#jump\nuhnynyblukbl#conduct\n #jump\nkbhk"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Tam\rntfnsmy   n__. \u001bm.20sbjbykbkjbljknkhu#loot\nJhunk:#chat\nj10s#offer\nar\u001bbkkjbunyyE- ad aerarium\nzez\u0018\u001bi\u001bqjlnl__,subklaP_m..yyuh__.20sjbkubjlulyhnslhhjj__.skyknhnyhhujh__,sunkn__..nhnnykhluull#monster\ndehjknjyjn__,sr\u001btbk\\    ajkbhuykjhjylybbkkklhlbjyunu"
+ },
+ "segments": [
+  {
+   "seed": 54055040,
+   "datetime": "20070713215636",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Tam\rntfnsmy   n__. \u001bm.20sbjbykbkjbljknkhu#loot\nJhunk:#chat\nj10s#offer\nar\u001bbkkjbunyyE- ad aerarium\nzez\u0018\u001bi\u001bqjlnl__,subklaP_m..yyuh__.20sjbkubjlulyhnslhhjj__.skyknhnyhhujh__,sunkn__..nhnnykhluull#monster\ndehjknjyjn__,sr\u001btbk\\    ajkbhuykjhjylybbkkklhlbjyunu"
+  }
+ ]
+}

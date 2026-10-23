@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Pim\ryy   nuuhl<\u0014ljkjybuj\u0004l10s;j; \u001bm, \u000f\u001buhnb_<.s#enhance\n\u001b#chat\nlhuynylbkljuhjhkjZ20slhlk_>.s#jump\n_m,s\u0004b#terrain\nb\nnjlj#sit\n.#turn\nnjkn_>,20subuukjjjkjkhjlkbukbu#wipe\ntbj\u0014\u0014P#untrap\nh_<,sunkyhllb#unt"
+ },
+ "segments": [
+  {
+   "seed": 54055054,
+   "datetime": "20190616160124",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\ryy   nuuhl<\u0014ljkjybuj\u0004l10s;j; \u001bm, \u000f\u001buhnb_<.s#enhance\n\u001b#chat\nlhuynylbkljuhjhkjZ20slhlk_>.s#jump\n_m,s\u0004b#terrain\nb\nnjlj#sit\n.#turn\nnjkn_>,20subuukjjjkjkhjlkbukbu#wipe\ntbj\u0014\u0014P#untrap\nh_<,sunkyhllb#unt"
+  }
+ ]
+}

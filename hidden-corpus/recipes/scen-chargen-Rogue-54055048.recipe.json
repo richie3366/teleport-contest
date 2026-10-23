@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Sable\ryy  n20s#rub\nhuynubbuw-ch__, \u001bm..W\u001b#conduct\n __,sPn10s  #sit\n\u001beg  lKjjklynhjujjkkjjk__,._<.20s     k ykjrj E- ad aerarium\n_m,.bull#sit\n\u001b<llnbhynynlyuPP__.s,20s   hllh#enhance\n\u001brj lhlnnhkn__,20s    hkhldcqiylhhhlhlllhhef   y    y"
+ },
+ "segments": [
+  {
+   "seed": 54055048,
+   "datetime": "20200527162155",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Sable\ryy  n20s#rub\nhuynubbuw-ch__, \u001bm..W\u001b#conduct\n __,sPn10s  #sit\n\u001beg  lKjjklynhjujjkkjjk__,._<.20s     k ykjrj E- ad aerarium\n_m,.bull#sit\n\u001b<llnbhynynlyuPP__.s,20s   hllh#enhance\n\u001brj lhlnnhkn__,20s    hkhldcqiylhhhlhlllhhef   y    y"
+  }
+ ]
+}

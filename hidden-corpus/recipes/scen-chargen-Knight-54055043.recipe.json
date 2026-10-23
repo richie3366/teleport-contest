@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Quill\rynm**y  y   yhkj_>. \u001b>.20s<\u000f\u001b#turn\n#conduct\n enhnyn_>.20sPs#loot\n#jump\nbujh\u0018\u001b,ujuhlynn#turn\nr\u001b#turn\nd\u001bt\u001b,kjhylybu_<,.jhny_<.20s_m.sW>_>.sjujk_<,.#lo"
+ },
+ "segments": [
+  {
+   "seed": 54055043,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\rynm**y  y   yhkj_>. \u001b>.20s<\u000f\u001b#turn\n#conduct\n enhnyn_>.20sPs#loot\n#jump\nbujh\u0018\u001b,ujuhlynn#turn\nr\u001b#turn\nd\u001bt\u001b,kjhylybu_<,.jhny_<.20s_m.sW>_>.sjujk_<,.#lo"
+  }
+ ]
+}

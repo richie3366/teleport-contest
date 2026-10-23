@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017bag of tricks\n\u0017locked chest\n\u0017cursed bag of holding\n\u0017ruby\n#tip\nhg\n\u0017dagger\nwjdhh#force\n20ss20saf   FyFhag"
+ },
+ "segments": [
+  {
+   "seed": 54051006,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017bag of tricks\n\u0017locked chest\n\u0017cursed bag of holding\n\u0017ruby\n#tip\nhg\n\u0017dagger\nwjdhh#force\n20ss20saf   FyFhag"
+  }
+ ]
+}

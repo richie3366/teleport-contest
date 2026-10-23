@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Dax\ryy   n;k, \u001b;qjynllyny#invoke\n\u001b20s__,20s  byuny#sit\n\u001bknjbynyn#chat\nywb __.s\u000f\u001bZyhlububnyhhhhlhjklhl#offer\n#rub\nkoklllu_<,szsuynj#ride\nk10snyyn#force\nlhnuuhkhbehZ10s#name\nf\n\u0004#invoke\n\u001b_m.20s,,yn  ynjjlujuukfPhhbk__..lbnj20s\\   #conduct\n 20s     hkny#untrap\nlE- X marks the spot\n20s#wipe\nhykn,#chat\ny_>,20s#terrain\nc\n<.,20s   :ynjnwa  #wipe\n_<..ulnubullab  ;zegq#ride\nlE- I am a"
+ },
+ "segments": [
+  {
+   "seed": 54055046,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Dax\ryy   n;k, \u001b;qjynllyny#invoke\n\u001b20s__,20s  byuny#sit\n\u001bknjbynyn#chat\nywb __.s\u000f\u001bZyhlububnyhhhhlhjklhl#offer\n#rub\nkoklllu_<,szsuynj#ride\nk10snyyn#force\nlhnuuhkhbehZ10s#name\nf\n\u0004#invoke\n\u001b_m.20s,,yn  ynjjlujuukfPhhbk__..lbnj20s\\   #conduct\n 20s     hkny#untrap\nlE- X marks the spot\n20s#wipe\nhykn,#chat\ny_>,20s#terrain\nc\n<.,20s   :ynjnwa  #wipe\n_<..ulnubullab  ;zegq#ride\nlE- I am a"
+  }
+ ]
+}

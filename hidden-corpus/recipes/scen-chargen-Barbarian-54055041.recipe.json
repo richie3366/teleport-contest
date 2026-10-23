@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Jun\ryy   n_<, \u001b@.20s#name\na\n#twoweapon\nyhnkkkbn_m.20s__.s_m,s_>.slbubuhjyhlyj#jump\nah _>,si\u001bwaqd;>._>,s#wipe\nokuukjbbll#monster\n20s   #jump\n\\  knyy\u000f\u001b#name\nf\nkuly_s;m.20skljnkjjhhnkukhlj\u0018\u001b\u000f\u001bdc,#name\ni\n#untrap\nuol,bujk#turn\n ,khhh__,.10s #untrap\nl#invoke\n\u001bohlljj#pray\ny   f \u001bkkhl<Za\nnkykbbun#rub\n@.#jump\n\u0014#chat\nub"
+ },
+ "segments": [
+  {
+   "seed": 54055041,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Jun\ryy   n_<, \u001b@.20s#name\na\n#twoweapon\nyhnkkkbn_m.20s__.s_m,s_>.slbubuhjyhlyj#jump\nah _>,si\u001bwaqd;>._>,s#wipe\nokuukjbbll#monster\n20s   #jump\n\\  knyy\u000f\u001b#name\nf\nkuly_s;m.20skljnkjjhhnkukhlj\u0018\u001b\u000f\u001bdc,#name\ni\n#untrap\nuol,bujk#turn\n ,khhh__,.10s #untrap\nl#invoke\n\u001bohlljj#pray\ny   f \u001bkkhl<Za\nnkykbbun#rub\n@.#jump\n\u0014#chat\nub"
+  }
+ ]
+}

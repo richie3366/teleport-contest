@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWp\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0007lichen\nFl  20sFlss20sfhfjt$l\u0007gnome\n\u0007soldier\nFh FhFnFnFn FnFn fltsl fn;n. \u001b;E- ad aerarium\n#wizintrinsic\nh\n\u0017scroll of fire\nrt    \u0017cram ration\neu \u0017wand of digging\nzvnzvnzvnzvn\u0016?\n>B\u0014m,sssm.\u0007hobbit\n\u0007gnome\nFh FhFh FyFh Fy  #wizintrinsic\nh\n\u0017blessed spellbook of magic missile\nrw    slZ:\u0007grid bug\nFh    FhFjFjFj Fj\u0007kobold shaman\nFh Fh  FhFb #wizintrinsic\nh\ni\u001bnb u\u0017blessed scroll of teleportation\nrx <.\u0007bugbear\n\u0007grid bug\nFhFb  FhFb FhFh  Fb\u0017blessed spellbook of fireball\nry   sm.Z:#wizintrinsic\nh\n\u0007acid blob\nFhFhFb FlFl  FhFh  \u0007dwarf\nFlFb  FbFb  FnFb    _m.nul\u0017potion of levitation\nqzs fn fn #wizintrinsic\nh\nfb  fn   \u0016?\nk   lnuhj jb:\u0016?\ncbnhh:_m.njhn;b:E-#chat\nh #pray\ny y  tsl  tsb ;b;E-#pray\ny y     #wizintrinsic\nh\n\u0007hill orc\n\u0007acid blob\nFbFhFbFhFb\u0017blessed scroll of light\nrA\u0017scroll of teleportation\nrB\u0018\u001bbbkl#wizintrinsic\nh\n\u0007hill orc\n\u0007bugbear\nFkFlFlFlFk  n \u0017wand of light\nzCzCzCzCC\u001b\u0007owlbear\nFn FnFlFl Fk\u0007jackal\n\u0007kobold\nFjFkFjFnF"
+ },
+ "segments": [
+  {
+   "seed": 54050008,
+   "datetime": "20010906015747",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed +3 gray dragon scale mail\nWn\u0017blessed magic lamp\n\u0017blessed +3 speed boots\nWp\u0017blessed magic harp\n\u0017blessed bell of opening\n\u0017blessed 20 daggers\nQs#levelchange\n20\n                   #wizintrinsic\nh\n \u0007lichen\nFl  20sFlss20sfhfjt$l\u0007gnome\n\u0007soldier\nFh FhFnFnFn FnFn fltsl fn;n. \u001b;E- ad aerarium\n#wizintrinsic\nh\n\u0017scroll of fire\nrt    \u0017cram ration\neu \u0017wand of digging\nzvnzvnzvnzvn\u0016?\n>B\u0014m,sssm.\u0007hobbit\n\u0007gnome\nFh FhFh FyFh Fy  #wizintrinsic\nh\n\u0017blessed spellbook of magic missile\nrw    slZ:\u0007grid bug\nFh    FhFjFjFj Fj\u0007kobold shaman\nFh Fh  FhFb #wizintrinsic\nh\ni\u001bnb u\u0017blessed scroll of teleportation\nrx <.\u0007bugbear\n\u0007grid bug\nFhFb  FhFb FhFh  Fb\u0017blessed spellbook of fireball\nry   sm.Z:#wizintrinsic\nh\n\u0007acid blob\nFhFhFb FlFl  FhFh  \u0007dwarf\nFlFb  FbFb  FnFb    _m.nul\u0017potion of levitation\nqzs fn fn #wizintrinsic\nh\nfb  fn   \u0016?\nk   lnuhj jb:\u0016?\ncbnhh:_m.njhn;b:E-#chat\nh #pray\ny y  tsl  tsb ;b;E-#pray\ny y     #wizintrinsic\nh\n\u0007hill orc\n\u0007acid blob\nFbFhFbFhFb\u0017blessed scroll of light\nrA\u0017scroll of teleportation\nrB\u0018\u001bbbkl#wizintrinsic\nh\n\u0007hill orc\n\u0007bugbear\nFkFlFlFlFk  n \u0017wand of light\nzCzCzCzCC\u001b\u0007owlbear\nFn FnFlFl Fk\u0007jackal\n\u0007kobold\nFjFkFjFnF"
+  }
+ ]
+}

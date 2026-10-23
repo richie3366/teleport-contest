@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed amulet of reflection\nPf\u0017blessed amulet of life saving\nPg\u001610\n\u0006\u001618\n\u0006\u001621\n\u0006\u001613\n\u0006\u0014 \u001b@HHHJhhhhhhjjjjj. ,20ss10s  nobody\n  FyFy Fy  nFy  n ,E- X marks the spot\n  nr\u001b#wipe\n   n#loot\ny\u00168\n\u001610\n\u0006#conduct\n ,\u001620\n\u0006#sit\n\u001b#turn\n\u001614\n\u0006\u001614\n\u0006Kz\u001618\n\u0006#turn\ned  \u00164\n\u0006\u0014@HHHHHHhhhhhhkk. ,s20s20s Astrid\n  #loot\n#rub\neE- X marks the spot\n r\u001b\u001613\n\u0006\u00169\n\u0006\u001618\n\u0006\u00169\n\u0006#monster\n10s \u00163\n\u0006\u001621\n\u0006\u001620\n\u0006\u00167\n\u0006\u001619\n\u0006\u0014@LLLLLLJlllllllj. ,10ss20s Astrid\n  Fh FhFh  nFh  n\u00166\n \u001618\n\u0006\u00162"
+ },
+ "segments": [
+  {
+   "seed": 54050081,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed amulet of reflection\nPf\u0017blessed amulet of life saving\nPg\u001610\n\u0006\u001618\n\u0006\u001621\n\u0006\u001613\n\u0006\u0014 \u001b@HHHJhhhhhhjjjjj. ,20ss10s  nobody\n  FyFy Fy  nFy  n ,E- X marks the spot\n  nr\u001b#wipe\n   n#loot\ny\u00168\n\u001610\n\u0006#conduct\n ,\u001620\n\u0006#sit\n\u001b#turn\n\u001614\n\u0006\u001614\n\u0006Kz\u001618\n\u0006#turn\ned  \u00164\n\u0006\u0014@HHHHHHhhhhhhkk. ,s20s20s Astrid\n  #loot\n#rub\neE- X marks the spot\n r\u001b\u001613\n\u0006\u00169\n\u0006\u001618\n\u0006\u00169\n\u0006#monster\n10s \u00163\n\u0006\u001621\n\u0006\u001620\n\u0006\u00167\n\u0006\u001619\n\u0006\u0014@LLLLLLJlllllllj. ,10ss20s Astrid\n  Fh FhFh  nFh  n\u00166\n \u001618\n\u0006\u00162"
+  }
+ ]
+}

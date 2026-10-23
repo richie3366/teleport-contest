@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " y   _ \u001bm,: : s: 10s10s: 10s: : 10s: 10sss: 10sss10ssssuub_@hj. : 10slyhsulnk:10s:10s10sjl10sss:jj::ss10s::::10s10ss10ss10s:mnmnml:mnmn10s:s::s:muyj:10shny10snlkbmbmb::10s"
+ },
+ "segments": [
+  {
+   "seed": 54050026,
+   "datetime": "20160410204348",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": " y   _ \u001bm,: : s: 10s10s: 10s: : 10s: 10sss: 10sss10ssssuub_@hj. : 10slyhsulnk:10s:10s10sjl10sss:jj::ss10s::::10s10ss10ss10s:mnmnml:mnmn10s:s::s:muyj:10shny10snlkbmbmb::10s"
+  }
+ ]
+}

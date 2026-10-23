@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Nox\rn*hmly  nuyhl#tip\n\u001b\u0018\u001b#untrap\nh#rub\nca#name\no\n,klhb_>, \u001b<.20sokchqoh#enhance\n\u001b#dip\ncuuyly<hhhjkjulbjykujyy#dip\nbWs:,#untrap\njbjnl#invoke\n\u001bq_>.sbkkb#force\n \u0014kkjjlyjlbnykolWn#jump\nyjuktbn \u000f\u001ba#name\nd\n#conduct\n ok_>.s#pray\ny   Wn#dip\ndi\u001br\u001b__,scl\u0018\u001b#force\n,__,sujhk#dip\nc__.sllbuhbbnhylk#name\na\nckubhj#pray\ny   y\u001by  y y y\u001b  a"
+ },
+ "segments": [
+  {
+   "seed": 54055028,
+   "datetime": "20041106123549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Nox\rn*hmly  nuyhl#tip\n\u001b\u0018\u001b#untrap\nh#rub\nca#name\no\n,klhb_>, \u001b<.20sokchqoh#enhance\n\u001b#dip\ncuuyly<hhhjkjulbjykujyy#dip\nbWs:,#untrap\njbjnl#invoke\n\u001bq_>.sbkkb#force\n \u0014kkjjlyjlbnykolWn#jump\nyjuktbn \u000f\u001ba#name\nd\n#conduct\n ok_>.s#pray\ny   Wn#dip\ndi\u001br\u001b__,scl\u0018\u001b#force\n,__,sujhk#dip\nc__.sllbuhbbnhylk#name\na\nckubhj#pray\ny   y\u001by  y y y\u001b  a"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "B JYB_ \u001b>.>JBYB_>,>KLKK_>,><BLJN_>.><HLHB_>.>JNBY_>,>NKJN_>.>df\u0018\u001bBNL U_>.>#pray\ny  \u0014<NULY_>.>FlFl20s<NUJJ_>.>YHLB_>,>NYLyJ_>.>FkFksKK HL  _>,>LKKN_>.>kf  l"
+ },
+ "segments": [
+  {
+   "seed": 54051027,
+   "datetime": "20081016170432",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=sortloot:none\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:none\n",
+   "moves": "B JYB_ \u001b>.>JBYB_>,>KLKK_>,><BLJN_>.><HLHB_>.>JNBY_>,>NKJN_>.>df\u0018\u001bBNL U_>.>#pray\ny  \u0014<NULY_>.>FlFl20s<NUJJ_>.>YHLB_>,>NYLyJ_>.>FkFksKK HL  _>,>LKKN_>.>kf  l"
+  }
+ ]
+}

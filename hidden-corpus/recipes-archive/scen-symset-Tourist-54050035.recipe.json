@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "mO>>v\u001b\nmO>w\u001b\n\u001620\nv\u001bi\u001b\u00162\nFlFnFkl FjFhFjFkFhFyFh\u001bFjFnFbFjFjFlFlFkFbFuy FbFuu FkFlFkFjFyFjFlFyFkb FjFuFkFhFjFlFkFnFkj FbFkk FnFjFyFh\u001bFjFuFbFjFjFuFuFbFbFuFhFnFh\u001bFbFuy FhFlFnFuu FjFlFnFyFuFnFjFhFyFh\u001bFkFjFhFlFyFlFyFh\u001bFbFyFbFlFlFlFbFyFuFhFyFh\u001bFnFbFyFlFyFlFyFkb FbFbFnFky FlFhFhFjFkFhFjFyFyFkFbFyFh\u001614\n\u0006_ \u001bm.>FnFkh _>.Fn_>FhFj_>.Fh_.Fn>FjFbFuu #twoweapon\n\u0018\u001b\u0006_>.Fh_,Fu>FbFn_>.Fh_,Fh>FnFy_>.Fj_.Fh>FbFnFnFnFu\u0006_>,Fh_.Fn>FhFuFh\u000f\u001bO>>>>a\u001b\n#levelchange\n10\n        kn bbky \u0017altar\ndlde\u0017jackal corpse\n#offer\no ub \u0017melting ice\njkn \u0017iron bars\n: n\u0017tree\n#force\n>Kllh\u001b\u0017grave\n:\u0017wand of digging\nzp> 20s20s:n\u0017fountain\nqy yqi:#terrain\nf\n10s#ride\nk #jump\nFbFbFuFuFlFlFbFuy FuFyFh\u001bFhFjFnFh\u001bFnFjFnFlFyFbFjFjFyFnFyFh\u001bFbFbFhFlFhFhFlFjFyFuu FbFjFjFnFh\u001bFuFnFbFkFkFuFjFjFbFyFkFkFnFyFyFyFlFbFjFjFlFuFjFkFuFjFhFyFjFhFlFuFkFjFyFh\u001bFuFyFlFjFnFnFjFhFnFh\u001bFuFbFbFbFbFbFh\u001bFyFuy FyFbFlFjFjFlFhFkFkFkFnFky FkFlFhFuFyFyFhFuFlFhFlOj\u001b\nmO>k\u001b\nFbFlFbFnFyFbFuFjFkFuFbFubFhFlFkFyFbFuFuF"
+ },
+ "segments": [
+  {
+   "seed": 54050035,
+   "datetime": "20160228103156",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nOPTIONS=number_pad:4\nOPTIONS=msg_window:reversed\nMSGTYPE=norep \"You hear\"\nMENUCOLOR=\"a scroll\"=magenta\nBIND=v:inventory\n",
+   "moves": "mO>>v\u001b\nmO>w\u001b\n\u001620\nv\u001bi\u001b\u00162\nFlFnFkl FjFhFjFkFhFyFh\u001bFjFnFbFjFjFlFlFkFbFuy FbFuu FkFlFkFjFyFjFlFyFkb FjFuFkFhFjFlFkFnFkj FbFkk FnFjFyFh\u001bFjFuFbFjFjFuFuFbFbFuFhFnFh\u001bFbFuy FhFlFnFuu FjFlFnFyFuFnFjFhFyFh\u001bFkFjFhFlFyFlFyFh\u001bFbFyFbFlFlFlFbFyFuFhFyFh\u001bFnFbFyFlFyFlFyFkb FbFbFnFky FlFhFhFjFkFhFjFyFyFkFbFyFh\u001614\n\u0006_ \u001bm.>FnFkh _>.Fn_>FhFj_>.Fh_.Fn>FjFbFuu #twoweapon\n\u0018\u001b\u0006_>.Fh_,Fu>FbFn_>.Fh_,Fh>FnFy_>.Fj_.Fh>FbFnFnFnFu\u0006_>,Fh_.Fn>FhFuFh\u000f\u001bO>>>>a\u001b\n#levelchange\n10\n        kn bbky \u0017altar\ndlde\u0017jackal corpse\n#offer\no ub \u0017melting ice\njkn \u0017iron bars\n: n\u0017tree\n#force\n>Kllh\u001b\u0017grave\n:\u0017wand of digging\nzp> 20s20s:n\u0017fountain\nqy yqi:#terrain\nf\n10s#ride\nk #jump\nFbFbFuFuFlFlFbFuy FuFyFh\u001bFhFjFnFh\u001bFnFjFnFlFyFbFjFjFyFnFyFh\u001bFbFbFhFlFhFhFlFjFyFuu FbFjFjFnFh\u001bFuFnFbFkFkFuFjFjFbFyFkFkFnFyFyFyFlFbFjFjFlFuFjFkFuFjFhFyFjFhFlFuFkFjFyFh\u001bFuFyFlFjFnFnFjFhFnFh\u001bFuFbFbFbFbFbFh\u001bFyFuy FyFbFlFjFjFlFhFkFkFkFnFky FkFlFhFuFyFyFhFuFlFhFlOj\u001b\nmO>k\u001b\nFbFlFbFnFyFbFuFjFkFuFbFubFhFlFkFyFbFuFuF"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmmm.Fu_,#chat\nn_m.Fn_,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fu _.#chat\nn_mmm.#chat\ny_m.Fj _.#chat\nl\u0017blessed amulet of reflection\nPi   n \u0017blessed +3 speed boots\nWj  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmm,Fn _, FkFl   Fk Fj Fj FkFn zkj     n ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, Fb_.Fu Fn Fb FbFk Fb Fn zkk   ,\u0016?\n>z\u0006_mm,FbFb Fk Fu  n  Fy Fb  zkj    ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,Fu  _.#chat\nb\u0016?\n>A\u0006_mmmmmmm,Fn  Fu  FuFuFnFu zky  ,#chat\ny\u0016?\n>A\u0006_mmmmmm.FkFkFnFjFyzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk _.Fk Fk Fy Fy ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fk _.#chat\nu;u:  \u0016?\n>z\u0006_mmm,  n Fn _.Fn Fn Fy FhFnzk,#chat\nk\u0016?\n>A\u0006_mmmmmm,FuFjFuFu,\u0016?\n>A\u0006_mmmmmmm,Fy_.Fy Fy FnFyFhFkFhzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fj_,>.FjFuFjFnFkFuFuFj,#chat\nb\u0016?\n>z\u0006_mmmmmmm,FjFjFbFjFkzk,\u0016?\n>A\u0006_mmm.FuFuFbFy,#chat\nj\u0016?\n>A\u0006_mmm.FbFbFjFnFyFkFy,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,FnFjFnFkFj,\u0016?\n>z\u0006_mmmm.FkFnFnFbFjFyzk,#chat\nu\u0016?\n>A\u0006_mmmmm.FjFbFjFuFu,\u0016?\n>A\u0006_mmm,FjFjFjFyFnFnzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FnFnFuFkFnFyzk,#chat\nk\u0016?\n>z\u0006_mmmmmm,FnFnFjFb,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mm,FnFjFnFu,\u0016?\n>A\u0006_mmmm.FyFbFkFjFnFjzk,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FkFkFyFbFkFnFj,\u0016?\n>z\u0006_mmm.Fu"
+ },
+ "segments": [
+  {
+   "seed": 54050062,
+   "datetime": "20060411183549",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001b;#chat\nh_mmmm.Fu_,#chat\nn_m.Fn_,#chat\nl#levelchange\n14\n             \u0016?\n>>\u001b\u0016?\n>y\u0006_mm. Fu _.#chat\nn_mmm.#chat\ny_m.Fj _.#chat\nl\u0017blessed amulet of reflection\nPi   n \u0017blessed +3 speed boots\nWj  \u0017wand of fire\n\u0016?\n>A\u0006_mmmmm,Fn _, FkFl   Fk Fj Fj FkFn zkj     n ,#chat\nu\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm, Fb_.Fu Fn Fb FbFk Fb Fn zkk   ,\u0016?\n>z\u0006_mm,FbFb Fk Fu  n  Fy Fb  zkj    ,\u0016?\n>>\u001b\u0016?\n>y_mmmmm,Fu  _.#chat\nb\u0016?\n>A\u0006_mmmmmmm,Fn  Fu  FuFuFnFu zky  ,#chat\ny\u0016?\n>A\u0006_mmmmmm.FkFkFnFjFyzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm. Fk _.Fk Fk Fy Fy ,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_mmmmm, Fk _.#chat\nu;u:  \u0016?\n>z\u0006_mmm,  n Fn _.Fn Fn Fy FhFnzk,#chat\nk\u0016?\n>A\u0006_mmmmmm,FuFjFuFu,\u0016?\n>A\u0006_mmmmmmm,Fy_.Fy Fy FnFyFhFkFhzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmm.Fj_,>.FjFuFjFnFkFuFuFj,#chat\nb\u0016?\n>z\u0006_mmmmmmm,FjFjFbFjFkzk,\u0016?\n>A\u0006_mmm.FuFuFbFy,#chat\nj\u0016?\n>A\u0006_mmm.FbFbFjFnFyFkFy,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\ny\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm,FnFjFnFkFj,\u0016?\n>z\u0006_mmmm.FkFnFnFbFjFyzk,#chat\nu\u0016?\n>A\u0006_mmmmm.FjFbFjFuFu,\u0016?\n>A\u0006_mmm,FjFjFjFyFnFnzk,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm,FnFnFuFkFnFyzk,#chat\nk\u0016?\n>z\u0006_mmmmmm,FnFnFjFb,\u0016?\n>>\u001b\u0016?\n>y_mmm.#chat\nb\u0016?\n>A\u0006_mm,FnFjFnFu,\u0016?\n>A\u0006_mmmm.FyFbFkFjFnFjzk,#chat\nn\u0016?\n>>\u001b\u0016?\n>y_m,#chat\nk\u0016?\n>>\u001b\u0016?\n>z\u0006_mmm.FkFkFyFbFkFnFj,\u0016?\n>z\u0006_mmm.Fu"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Bree\ryy   nz#enhance\n\u001bykjyw-\u0014__. \u001b<.sm._>.sjyjh_<,sytahbljk#tip\n\u001bi\u001b#terrain\nb\nt oj:nykkw-zuhjujkhknjykdd#tip\n\u001bkkyyKw-lklhlbnlbybj_m..#force\n#twoweapon\n#twoweapon\n#conduct\n knhnkhynnkkb#jump\n#twoweapon\n_>,20sljknW#terrain\nc\n>._<,.#enhance\n\u001bP_<.s\u000f\u001b#chat\ny20s:hjhb#enhance\n\u001b#twoweapon\n\u000f\u001b\u0004nyyjknknl#tip\n\u001b#jump\n_>,20s__.s#offer\n:yunh,\u0004lbnlu\u000f\u001b#sit\n#untrap\nh,#twoweapon\n#jump\nbhkyj"
+ },
+ "segments": [
+  {
+   "seed": 54055059,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\ryy   nz#enhance\n\u001bykjyw-\u0014__. \u001b<.sm._>.sjyjh_<,sytahbljk#tip\n\u001bi\u001b#terrain\nb\nt oj:nykkw-zuhjujkhknjykdd#tip\n\u001bkkyyKw-lklhlbnlbybj_m..#force\n#twoweapon\n#twoweapon\n#conduct\n knhnkhynnkkb#jump\n#twoweapon\n_>,20sljknW#terrain\nc\n>._<,.#enhance\n\u001bP_<.s\u000f\u001b#chat\ny20s:hjhb#enhance\n\u001b#twoweapon\n\u000f\u001b\u0004nyyjknknl#tip\n\u001b#jump\n_>,20s__.s#offer\n:yunh,\u0004lbnlu\u000f\u001b#sit\n#untrap\nh,#twoweapon\n#jump\nbhkyj"
+  }
+ ]
+}

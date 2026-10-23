@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\nQm#wizintrinsic\nh\n \u0017potion of booze\nqn.m.i\u001bkkj\u0017scroll of fire\nro fjfbtmb fu\u001622\n_ \u001b:.m...fjtmntmn\u0017wand of teleportation\nzpuzp.,zpyzpj#wizintrinsic\nh\ntmntmj\u0017blessed scroll of enchant weapon\nrq \u0017scroll of enchant armor\nrr \u0017slime mold\n \u001b\u0007kobold shaman\nFkFkFkss#wizintrinsic\nh\n\u0007bugbear\nFbFnFl FbFbfb   fb i\u001bnjkj  n\u00164\n#levelchange\n20\n                   \u0007succubus\nFhFh Fh  yy    ss20s\u0007hezrou\nFkFk ss\u0007baby long worm\nFlFl\u0007skeleton\n20s sb20s .k sm.20s sm.#wizintrinsic\nh\n\u0007owlbear\nFy Fl  n  Fn  Fy Fl   n Fl \u00169\n;m.E- Elbereth Elbereth\n#chat\nl\u0017blessed scroll of teleportation\nrt >. #wizintrinsic\nh\n\u0007gnome lord\nFhFh Fh s\u0007kobold shaman\nFyFyFys\u0018\u001bknyn;.E- Elb"
+ },
+ "segments": [
+  {
+   "seed": 54050050,
+   "datetime": "20220307095920",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPj\u0017blessed +3 helm of telepathy\nWk\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed 20 daggers\nQm#wizintrinsic\nh\n \u0017potion of booze\nqn.m.i\u001bkkj\u0017scroll of fire\nro fjfbtmb fu\u001622\n_ \u001b:.m...fjtmntmn\u0017wand of teleportation\nzpuzp.,zpyzpj#wizintrinsic\nh\ntmntmj\u0017blessed scroll of enchant weapon\nrq \u0017scroll of enchant armor\nrr \u0017slime mold\n \u001b\u0007kobold shaman\nFkFkFkss#wizintrinsic\nh\n\u0007bugbear\nFbFnFl FbFbfb   fb i\u001bnjkj  n\u00164\n#levelchange\n20\n                   \u0007succubus\nFhFh Fh  yy    ss20s\u0007hezrou\nFkFk ss\u0007baby long worm\nFlFl\u0007skeleton\n20s sb20s .k sm.20s sm.#wizintrinsic\nh\n\u0007owlbear\nFy Fl  n  Fn  Fy Fl   n Fl \u00169\n;m.E- Elbereth Elbereth\n#chat\nl\u0017blessed scroll of teleportation\nrt >. #wizintrinsic\nh\n\u0007gnome lord\nFhFh Fh s\u0007kobold shaman\nFyFyFys\u0018\u001bknyn;.E- Elb"
+  }
+ ]
+}

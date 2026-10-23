@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0016?\nf    \u0006FhFn      Fb    Fk   FbFb    k   l    hb   20si\u001bK  #levelchange\n12\n      \u0016?\n>J     amulet of change\n10s  n z,s.\u0016?\n\u001b\u0016?\n\u001b\u001621\neH#sit\n.20s \u00172000 gold pieces\n\u0016?\n\u001b\u0006_ \u001b>.#chat\nl_mm,#chat\nn_mmm.#chat\nl_{.q#offer\n10s \u001be#levelchange\n20\n        \u00168\n\u0014m,oke\u0006s.\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u0018\u001b#levelchange\n6\n    nhkn\u0017moat\n#dip\nfy  lhj\u0017magic fountain\nqyqy#dip\nay: kl\u0017cloud\nhhhh#terrain\nd\n#enhance\n>.#pray\ny y #wipe\n\u0016?\n\u001bFn hl\u0017wand of digging\nzhk  n\u0017wand of digging\nzikl \u0017wand of digging\nzjl10s \u0017wand of striking\nzkj\u0017wand of digging\nzllkb\u0017wand of digging\nzmj  n  \u0017wand of digging\nznlFl    n l   n l  n Fk  n    n\u0017wand of digging\nzol  nl   n 10s  n \u0017wand of digging\nzpj   n Fl   n j  n Fu   n \u0017scroll of earth\nrq\u0017wand of striking\nzrh   ynny y  n  F"
+ },
+ "segments": [
+  {
+   "seed": 54050043,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0016?\nf    \u0006FhFn      Fb    Fk   FbFb    k   l    hb   20si\u001bK  #levelchange\n12\n      \u0016?\n>J     amulet of change\n10s  n z,s.\u0016?\n\u001b\u0016?\n\u001b\u001621\neH#sit\n.20s \u00172000 gold pieces\n\u0016?\n\u001b\u0006_ \u001b>.#chat\nl_mm,#chat\nn_mmm.#chat\nl_{.q#offer\n10s \u001be#levelchange\n20\n        \u00168\n\u0014m,oke\u0006s.\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u0016?\n\u001b\u0018\u001b#levelchange\n6\n    nhkn\u0017moat\n#dip\nfy  lhj\u0017magic fountain\nqyqy#dip\nay: kl\u0017cloud\nhhhh#terrain\nd\n#enhance\n>.#pray\ny y #wipe\n\u0016?\n\u001bFn hl\u0017wand of digging\nzhk  n\u0017wand of digging\nzikl \u0017wand of digging\nzjl10s \u0017wand of striking\nzkj\u0017wand of digging\nzllkb\u0017wand of digging\nzmj  n  \u0017wand of digging\nznlFl    n l   n l  n Fk  n    n\u0017wand of digging\nzol  nl   n 10s  n \u0017wand of digging\nzpj   n Fl   n j  n Fu   n \u0017scroll of earth\nrq\u0017wand of striking\nzrh   ynny y  n  F"
+  }
+ ]
+}

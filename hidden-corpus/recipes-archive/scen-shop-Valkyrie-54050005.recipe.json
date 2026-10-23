@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b>.  _oo,,$_ooooooooo.,$_oooooooo.,:\u00163\nnjb\u0016?\n>w\u0006_oooooo.,#chat\nh_ooooo.,\u0014;ss_oooooo,,\u0017amulet versus poison\ndg_oooo.,:\u00163\nlbu\u0016?\n>w\u0006__,_.#chat\nbukb#chat\nhujk#chat\nn_{, _.q_ooooooo.,\u0017amulet of life saving\ndh_{.   Fj  _.:q_oooooo._o.,p_{,_.Fh qFh   n  Fh Fh   Fh    Fh FhFh Fh  Fh Fh Fh Fh  \u0016?\nckhl\u0016?\n>w\u0006_ooooooo._,_o._.,\u0017flint stone\ndi__._.#chat\nk_oo.,$_oooooooo.,#chat\ny\u0016?\nclyb\u0016?\n>w\u0006kny#chat\nh_ooooooo, Fy    _.Fy ,$_oooooo.,\u0017amulet of life saving\ndj_oooo,, :Fy Fy Fy   nFy FyFy__.   Fn _.#chat\nl#pray\ny y  __,   _.  #chat\nykbu#chat\nnFn  Fn  Fn  FnFnFnjyb#chat\nj__.Fh       n _.#chat\nh _oooooo. Fh   n _,,\u0017amulet of guarding\ndk  n \u00163\n _oo"
+ },
+ "segments": [
+  {
+   "seed": 54050005,
+   "datetime": "20020922212024",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=sortloot:loot\nOPTIONS=fruit:mango\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0017blessed ring of free action\nPer\u0017blessed +3 gauntlets of power\nWf\u0016?\n>w\u0006_ \u001b>.  _oo,,$_ooooooooo.,$_oooooooo.,:\u00163\nnjb\u0016?\n>w\u0006_oooooo.,#chat\nh_ooooo.,\u0014;ss_oooooo,,\u0017amulet versus poison\ndg_oooo.,:\u00163\nlbu\u0016?\n>w\u0006__,_.#chat\nbukb#chat\nhujk#chat\nn_{, _.q_ooooooo.,\u0017amulet of life saving\ndh_{.   Fj  _.:q_oooooo._o.,p_{,_.Fh qFh   n  Fh Fh   Fh    Fh FhFh Fh  Fh Fh Fh Fh  \u0016?\nckhl\u0016?\n>w\u0006_ooooooo._,_o._.,\u0017flint stone\ndi__._.#chat\nk_oo.,$_oooooooo.,#chat\ny\u0016?\nclyb\u0016?\n>w\u0006kny#chat\nh_ooooooo, Fy    _.Fy ,$_oooooo.,\u0017amulet of life saving\ndj_oooo,, :Fy Fy Fy   nFy FyFy__.   Fn _.#chat\nl#pray\ny y  __,   _.  #chat\nykbu#chat\nnFn  Fn  Fn  FnFnFnjyb#chat\nj__.Fh       n _.#chat\nh _oooooo. Fh   n _,,\u0017amulet of guarding\ndk  n \u00163\n _oo"
+  }
+ ]
+}

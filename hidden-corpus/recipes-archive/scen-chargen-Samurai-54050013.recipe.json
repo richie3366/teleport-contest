@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy  n_<. \u001b..kyjhchf by lyhyur\u001b10sbkjn>#force\n#turn\n#pray\ny  _m,.\u000f\u001b,lhhkulhl#sit\n\u001b#conduct\n lujuuhllr\u001b,lllknknh _<,.k_m..n__,sm.ol#untrap\nl_m.sybbhu __.sm.__.20sjukjklll_>..b<\u000f\u001bujjknjhh<bbkblukju"
+ },
+ "segments": [
+  {
+   "seed": 54050013,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy  n_<. \u001b..kyjhchf by lyhyur\u001b10sbkjn>#force\n#turn\n#pray\ny  _m,.\u000f\u001b,lhhkulhl#sit\n\u001b#conduct\n lujuuhllr\u001b,lllknknh _<,.k_m..n__,sm.ol#untrap\nl_m.sybbhu __.sm.__.20sjukjklll_>..b<\u000f\u001bujjknjhh<bbkblukju"
+  }
+ ]
+}

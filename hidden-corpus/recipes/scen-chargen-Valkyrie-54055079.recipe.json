@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Jun\ryy  nhunjhyubnjnk_m. \u001b;sm.blkkkyhj  ny  ny\u001b  b"
+ },
+ "segments": [
+  {
+   "seed": 54055079,
+   "datetime": "20051121203526",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\n",
+   "moves": "Jun\ryy  nhunjhyubnjnk_m. \u001b;sm.blkkkyhj  ny  ny\u001b  b"
+  }
+ ]
+}

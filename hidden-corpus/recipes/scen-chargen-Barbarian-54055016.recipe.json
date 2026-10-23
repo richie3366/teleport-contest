@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Nox\ryy  y   _>. \u001b:.s10s;_.#sit\n\u001biw\u001blZjkbyi;_.yyny#turn\n#name\nm\n,#offer\njnnhylhjjlun_>,20s#jump\nE\u001b#tip\n\u001b#untrap\nb#sit\n\u001bcjyylh_>,20s#wipe\n#tip\n\u001bnbubyubklbuhnlblhkly\u0014#enhance\n\u001b_m,suyju_>.s<fljnua>_>.se#chat\nhlkhj,K#loot\n#offer\n#ride\nlt\u001bnybhE\u001bz#chat\nyt\u001blujjkbyh<#offer\nWKnbunyk"
+ },
+ "segments": [
+  {
+   "seed": 54055016,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "Nox\ryy  y   _>. \u001b:.s10s;_.#sit\n\u001biw\u001blZjkbyi;_.yyny#turn\n#name\nm\n,#offer\njnnhylhjjlun_>,20s#jump\nE\u001b#tip\n\u001b#untrap\nb#sit\n\u001bcjyylh_>,20s#wipe\n#tip\n\u001bnbubyubklbuhnlblhkly\u0014#enhance\n\u001b_m,suyju_>.s<fljnua>_>.se#chat\nhlkhj,K#loot\n#offer\n#ride\nlt\u001bnybhE\u001bz#chat\nyt\u001blujjkbyh<#offer\nWKnbunyk"
+  }
+ ]
+}

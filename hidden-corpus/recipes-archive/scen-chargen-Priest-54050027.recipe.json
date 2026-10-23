@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Bree\ryy   y   uknhkjjuuhbu\\ Zar\u001b\\ \u0018\u001b#name\nf\n >.#tip\n\u001blbhnhnykd\u001bohi:>#conduct\n kbunsW#dip\n\u001b#loot\nklbn#invoke\n\u001b#turn\n_>.sbkhk\u000f\u001b;<.P#wipe\nhybhknjb#loot\noh,\u0004jjknh_>.20sllklPeblkllbhh_>,s#invoke\n\u001byhjklyujhuynlulh#name\nf\nZulhn;>.<a#monster\niK#pray\ny  W_>.shhbjkknu#rub\njkblbukbh__..ubkjllhbZ#conduct\n #jump\n_m,subjlnlll_m..__,20slk"
+ },
+ "segments": [
+  {
+   "seed": 54050027,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\ryy   y   uknhkjjuuhbu\\ Zar\u001b\\ \u0018\u001b#name\nf\n >.#tip\n\u001blbhnhnykd\u001bohi:>#conduct\n kbunsW#dip\n\u001b#loot\nklbn#invoke\n\u001b#turn\n_>.sbkhk\u000f\u001b;<.P#wipe\nhybhknjb#loot\noh,\u0004jjknh_>.20sllklPeblkllbhh_>,s#invoke\n\u001byhjklyujhuynlulh#name\nf\nZulhn;>.<a#monster\niK#pray\ny  W_>.shhbjkknu#rub\njkblbukbh__..ubkjllhbZ#conduct\n #jump\n_m,subjlnlll_m..__,20slk"
+  }
+ ]
+}

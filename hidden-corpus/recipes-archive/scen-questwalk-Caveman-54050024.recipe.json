@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n               \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b;Fl FkFk\u00163\n \u0006_>,Fh  _.;:   Fj \u00164\n\u0006#chat\ny;_.\u00165\n  \u0006,\u00166\n\u0006_mm,   _..20s    Fn_>.>\u0006,_>.>\u0006_mm.Fn ss .      Fb .\u00164\n\u0006_mmmmm.Fl_,   nFu  \u001b..  FjFjFjs\u00165\n \u0006__,\u00166\n\u0006_mmm,              Fk_.       n  Fn s20s 20s s_>. _,  >\u0006_mmmm.ss  ..s . \u00163\n\u0006_mmm, Fh_.Fh Fy FyFu Fy   nFu\u00164\n\u0006hnlhhkj\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006_<.\u00162\n\u0016?\n>z\u0006_m._.m.ss20ss\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z_>._.m,>\u0016?\n>z\u0006#chat\nl;m,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z_>._.;:   >\u0016?\n>z\u0006#chat\nl;<.\u00166\n\u0016?\n>z\u0006_mmmmm,  _.ssFu    FuFuFu\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n"
+ },
+ "segments": [
+  {
+   "seed": 54050024,
+   "datetime": "20001101085011",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n               \u0017blessed +3 helm of telepathy\nWf\u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b;Fl FkFk\u00163\n \u0006_>,Fh  _.;:   Fj \u00164\n\u0006#chat\ny;_.\u00165\n  \u0006,\u00166\n\u0006_mm,   _..20s    Fn_>.>\u0006,_>.>\u0006_mm.Fn ss .      Fb .\u00164\n\u0006_mmmmm.Fl_,   nFu  \u001b..  FjFjFjs\u00165\n \u0006__,\u00166\n\u0006_mmm,              Fk_.       n  Fn s20s 20s s_>. _,  >\u0006_mmmm.ss  ..s . \u00163\n\u0006_mmm, Fh_.Fh Fy FyFu Fy   nFu\u00164\n\u0006hnlhhkj\u0016?\n>>\u001b\u0016?\n>y  #chat\nh\u0016?\n>z\u00165\n\u0016?\n>z\u0006_<.\u00166\n\u0016?\n>z\u0006_<.\u00162\n\u0016?\n>z\u0006_m._.m.ss20ss\u00163\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nn\u0016?\n>z_>._.m,>\u0016?\n>z\u0006#chat\nl;m,\u0016?\n>>\u001b\u0016?\n>y#chat\nu\u0016?\n>z_>._.;:   >\u0016?\n>z\u0006#chat\nl;<.\u00166\n\u0016?\n>z\u0006_mmmmm,  _.ssFu    FuFuFu\u00162\n\u0016?\n>z\u0006,\u00163\n\u0016?\n"
+  }
+ ]
+}

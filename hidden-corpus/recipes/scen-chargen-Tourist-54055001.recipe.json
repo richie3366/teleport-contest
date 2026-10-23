@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Ivo\rnv*ly  nbbhl_m. \u001b<.20slbjhPblybhHPnljnol\u0004hykjnlllllllllllujkkkklbu__,20sbuln#wipe\ned ulll#invoke\n\u001b#enhance\n\u001blnynjhblhkhhhlhl\\   db__..hyklbnhk#rub\n#untrap\nkjkkjjlyjkjhb#offer\n#offer\nW#jump\nlhkulhybJ#pray\ny  ukkk#offer\nt\u001bkkkkkynn#dip\ndbkulnkujjjjjjjbjn#name\nm\n#tip\n<.llll"
+ },
+ "segments": [
+  {
+   "seed": 54055001,
+   "datetime": "20191018080228",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Ivo\rnv*ly  nbbhl_m. \u001b<.20slbjhPblybhHPnljnol\u0004hykjnlllllllllllujkkkklbu__,20sbuln#wipe\ned ulll#invoke\n\u001b#enhance\n\u001blnynjhblhkhhhlhl\\   db__..hyklbnhk#rub\n#untrap\nkjkkjjlyjkjhb#offer\n#offer\nW#jump\nlhkulhybJ#pray\ny  ukkk#offer\nt\u001bkkkkkynn#dip\ndbkulnkujjjjjjjbjn#name\nm\n#tip\n<.llll"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Quill\ryy  y   #turn\n#twoweapon\n__, \u001bm.s<#pray\ny  yulni#rub\nylnhhnynlynh_m,20syublubbjknjy#chat\nkP<#jump\n#terrain\nb\nw bykbjhlllkyu#offer\n#loot\n#rub\nd\u001b_<..__..__.s_<..w\u001b<#pray\ny   y  y y\u001b  \u000f"
+ },
+ "segments": [
+  {
+   "seed": 54055021,
+   "datetime": "20191116163402",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\ryy  y   #turn\n#twoweapon\n__, \u001bm.s<#pray\ny  yulni#rub\nylnhhnynlynh_m,20syublubbjknjy#chat\nkP<#jump\n#terrain\nb\nw bykbjhlllkyu#offer\n#loot\n#rub\nd\u001b_<..__..__.s_<..w\u001b<#pray\ny   y  y y\u001b  \u000f"
+  }
+ ]
+}

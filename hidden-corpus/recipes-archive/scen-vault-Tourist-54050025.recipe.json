@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u001616\n    \u0006P<\u001614\n\u0006\u00163\n\u0006\u001620\n  \u0006eb  y#jump\n\u001619\n\u0006zP\u00164\n\u0006\u0014 \u001b@HHHHHHJhjj. ,20s20s Touristo\n  \u0017wand of digging\nzobbubu#chat\nndd#twoweapon\n\u00165\n\u0006\u001618\n\u0006k\u0014;\u00162\n\u0006\u00169\n\u0006\u001610\n\u0006\u00165\n\u0006\u001614\n\u0006\u00162\n\u0006\u001620\n\u0006\u001611\n \u0006#enhance\nyj\ne\n\u001bP\u001612\n\u0006\u001610\n\u0006#force\n#dip\neh\u00169\n\u0006\u00165\n\u0006\u001617\n\u0006\u0014@LLLLLLJllllllljjjj. ,20ss10s \u001b  Fh Fh   \u001bFhFh#offer\n#monster\n\u0018\u001b\u001612\n\u0006\u001621\n\u0006\u0014@LLLKllllllkkkk. ,20s Touristo\n  d$h#invoke\n\u001b;m.fb\u00168\n\u0006#terrain\nb\n,\u001620\n\u0006\u001611\n\u0006\u001613\n\u0006\u0014@HHHHJhhhhhhjjjj. ,20s \u001b  d$s#invoke\n\u001bE- Elbereth Elbereth\n\u00168\n\u0006#force\nP\u00163\n\u0006\u00169\n\u0006\u001615\n \u0006\u0018\u001b20s\u00168\n\u0006\u00162\n\u0006\u001614\n\u0006\u001619\n\u0006\u00162\n\u0006\u001615\n\u0006\u001615\n\u0006\u00168\n\u0006\u001620\n\u0006\u001613\n\u0006\u000f\u001bE- I am a fish\n\u001612\n\u0006W#untrap\ny\u001619\n\u0006\u001610\n\u0006Ptah\u00166\n\u0006\u00167\n\u0006\u001610\n\u0006#enhance\nyj\ne\n\u001b\u0004j\u00165\n\u0006\u001614\n\u0006\u00166\n\u0006\u001612\n\u0006\u00168\n\u0006ckK\u001619\n\u0006\u001612\n\u0006\u001612\n\u0006\u001618\n\u0006\u0004n\\ \u00168\n\u0006\u00166\n\u0006\u001618\n\u0006\u001612\n\u0006\u001621\n\u0006\u001613\n\u0006\u0014@HHhhjjjjjj. ,10s10s20s10s10sss10s<#"
+ },
+ "segments": [
+  {
+   "seed": 54050025,
+   "datetime": "20041030121935",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u001616\n    \u0006P<\u001614\n\u0006\u00163\n\u0006\u001620\n  \u0006eb  y#jump\n\u001619\n\u0006zP\u00164\n\u0006\u0014 \u001b@HHHHHHJhjj. ,20s20s Touristo\n  \u0017wand of digging\nzobbubu#chat\nndd#twoweapon\n\u00165\n\u0006\u001618\n\u0006k\u0014;\u00162\n\u0006\u00169\n\u0006\u001610\n\u0006\u00165\n\u0006\u001614\n\u0006\u00162\n\u0006\u001620\n\u0006\u001611\n \u0006#enhance\nyj\ne\n\u001bP\u001612\n\u0006\u001610\n\u0006#force\n#dip\neh\u00169\n\u0006\u00165\n\u0006\u001617\n\u0006\u0014@LLLLLLJllllllljjjj. ,20ss10s \u001b  Fh Fh   \u001bFhFh#offer\n#monster\n\u0018\u001b\u001612\n\u0006\u001621\n\u0006\u0014@LLLKllllllkkkk. ,20s Touristo\n  d$h#invoke\n\u001b;m.fb\u00168\n\u0006#terrain\nb\n,\u001620\n\u0006\u001611\n\u0006\u001613\n\u0006\u0014@HHHHJhhhhhhjjjj. ,20s \u001b  d$s#invoke\n\u001bE- Elbereth Elbereth\n\u00168\n\u0006#force\nP\u00163\n\u0006\u00169\n\u0006\u001615\n \u0006\u0018\u001b20s\u00168\n\u0006\u00162\n\u0006\u001614\n\u0006\u001619\n\u0006\u00162\n\u0006\u001615\n\u0006\u001615\n\u0006\u00168\n\u0006\u001620\n\u0006\u001613\n\u0006\u000f\u001bE- I am a fish\n\u001612\n\u0006W#untrap\ny\u001619\n\u0006\u001610\n\u0006Ptah\u00166\n\u0006\u00167\n\u0006\u001610\n\u0006#enhance\nyj\ne\n\u001b\u0004j\u00165\n\u0006\u001614\n\u0006\u00166\n\u0006\u001612\n\u0006\u00168\n\u0006ckK\u001619\n\u0006\u001612\n\u0006\u001612\n\u0006\u001618\n\u0006\u0004n\\ \u00168\n\u0006\u00166\n\u0006\u001618\n\u0006\u001612\n\u0006\u001621\n\u0006\u001613\n\u0006\u0014@HHhhjjjjjj. ,10s10s20s10s10sss10s<#"
+  }
+ ]
+}

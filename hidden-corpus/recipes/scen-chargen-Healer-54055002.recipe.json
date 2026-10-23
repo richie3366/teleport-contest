@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Rook\ryy   nlk jy#enhance\n\u001bE- Elbereth Elbereth\nlybb\u0014,s#jump\n#jump\nj#force\n#dip\nd_>. \u001b>..m.#jump\n#terrain\nc\nm,#terrain\nc\n@.>hknl_<.20s#turn\n<ny_>..zw-P20s__,.hkbyununtak#jump\ns#terrain\nc\n.jkyh_>..#enhance\n\u001b#conduct\n hjnjnlkbhuyjjubhyjub,#turn\n,#invoke\n\u001b,#turn\nlyh"
+ },
+ "segments": [
+  {
+   "seed": 54055002,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Rook\ryy   nlk jy#enhance\n\u001bE- Elbereth Elbereth\nlybb\u0014,s#jump\n#jump\nj#force\n#dip\nd_>. \u001b>..m.#jump\n#terrain\nc\nm,#terrain\nc\n@.>hknl_<.20s#turn\n<ny_>..zw-P20s__,.hkbyununtak#jump\ns#terrain\nc\n.jkyh_>..#enhance\n\u001b#conduct\n hjnjnlkbhuyjjubhyjub,#turn\n,#invoke\n\u001b,#turn\nlyh"
+  }
+ ]
+}

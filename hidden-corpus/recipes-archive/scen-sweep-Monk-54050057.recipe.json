@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n16\n                  #levelchange\n6\n    \u0016?\nk   \u0006_ \u001b@.#chat\nyss   20s #loot\ny\\  #sit\n   #levelchange\n14\n         b   uk  \u0017anti-magic field\nk j20s     n    sl     n   n      n  y\u0017hole\n#terrain\n\u001b::\\  \u00169\nyh\u0017athame\nEj Elbereth Elbereth\n\u0017wand of polymorph\nEk:  \u0017wand of digging\nEl   X marks the spot\n: \u001611\n\u0017magic lamp\nam#rub\nm \u0017uncursed the Eyes of the Overworld\n wjFk FkFk  X\u0017blessed scroll of food detection\nro  . \u0017blessed eucalyptus leaf\nep  sm.sm.  .m.20s  n \u00165\n\u000f\u001b\u0007tame saddled gray unicorn\n#ride\nln #ride\n #ride\njn#ride\n 20s#ride\njyyjl\u0006_>,_,> #ride\n 20s#ride\nkybji\u001bW\u001b20s 20s    20s    Taan W.m.sm.sm.ee   n sl  sm.zl> zlkeg 20s  20s   \u001b#terrain\nd\nt er \u0004yWok#terrain\ne\n#enhance\nyh\nh\n\u001b#levelchange\n8\n  \u0017the Heart of Ahriman\n \u0007minotaur\n;k;.lsb20s\u0007xan\n#chat\nkFk   Fk     n    \u0007hobbit\nFl     Fj    n  Fy    n    n Fj    n  \u001610\n\u0006\u00167\n\u0017levitation boots\nWt  sy20s  n .k\u0007electric eel\n#chat\nnFn Fn \u0007Pestilence\nyFj  n Fl  \u001b\u0007soldier\nFlFl Fb   n Fb FbFl   n\u0007pit viper\nFb Fl  \u001610\n#levelchange\n8\n\u0017leather armor\nW\u001b20s  n sm. 20s  yy\u001by   y y ny  T"
+ },
+ "segments": [
+  {
+   "seed": 54050057,
+   "datetime": "20081107060839",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n16\n                  #levelchange\n6\n    \u0016?\nk   \u0006_ \u001b@.#chat\nyss   20s #loot\ny\\  #sit\n   #levelchange\n14\n         b   uk  \u0017anti-magic field\nk j20s     n    sl     n   n      n  y\u0017hole\n#terrain\n\u001b::\\  \u00169\nyh\u0017athame\nEj Elbereth Elbereth\n\u0017wand of polymorph\nEk:  \u0017wand of digging\nEl   X marks the spot\n: \u001611\n\u0017magic lamp\nam#rub\nm \u0017uncursed the Eyes of the Overworld\n wjFk FkFk  X\u0017blessed scroll of food detection\nro  . \u0017blessed eucalyptus leaf\nep  sm.sm.  .m.20s  n \u00165\n\u000f\u001b\u0007tame saddled gray unicorn\n#ride\nln #ride\n #ride\njn#ride\n 20s#ride\njyyjl\u0006_>,_,> #ride\n 20s#ride\nkybji\u001bW\u001b20s 20s    20s    Taan W.m.sm.sm.ee   n sl  sm.zl> zlkeg 20s  20s   \u001b#terrain\nd\nt er \u0004yWok#terrain\ne\n#enhance\nyh\nh\n\u001b#levelchange\n8\n  \u0017the Heart of Ahriman\n \u0007minotaur\n;k;.lsb20s\u0007xan\n#chat\nkFk   Fk     n    \u0007hobbit\nFl     Fj    n  Fy    n    n Fj    n  \u001610\n\u0006\u00167\n\u0017levitation boots\nWt  sy20s  n .k\u0007electric eel\n#chat\nnFn Fn \u0007Pestilence\nyFj  n Fl  \u001b\u0007soldier\nFlFl Fb   n Fb FbFl   n\u0007pit viper\nFb Fl  \u001610\n#levelchange\n8\n\u0017leather armor\nW\u001b20s  n sm. 20s  yy\u001by   y y ny  T"
+  }
+ ]
+}

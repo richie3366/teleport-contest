@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n20\n                   \u0017cursed boulder\n\u0007kraken\n,\u0017blessed cream pie\neps.\u0017blessed ring of protection from shape changers\n\u0007aligned cleric\nyPqlsm.  \u001b.20s.m.20s20s"
+ },
+ "segments": [
+  {
+   "seed": 54052017,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n20\n                   \u0017cursed boulder\n\u0007kraken\n,\u0017blessed cream pie\neps.\u0017blessed ring of protection from shape changers\n\u0007aligned cleric\nyPqlsm.  \u001b.20s.m.20s20s"
+  }
+ ]
+}

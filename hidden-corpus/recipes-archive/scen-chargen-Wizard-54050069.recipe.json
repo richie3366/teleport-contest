@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Gale\rnkfnc*my   noh#ride\ny#rub\ncasuhb hkullZzyjlk,\u000f\u001bkhbul\\ jjbl:q_>. \u001b@.20snuby__,20shbyjkknylnukjblj__,20skykuhbyl#pray\ny  #sit\n\u001b_>.sbkjk,#wipe\nlbu j:qH#loot\nlbhkj_<.sknkjj#rub\ncez#enhance\n\u001bE- Elbereth\nw-J#terrain\nb\nljnuyjbjW e#invoke\n\u001bdallkk\u000f\u001bi\u001bkkkj_m,skkkja#wipe\nkkuhs#name\nm\nkhuj#terrain\n<.clkjhhlunb#offer\ni\u001bullh#monster\nWlunlbykbhhyn"
+ },
+ "segments": [
+  {
+   "seed": 54050069,
+   "datetime": "20250530093455",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Gale\rnkfnc*my   noh#ride\ny#rub\ncasuhb hkullZzyjlk,\u000f\u001bkhbul\\ jjbl:q_>. \u001b@.20snuby__,20shbyjkknylnukjblj__,20skykuhbyl#pray\ny  #sit\n\u001b_>.sbkjk,#wipe\nlbu j:qH#loot\nlbhkj_<.sknkjj#rub\ncez#enhance\n\u001bE- Elbereth\nw-J#terrain\nb\nljnuyjbjW e#invoke\n\u001bdallkk\u000f\u001bi\u001bkkkj_m,skkkja#wipe\nkkuhs#name\nm\nkhuj#terrain\n<.clkjhhlunb#offer\ni\u001bullh#monster\nWlunlbykbhhyn"
+  }
+ ]
+}

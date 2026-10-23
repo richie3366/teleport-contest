@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Ivo\rynchmny  nljlkjkbhn\u000f\u001b#offer\n\\ llyjhuybs_>, \u001b;20sjhyk#rub\ncaddlbjl#untrap\nk#terrain\nb\njw hhkkq#loot\nj__,20sk\u0018\u001bda #force\nh jnu_<..20s#jump\n#jump\n#jump\nnkkn_m.shhujllhuzjlkuh_>,sE- X marks the spot\nP_<,s_>.snkyhnjujuk nkhn  nnny n  k"
+ },
+ "segments": [
+  {
+   "seed": 54055050,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Ivo\rynchmny  nljlkjkbhn\u000f\u001b#offer\n\\ llyjhuybs_>, \u001b;20sjhyk#rub\ncaddlbjl#untrap\nk#terrain\nb\njw hhkkq#loot\nj__,20sk\u0018\u001bda #force\nh jnu_<..20s#jump\n#jump\n#jump\nnkkn_m.shhujllhuzjlkuh_>,sE- X marks the spot\nP_<,s_>.snkyhnjujuk nkhn  nnny n  k"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Dax\rnRgfn*dfy   y   #invoke\n\u001b#dip\n\u001b#twoweapon\n#loot\nnkbl_>. \u001b..__,20s_<,.kubb;m.>w\u001b#conduct\n _m.sjunk:10s_m.sqr\u001bnyblkkykjnbj_m.20s#terrain\nb\n_20s #chat\nhf#monster\n\u0018\u001b_m,.khjk\u000f\u001b,lbkyhnbl#loot\nt\u001bhknh_<.subub_m.20s:#loot\nw\u001be#untrap\njf_<.syf#twoweapon\nr\u001b#force\nlkjjl#pray\ny w\u001bw\u001b#rub\nd\u001b#enhance\n\u001biHolZ:\u000f\u001bllkyyubui#invoke\n\u001b__..#terrain"
+ },
+ "segments": [
+  {
+   "seed": 54055078,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "Dax\rnRgfn*dfy   y   #invoke\n\u001b#dip\n\u001b#twoweapon\n#loot\nnkbl_>. \u001b..__,20s_<,.kubb;m.>w\u001b#conduct\n _m.sjunk:10s_m.sqr\u001bnyblkkykjnbj_m.20s#terrain\nb\n_20s #chat\nhf#monster\n\u0018\u001b_m,.khjk\u000f\u001b,lbkyhnbl#loot\nt\u001bhknh_<.subub_m.20s:#loot\nw\u001be#untrap\njf_<.syf#twoweapon\nr\u001b#force\nlkjjl#pray\ny w\u001bw\u001b#rub\nd\u001b#enhance\n\u001biHolZ:\u000f\u001bllkyyubui#invoke\n\u001b__..#terrain"
+  }
+ ]
+}

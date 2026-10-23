@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Lark\rn*fy  nq\u0018\u001bjljjbjyn_<, \u001bm,.\u0018\u001bi\u001b#turn\n#sit\n\u001bjlbjlyyh_<,sbybjnlkj#rub\n#ride\nb#enhance\n\u001br\u001bhuubyyjkjujhnyly#enhance\n\u001b20s #rub\n\\    jkllE- X marks the spot\n#invoke\n\u001bnbkl__.20sZi\u001bnbju_<,20sukhn#conduct\n dcz#monster\njjkboltbh#di"
+ },
+ "segments": [
+  {
+   "seed": 54055003,
+   "datetime": "20170818055105",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Lark\rn*fy  nq\u0018\u001bjljjbjyn_<, \u001bm,.\u0018\u001bi\u001b#turn\n#sit\n\u001bjlbjlyyh_<,sbybjnlkj#rub\n#ride\nb#enhance\n\u001br\u001bhuubyyjkjujhnyly#enhance\n\u001b20s #rub\n\\    jkllE- X marks the spot\n#invoke\n\u001bnbkl__.20sZi\u001bnbju_<,20sukhn#conduct\n dcz#monster\njjkboltbh#di"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  \u0007tame pony\n\u0007tame pony\ndbsm. ssuh \u0017huge chunk of meat\nt\u001b10s\u0017leash\nafy nyynafl yuk kk kh b\u0017pool\nlb \u0017lawful altar\ndd\u0017dwarf corpse\n #offer\ng   #terrain\ne\n#force\nafj #offer\n\u001611\nt\u001b#enhance\nya\ng\n\u001bch #twoweapon\n\u00163\nO>b\u001b\n#levelchange\n10\n         h\u001bkk y\u0017unaligned altar\ndcda\u0017dwarf corpse\n #offer\nh   j\u0017moat\n#dip\ney #terrain\ne\nr\u001b#twoweapon\n#terrain\nc\n\u001b@.\u0006_>. Fu_,Fk>FlFu_>.Fb_,.Fl>FjFb_>.Flj _.>.Fh>FhFhFyFyFh#name\n\u001b,\u0006_>,Fj_.@.Fb>FbFb_>,Fh_, Fl>FuFu_>.Fh_,Fl>FlFlFlFlFh\u0006_>. Fn_>FnFn_>.Fh_,.Fh>FhFh_>,Fh_.Fn>FuFkFu\u0006_>>.Fl_.Fn>FlFuFl\u0006_>>.Fl_. Fh>FlFn_>FhFh_>>.Fk_.Fl>FuFnFun FnFln \u0006_>.Fb_,@.Fb>FhFb_>,Fj_,Fl>FuFu_>.Fh_,Fh>FhFhFh\u0006_>.Fh_.Fl>FhFhFh#conduct\n J\u00166\n  _>,>__,.bjnn50s#pray\ny y nbnjk"
+ },
+ "segments": [
+  {
+   "seed": 54050077,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:MACgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:3\nBIND=v:inventory\n",
+   "moves": "  \u0007tame pony\n\u0007tame pony\ndbsm. ssuh \u0017huge chunk of meat\nt\u001b10s\u0017leash\nafy nyynafl yuk kk kh b\u0017pool\nlb \u0017lawful altar\ndd\u0017dwarf corpse\n #offer\ng   #terrain\ne\n#force\nafj #offer\n\u001611\nt\u001b#enhance\nya\ng\n\u001bch #twoweapon\n\u00163\nO>b\u001b\n#levelchange\n10\n         h\u001bkk y\u0017unaligned altar\ndcda\u0017dwarf corpse\n #offer\nh   j\u0017moat\n#dip\ney #terrain\ne\nr\u001b#twoweapon\n#terrain\nc\n\u001b@.\u0006_>. Fu_,Fk>FlFu_>.Fb_,.Fl>FjFb_>.Flj _.>.Fh>FhFhFyFyFh#name\n\u001b,\u0006_>,Fj_.@.Fb>FbFb_>,Fh_, Fl>FuFu_>.Fh_,Fl>FlFlFlFlFh\u0006_>. Fn_>FnFn_>.Fh_,.Fh>FhFh_>,Fh_.Fn>FuFkFu\u0006_>>.Fl_.Fn>FlFuFl\u0006_>>.Fl_. Fh>FlFn_>FhFh_>>.Fk_.Fl>FuFnFun FnFln \u0006_>.Fb_,@.Fb>FhFb_>,Fj_,Fl>FuFu_>.Fh_,Fh>FhFhFh\u0006_>.Fh_.Fl>FhFhFh#conduct\n J\u00166\n  _>,>__,.bjnn50s#pray\ny y nbnjk"
+  }
+ ]
+}

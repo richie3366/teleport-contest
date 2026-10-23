@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy  y   unykbknkt\u001bfljkhbljkhunbuubujjhnhkuhubnjr\u001bd\u001b20s,__, \u001b<.shnyhhlnu_>,shhbh#force\n#chat\nylujl#terrain\nb\n#wipe\n.hujy<#tip\n\u001b#jump\nqunkb_<..lhby_m,s_m.s__,.lnhhyhjkf#loot\nkjhuokqhluujlkjqiyjlj#force\n,#"
+ },
+ "segments": [
+  {
+   "seed": 54055068,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy  y   unykbknkt\u001bfljkhbljkhunbuubujjhnhkuhubnjr\u001bd\u001b20s,__, \u001b<.shnyhhlnu_>,shhbh#force\n#chat\nylujl#terrain\nb\n#wipe\n.hujy<#tip\n\u001b#jump\nqunkb_<..lhby_m,s_m.s__,.lnhhyhjkf#loot\nkjhuokqhluujlkjqiyjlj#force\n,#"
+  }
+ ]
+}

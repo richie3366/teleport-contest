@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Pim\rnvhny  n#invoke\n\u001b#invoke\n\u001bykbu#pray\ny i\u001bhlbkuhll__, \u001bm,.bblhlukhz,khjled #ride\nklhkl#monster\n#turn\n:;m.hhnjZtbl20s#dip\na#name\nm\n#chat\n:bunh20s #dip\na_>.20sZ#dip\naynllh#untrap\nj#offer\nln yy_<,sbkkhbt\u001b_>.sm._>..u  y\u001bny ny\u001b  u"
+ },
+ "segments": [
+  {
+   "seed": 54055051,
+   "datetime": "20010412151653",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\rnvhny  n#invoke\n\u001b#invoke\n\u001bykbu#pray\ny i\u001bhlbkuhll__, \u001bm,.bblhlukhz,khjled #ride\nklhkl#monster\n#turn\n:;m.hhnjZtbl20s#dip\na#name\nm\n#chat\n:bunh20s #dip\na_>.20sZ#dip\naynllh#untrap\nj#offer\nln yy_<,sbkkhbt\u001b_>.sm._>..u  y\u001bny ny\u001b  u"
+  }
+ ]
+}

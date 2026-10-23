@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Hob\rn*fcy    n10s#name\nm\n @.\u0018\u001b#jump\nyhju\\  ,aj f \u001b10si\u001bjyynuunn_>,sm._m,sklbh#jump\n#pray\ny  nlkjyunh_<,s#invoke\n\u001b#wipe\nyhuu_<,20si\u001bei  hkblPckykkhjklujjbkz#wipe\naj #sit\n\u001bhnyns\u0018\u001bknuhylhh_>.sknkl_>.20s __,20sqe>ubhn#"
+ },
+ "segments": [
+  {
+   "seed": 54055056,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Hob\rn*fcy    n10s#name\nm\n @.\u0018\u001b#jump\nyhju\\  ,aj f \u001b10si\u001bjyynuunn_>,sm._m,sklbh#jump\n#pray\ny  nlkjyunh_<,s#invoke\n\u001b#wipe\nyhuu_<,20si\u001bei  hkblPckykkhjklujjbkz#wipe\naj #sit\n\u001bhnyns\u0018\u001bknuhylhh_>.sknkl_>.20s __,20sqe>ubhn#"
+  }
+ ]
+}

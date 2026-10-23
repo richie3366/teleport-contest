@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed bag of holding\n\u0017bag of holding\n\u0017large box\n \u0017wand of stasis\n\u0017wand of cancellation\n\u0017dagger\nwndj#force\ns.20sdak\u0004jy ai\u001bai\u001bdky\u0004n\u0017dagger\nwodm#force\n..si\u001b\u0017sack\n\u0017ice box\n\u0017bag of holding\n\u0017scroll of punishment\n\u0017gray stone\n\u0017long swlong sword\n Hawa"
+ },
+ "segments": [
+  {
+   "seed": 54051026,
+   "datetime": "20140214234137",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed bag of holding\n\u0017bag of holding\n\u0017large box\n \u0017wand of stasis\n\u0017wand of cancellation\n\u0017dagger\nwndj#force\ns.20sdak\u0004jy ai\u001bai\u001bdky\u0004n\u0017dagger\nwodm#force\n..si\u001b\u0017sack\n\u0017ice box\n\u0017bag of holding\n\u0017scroll of punishment\n\u0017gray stone\n\u0017long swlong sword\n Hawa"
+  }
+ ]
+}

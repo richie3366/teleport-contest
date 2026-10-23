@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Kael\rntmy  y   cl#chat\nb_m. \u001b;sbhknoj#dip\n\u001b_>,sbhlyb\u0018\u001bnhku#invoke\n\u001b#enhance\n\u001b_m.shlhluuju__.20slnhy,#wipe\n\u001420s,cl#offer\n#loot\n_>.s__.20s#tip\n\u001b#turn\n#monster\nzljjukbuh__,s_>,20sjljbybbuyjnl#monst"
+ },
+ "segments": [
+  {
+   "seed": 54055044,
+   "datetime": "20090324005530",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\rntmy  y   cl#chat\nb_m. \u001b;sbhknoj#dip\n\u001b_>,sbhlyb\u0018\u001bnhku#invoke\n\u001b#enhance\n\u001b_m.shlhluuju__.20slnhy,#wipe\n\u001420s,cl#offer\n#loot\n_>.s__.20s#tip\n\u001b#turn\n#monster\nzljjukbuh__,s_>,20sjljbybbuyjnl#monst"
+  }
+ ]
+}

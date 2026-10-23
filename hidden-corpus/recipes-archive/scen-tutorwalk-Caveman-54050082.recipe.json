@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorwalk",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  n10ss10s10s ss10s 10ss10s10sjj10s 10s:10s::ssmn10s10s10s:::10s10s10sss:mj10s ::10sskjhk:10s10ss10s10syuhn:ss:::s::s:10sss10s::10sbbks:ss10s::lnl10s10skns10s10s"
+ },
+ "segments": [
+  {
+   "seed": 54050082,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  n10ss10s10s ss10s 10ss10s10sjj10s 10s:10s::ssmn10s10s10s:::10s10s10sss:mj10s ::10sskjhk:10s10ss10s10syuhn:ss:::s::s:10sss10s::10sbbks:ss10s::lnl10s10skns10s10s"
+  }
+ ]
+}

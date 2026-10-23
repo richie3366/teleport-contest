@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy  n#wipe\n#invoke\n\u001byhnh#offer\n,\u0014ekkjku_<, \u001b<..#offer\n__.shyubnkjylhljhuuhbljhknyubljy#offer\n\\ #twoweapon\nblhlj10s u#sit\nE- ad aerarium\nkhlbjhlh_>,slh lh   ny  y n  n"
+ },
+ "segments": [
+  {
+   "seed": 54055008,
+   "datetime": "20020424043718",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy  n#wipe\n#invoke\n\u001byhnh#offer\n,\u0014ekkjku_<, \u001b<..#offer\n__.shyubnkjylhljhuuhbljhknyubljy#offer\n\\ #twoweapon\nblhlj10s u#sit\nE- ad aerarium\nkhlbjhlh_>,slh lh   ny  y n  n"
+  }
+ ]
+}

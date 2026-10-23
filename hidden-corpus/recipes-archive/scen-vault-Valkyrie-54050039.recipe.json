@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed ring of free action\nPel\u0017blessed +3 gauntlets of power\nWf\u00163\n\u0006\u001617\n\u0006\u00167\n\u0006\u00167\n\u0006\u00164\n\u0006:Z\u001612\n\u0006\u00163\n\u0006\u001613\n\u0006\u001614\n    \u0006\u001621\n\u0006\u0014 \u001b@Jhj.,ss20s10s10s20s20s10s\u001621\n\u0006\u0014@H. ,s10s10s20s Astrid\n  \u0017wand of digging\nzgkkjkj\u00166\n\u0006t$n\u0004n\u00164\n\u0006\u001617\n\u0006\u00162\n\u0006\u001618\n \u0006\u00162\n\u0006\u001613\n\u0006\u00164\n\u0006\u001615\n\u0006y#invoke\n\u001b\u001616\n\u0006\u0014@HHHHHHHhhj. ,ss10ss20s Astrid\n  d$ysllllllllll   \u00169\n\u0006\u00168\n\u0006,#dip\nf \u001618\n\u0006\u00169\n\u0006\u00167\n   \u0006\u00166\n\u0006#name\ni\n#name\nm\n\u0016\u0006\u00169\n\u0006_m.sm. #twoweapon\n\u00166\n\u0006\u001621\n\u0006\u001614\n   \u0006i\u001bzgu\u001617\n\u0006\u00166\n\u0006\u001612\n\u0006s#rub\n\u00162\n\u0006:#force\n\u001617\n\u0006\u00162\n\u0006\u00168\n\u0006\u00162\n\u0006\u00162\n\u0006wa#enhance\nya\np\n\u001b\u001616\n "
+ },
+ "segments": [
+  {
+   "seed": 54050039,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed ring of free action\nPel\u0017blessed +3 gauntlets of power\nWf\u00163\n\u0006\u001617\n\u0006\u00167\n\u0006\u00167\n\u0006\u00164\n\u0006:Z\u001612\n\u0006\u00163\n\u0006\u001613\n\u0006\u001614\n    \u0006\u001621\n\u0006\u0014 \u001b@Jhj.,ss20s10s10s20s20s10s\u001621\n\u0006\u0014@H. ,s10s10s20s Astrid\n  \u0017wand of digging\nzgkkjkj\u00166\n\u0006t$n\u0004n\u00164\n\u0006\u001617\n\u0006\u00162\n\u0006\u001618\n \u0006\u00162\n\u0006\u001613\n\u0006\u00164\n\u0006\u001615\n\u0006y#invoke\n\u001b\u001616\n\u0006\u0014@HHHHHHHhhj. ,ss10ss20s Astrid\n  d$ysllllllllll   \u00169\n\u0006\u00168\n\u0006,#dip\nf \u001618\n\u0006\u00169\n\u0006\u00167\n   \u0006\u00166\n\u0006#name\ni\n#name\nm\n\u0016\u0006\u00169\n\u0006_m.sm. #twoweapon\n\u00166\n\u0006\u001621\n\u0006\u001614\n   \u0006i\u001bzgu\u001617\n\u0006\u00166\n\u0006\u001612\n\u0006s#rub\n\u00162\n\u0006:#force\n\u001617\n\u0006\u00162\n\u0006\u00168\n\u0006\u00162\n\u0006\u00162\n\u0006wa#enhance\nya\np\n\u001b\u001616\n "
+  }
+ ]
+}

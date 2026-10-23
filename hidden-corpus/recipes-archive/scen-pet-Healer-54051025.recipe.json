@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #name\nf\n ;t$n#chat\nn10s 20sn20shb#chat\nh20s 10s#name\na\n"
+ },
+ "segments": [
+  {
+   "seed": 54051025,
+   "datetime": "20170317092637",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": " #name\nf\n ;t$n#chat\nn10s 20sn20shb#chat\nh20s 10s#name\na\n"
+  }
+ ]
+}

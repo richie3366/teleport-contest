@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Nox\rnc**nt*y  nhnynyjbh_<, \u001b.s>\\ hhhhhyhh#chat\nj#monster\n_>,sllnk__,snlll\u0004l#twoweapon\nlllu_<.shnyjknjybunhlhlyknunkjnyybnh#turn\n#ride\nk#untrap\nk#pray\ny kjkuZdgbblynybujllyw-\u000f\u001bbhhh__,20shhhhknlllllhluknW#force\ns>#conduct\n #ride\nl#rub\nPnlkb\u000f\u001bdh_m,20syyny#offer\n#dip\ncec  #chat\nl njkb\u000f\u001bslykn_>,.bk"
+ },
+ "segments": [
+  {
+   "seed": 54055017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Nox\rnc**nt*y  nhnynyjbh_<, \u001b.s>\\ hhhhhyhh#chat\nj#monster\n_>,sllnk__,snlll\u0004l#twoweapon\nlllu_<.shnyjknjybunhlhlyknunkjnyybnh#turn\n#ride\nk#untrap\nk#pray\ny kjkuZdgbblynybujllyw-\u000f\u001bbhhh__,20shhhhknlllllhluknW#force\ns>#conduct\n #ride\nl#rub\nPnlkb\u000f\u001bdh_m,20syyny#offer\n#dip\ncec  #chat\nl njkb\u000f\u001bslykn_>,.bk"
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chain",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "H NUH _ \u001b>.>;.PHKLY_>.>BUKH_>.>HKHB_>.>JKKB_>.>tbl#chat\nnUUKN_>,>Fu ssJHLB_>.>\u000f\u001bLHYN_>.>w-,HHKN_>.>JLHK_>.><UJHU_>.>#pray\ny r\u001bYULK_>.>BNBH_>.>FhssUyUKU_>,>#terrain\nb\n\u0004 50s50stdl150sFl20ss150sFhss100s150sFlFlFl50s100sFlssnby100sFhs.byn150sFhFhs150s_>.>50s50s\u0004y100s100sJ50seeeeeeeeeeee10sdess20s20s20s10s20s#chat\nhFhFhFhFhFhFhFhFh20syunllhybtcl#chat\nn20sda.s.tdbhkBBBY_>.>KLyUH_>,>UKLyL  _>,>##quit\n #wizintrinsic\ne\n sm.s.u20s sm.20s   yy\u001bnny y\u001bn  2#wizintrinsic\nb\n .m.sm.s.j20ssm.s20s  sm.  yny   y y\u001by  s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 54050058,
+   "datetime": "20240228212255",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "H NUH _ \u001b>.>;.PHKLY_>.>BUKH_>.>HKHB_>.>JKKB_>.>tbl#chat\nnUUKN_>,>Fu ssJHLB_>.>\u000f\u001bLHYN_>.>w-,HHKN_>.>JLHK_>.><UJHU_>.>#pray\ny r\u001bYULK_>.>BNBH_>.>FhssUyUKU_>,>#terrain\nb\n\u0004 50s50stdl150sFl20ss150sFhss100s150sFlFlFl50s100sFlssnby100sFhs.byn150sFhFhs150s_>.>50s50s\u0004y100s100sJ50seeeeeeeeeeee10sdess20s20s20s10s20s#chat\nhFhFhFhFhFhFhFhFh20syunllhybtcl#chat\nn20sda.s.tdbhkBBBY_>.>KLyUH_>,>UKLyL  _>,>##quit\n"
+  },
+  {
+   "seed": 54150058,
+   "datetime": "20120310161019",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\ne\n sm.s.u20s sm.20s   yy\u001bnny y\u001bn  2"
+  },
+  {
+   "seed": 54250058,
+   "datetime": "20021004225359",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nb\n .m.sm.s.j20ssm.s20s  sm.  yny   y y\u001by  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "worldtour",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017blessed Mjollnir\nwi\u0017blessed +3 cloak of magic resistance\nWj \u0017blessed amulet of reflection\nPk\u0016?\n>>K      javelin\n_ \u001bm.\u001628\nk n     u    :\u0016?\n\u001by   n    n    \u0016?\n\u001bnk     \u001628\nb      n h    yh     nl  b            nn     :\u00166\n\u0016?\n\u001bu   b         n\u0016?\n\u001bun\u001637\ny  b    n  n     n:\u00164\n\u001628\nk       nl             n b    n            n      b         n                  n h         n  : \u00161\n\u0016?\n\u001bu     n        k   n      \u001637\nk   n       n  k          yy\u001by   y y y\u001b  y"
+ },
+ "segments": [
+  {
+   "seed": 54050084,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017blessed Mjollnir\nwi\u0017blessed +3 cloak of magic resistance\nWj \u0017blessed amulet of reflection\nPk\u0016?\n>>K      javelin\n_ \u001bm.\u001628\nk n     u    :\u0016?\n\u001by   n    n    \u0016?\n\u001bnk     \u001628\nb      n h    yh     nl  b            nn     :\u00166\n\u0016?\n\u001bu   b         n\u0016?\n\u001bun\u001637\ny  b    n  n     n:\u00164\n\u001628\nk       nl             n b    n            n      b         n                  n h         n  : \u00161\n\u0016?\n\u001bu     n        k   n      \u001637\nk   n       n  k          yy\u001by   y y y\u001b  y"
+  }
+ ]
+}

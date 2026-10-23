@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "\u00164\nFjFjFlFl ss150s_ \u001b.>100sFl.s100s150s_>,>100sFlFlFl100s_>.>100s100s150sb50sed\u0018\u001b50s\\ _>,>100seekub50s_>.>i\u001b\u0018\u001b100s150sP_>.>150sFlFlFl#pray\ny y   FlFlFlFlFlFl50s"
+ },
+ "segments": [
+  {
+   "seed": 54051014,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00164\nFjFjFlFl ss150s_ \u001b.>100sFl.s100s150s_>,>100sFlFlFl100s_>.>100s100s150sb50sed\u0018\u001b50s\\ _>,>100seekub50s_>.>i\u001b\u0018\u001b100s150sP_>.>150sFlFlFl#pray\ny y   FlFlFlFlFlFl50s"
+  }
+ ]
+}

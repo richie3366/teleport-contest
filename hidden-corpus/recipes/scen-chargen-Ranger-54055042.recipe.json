@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Lark\ryy  nzokhhlhnynln<yjyynhjhed f by yf \u001b#name\na\nujykjlbl#offer\nW10s\\  _>, \u001bm.slljn#ride\nl\\  huubhyjuW#sit\n nlkjkbljkkjkbyhjjuln\u0018\u001bskjhy:clynnuWokjyyhi\u001b#force\nr\u001bohhnuh_m.._m.s#sit\n\u001b#invoke\n\u001bu<jnynylnh__.suhnhlkbht\u001b\u0014q;u; _<.20s#tip\n\u001b#turn\nhhnkhnlb_>,20s  klubyhln10s aa"
+ },
+ "segments": [
+  {
+   "seed": 54055042,
+   "datetime": "20050901215936",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Lark\ryy  nzokhhlhnynln<yjyynhjhed f by yf \u001b#name\na\nujykjlbl#offer\nW10s\\  _>, \u001bm.slljn#ride\nl\\  huubhyjuW#sit\n nlkjkbljkkjkbyhjjuln\u0018\u001bskjhy:clynnuWokjyyhi\u001b#force\nr\u001bohhnuh_m.._m.s#sit\n\u001b#invoke\n\u001bu<jnynylnh__.suhnhlkbht\u001b\u0014q;u; _<.20s#tip\n\u001b#turn\nhhnkhnlb_>,20s  klubyhln10s aa"
+  }
+ ]
+}

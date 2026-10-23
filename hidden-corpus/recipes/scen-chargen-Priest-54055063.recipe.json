@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Ash\rnsfy  nlkylnuhnulnbnhlubujybkhjnlklE- Elbereth Elbereth\nckjyjhs#offer\n#twoweapon\n #sit\n<W20s#dip\nb_m. \u001bm,.__.s#enhance\n\u001bE- I am a fish\nhhkkjkukhnknh#jump\n__.20swa#enhance\n\u001bs_<,snnyn>#ride\nkhkjk#ride\nj#rub\n_<..wc n#conduct\n #pray\ny   E- Elbereth Elbereth\n\u0004k#"
+ },
+ "segments": [
+  {
+   "seed": 54055063,
+   "datetime": "20031019232402",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Ash\rnsfy  nlkylnuhnulnbnhlubujybkhjnlklE- Elbereth Elbereth\nckjyjhs#offer\n#twoweapon\n #sit\n<W20s#dip\nb_m. \u001bm,.__.s#enhance\n\u001bE- I am a fish\nhhkkjkukhnknh#jump\n__.20swa#enhance\n\u001bs_<,snnyn>#ride\nkhkjk#ride\nj#rub\n_<..wc n#conduct\n #pray\ny   E- Elbereth Elbereth\n\u0004k#"
+  }
+ ]
+}

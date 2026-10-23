@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Mira\rntfnpefnhgmy  n_m. \u001b<.s_<.20s_>.20s __,._>,.#untrap\nyzfj#loot\n#monster\nhhju\u0014#offer\nhhhbynnnyjyj__.s_m..#terrain\n\u001b\\ khuh#untrap\nk#enhance\n\u001bol;.hjkbkljkhlljubhy__.20s da    #"
+ },
+ "segments": [
+  {
+   "seed": 54055009,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Mira\rntfnpefnhgmy  n_m. \u001b<.s_<.20s_>.20s __,._>,.#untrap\nyzfj#loot\n#monster\nhhju\u0014#offer\nhhhbynnnyjyj__.s_m..#terrain\n\u001b\\ khuh#untrap\nk#enhance\n\u001bol;.hjkbkljkhlljubhy__.20s da    #"
+  }
+ ]
+}

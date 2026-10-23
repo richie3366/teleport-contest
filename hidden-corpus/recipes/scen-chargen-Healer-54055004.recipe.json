@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Ivo\rnmfnnhh*np*fy  n__, \u001b;sbhuuykkj#offer\nE- Elbereth\nklhjklbjbbkj20sE- Elbereth\nkhhljnlubhhyW\\ _<.20s10ssde#jump\n#dip\nfdw-#pray\ny   #enhance\n\u001bf a l\u0004hlkubhnklhjujoj\\ #invoke\n\u001b:#dip\ngdt\u001b_>,s#dip\nhd\u000f\u001bbyynlkbnlhhkjkubynljy#tip\n\u001b#untrap\njdhybjhf \u001b#offer\nkjlyjklhi\u001b#monster\nf \u001baiy knlyhllj#twoweapon\ndihhjk_<,.jyuy_m.20skjjknhlhkjkkklhlcj#twoweapon\nublh"
+ },
+ "segments": [
+  {
+   "seed": 54055004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Ivo\rnmfnnhh*np*fy  n__, \u001b;sbhuuykkj#offer\nE- Elbereth\nklhjklbjbbkj20sE- Elbereth\nkhhljnlubhhyW\\ _<.20s10ssde#jump\n#dip\nfdw-#pray\ny   #enhance\n\u001bf a l\u0004hlkubhnklhjujoj\\ #invoke\n\u001b:#dip\ngdt\u001b_>,s#dip\nhd\u000f\u001bbyynlkbnlhhkjkubynljy#tip\n\u001b#untrap\njdhybjhf \u001b#offer\nkjlyjklhi\u001b#monster\nf \u001baiy knlyhllj#twoweapon\ndihhjk_<,.jyuy_m.20skjjknhlhkjkkklhlcj#twoweapon\nublh"
+  }
+ ]
+}

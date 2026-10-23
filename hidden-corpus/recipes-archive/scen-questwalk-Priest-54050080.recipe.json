@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwi\u0016?\n>z _ \u001b@.>\u0006kny\u00163\n\u0006_m.Fh _.Fh    Fh Fh  \u00164\n\u0006_>.Fy        _.\u00165\n\u0006#chat\ny;y:  \u00166\n \u0006#chat\nj;j.\u00162\n\u0006_mmmmm,Fk _.Fk 20sss.\u00163\n\u0006_mmm.Fl    _. Fk    Fb   Fy    Fb     n  Fk      \u00164\n\u0006_>.  Fb      _.   n    Fn   \u00165\n\u0006#chat\nh   n ;h._>.  Fl  n    _, Fy     n  >\u0006_<,   n  Fh    n   n n  n_.  n  n Fu  n  n   n   n\u00162\n\u0006_m. yy  F"
+ },
+ "segments": [
+  {
+   "seed": 54050080,
+   "datetime": "20220225180745",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=fruit:durian\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed Mjollnir\nwi\u0016?\n>z _ \u001b@.>\u0006kny\u00163\n\u0006_m.Fh _.Fh    Fh Fh  \u00164\n\u0006_>.Fy        _.\u00165\n\u0006#chat\ny;y:  \u00166\n \u0006#chat\nj;j.\u00162\n\u0006_mmmmm,Fk _.Fk 20sss.\u00163\n\u0006_mmm.Fl    _. Fk    Fb   Fy    Fb     n  Fk      \u00164\n\u0006_>.  Fb      _.   n    Fn   \u00165\n\u0006#chat\nh   n ;h._>.  Fl  n    _, Fy     n  >\u0006_<,   n  Fh    n   n n  n_.  n  n Fu  n  n   n   n\u00162\n\u0006_m. yy  F"
+  }
+ ]
+}

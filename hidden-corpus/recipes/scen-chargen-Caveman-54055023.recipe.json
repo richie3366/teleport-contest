@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Tam\rnRomnhhfy  n#chat\nl#force\n__. \u001b.s#tip\n\u001b#turn\nhh l b_>.sm. __,syljy#pray\ny  Pjyjjyjujjhnk#rub\n\\ jujhylnlkyljhjylhnll_>.s_<,20s__,20s_>,s#loot\nl:P10s;j.dh__.sf $ y#jump\nhjbuJ\\ __.s#wipe\n #twoweapon\nkkb khlyhjjnhlhykkulb#pray\ny #pray\ny  #tip\n\u001b#tip\n\u001b<#invok"
+ },
+ "segments": [
+  {
+   "seed": 54055023,
+   "datetime": "20010419200123",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Tam\rnRomnhhfy  n#chat\nl#force\n__. \u001b.s#tip\n\u001b#turn\nhh l b_>.sm. __,syljy#pray\ny  Pjyjjyjujjhnk#rub\n\\ jujhylnlkyljhjylhnll_>.s_<,20s__,20s_>,s#loot\nl:P10s;j.dh__.sf $ y#jump\nhjbuJ\\ __.s#wipe\n #twoweapon\nkkb khlyhjjnhlhykkulb#pray\ny #pray\ny  #tip\n\u001b#tip\n\u001b<#invok"
+  }
+ ]
+}

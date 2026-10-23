@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         kln\u0017ice\nynynn\u0017chaotic altar\ndc\u0017lichen corpse\n#offer\ni #pray\ny y yy\u0017altar\ndd\u0017dwarf corpse\n#offer\nj     W#conduct\n zhnyn\u0017moat\nny jy\u0017lawful altar\nde\u0017gnome corpse\n #offer\nk   hj\u0017sink\nqy  l\u0004h  ynnny\u001by  \u0004"
+ },
+ "segments": [
+  {
+   "seed": 54051000,
+   "datetime": "20021018003125",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         kln\u0017ice\nynynn\u0017chaotic altar\ndc\u0017lichen corpse\n#offer\ni #pray\ny y yy\u0017altar\ndd\u0017dwarf corpse\n#offer\nj     W#conduct\n zhnyn\u0017moat\nny jy\u0017lawful altar\nde\u0017gnome corpse\n #offer\nk   hj\u0017sink\nqy  l\u0004h  ynnny\u001by  \u0004"
+  }
+ ]
+}

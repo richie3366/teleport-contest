@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trek",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  Fk .20sujb100s100s50s50sFh..20sFhFh.150s100sFhFhs100syub100sFbFbFb150sFb20sFb100sFb.20s_ \u001b@.>50sFbFbFb100s50si\u001bzj wand of digging\n_>,>nhkubj\u000f\u001bluu\u0018\u001b100s,hhb100sFb.s100sFb20sFbFb20sFbed100sFbsFb150sFbFb20s150s100sFbFjFj100s100s150sFjssulnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnr\u001b#dip\na;n.FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFhFnFnFnFhFy#pray\ny        #pray\ny   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 54050087,
+   "datetime": "20200720175639",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": "  Fk .20sujb100s100s50s50sFh..20sFhFh.150s100sFhFhs100syub100sFbFbFb150sFb20sFb100sFb.20s_ \u001b@.>50sFbFbFb100s50si\u001bzj wand of digging\n_>,>nhkubj\u000f\u001bluu\u0018\u001b100s,hhb100sFb.s100sFb20sFbFb20sFbed100sFbsFb150sFbFb20s150s100sFbFjFj100s100s150sFjssulnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnr\u001b#dip\na;n.FnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFnFhFnFnFnFhFy#pray\ny        #pray\ny   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

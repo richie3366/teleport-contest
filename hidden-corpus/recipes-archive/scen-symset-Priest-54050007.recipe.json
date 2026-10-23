@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007kitten\n\u0017huge chunk of meat\nt\u001b#name\ni\n#name\nf\n .\u0007kobold\n\u0017scroll of taming\nrj \u0007lichen\nsy.jsm..m. .20s n\u0006_>>.  Fu_.Fu>FuFn_>FuFu_>>.Fn_>FuFn\u0007\u0017scroll of taming\nrkmO>>k\u001b\nO>>k\u001b\u001b\n\u0006_>,Fu_,Fu>FuFu_>,Fu_.Fh>FhFn_>FuFhFnFnFh\u0006_>.Fu_.Fu>FnFn_>.Fh_.Fu>FuFn_>FuFuFnFun Fn\u0006_>.Fu_.Fn>FnFnFn\u0006_>.Fh_,Fh>FhFu_>.Fn_>FuFn_>FuFnFnFhFn#jump\neeO>>>m\u001b\u001b\nO>>>>o8\n \u001b\nh\u001bh\u001bjn\u0017magic fountain\nqy qy\u0017long sword\n#dip\nly yb\u0017lawful altar\ndbdl\u0017dwarf corpse\n : b\u0017tree\n: #terrain\nb\n \u0018\u001b#force\n>\u00169\n Oo\u001b\u001b\n\u001614\nz#pray\ny y  #turn\nO>>f\u001b\nh\u001byyl\u0017tree\njuu \u0017iron bars\njj\u0017pool\n#terrain\nf\n#ride\nj Ks  \u00164\nFkFlFyFbFyFkh FhFbFjFbFjFkFkFkFuFyFb"
+ },
+ "segments": [
+  {
+   "seed": 54050007,
+   "datetime": "20221001232752",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueWindows\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\nOPTIONS=number_pad:1\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You feel\"\nBIND=v:inventory\n",
+   "moves": "\u0007kitten\n\u0017huge chunk of meat\nt\u001b#name\ni\n#name\nf\n .\u0007kobold\n\u0017scroll of taming\nrj \u0007lichen\nsy.jsm..m. .20s n\u0006_>>.  Fu_.Fu>FuFn_>FuFu_>>.Fn_>FuFn\u0007\u0017scroll of taming\nrkmO>>k\u001b\nO>>k\u001b\u001b\n\u0006_>,Fu_,Fu>FuFu_>,Fu_.Fh>FhFn_>FuFhFnFnFh\u0006_>.Fu_.Fu>FnFn_>.Fh_.Fu>FuFn_>FuFuFnFun Fn\u0006_>.Fu_.Fn>FnFnFn\u0006_>.Fh_,Fh>FhFu_>.Fn_>FuFn_>FuFnFnFhFn#jump\neeO>>>m\u001b\u001b\nO>>>>o8\n \u001b\nh\u001bh\u001bjn\u0017magic fountain\nqy qy\u0017long sword\n#dip\nly yb\u0017lawful altar\ndbdl\u0017dwarf corpse\n : b\u0017tree\n: #terrain\nb\n \u0018\u001b#force\n>\u00169\n Oo\u001b\u001b\n\u001614\nz#pray\ny y  #turn\nO>>f\u001b\nh\u001byyl\u0017tree\njuu \u0017iron bars\njj\u0017pool\n#terrain\nf\n#ride\nj Ks  \u00164\nFkFlFyFbFyFkh FhFbFjFbFjFkFkFkFuFyFb"
+  }
+ ]
+}

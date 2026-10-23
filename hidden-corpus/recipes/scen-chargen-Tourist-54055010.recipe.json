@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Tam\rnpefnmf*y   njubu<#terrain\n\u001b#untrap\nj,:#name\na\nunybcj#chat\nhbuullbnu__, \u001b>.s>lkbu#force\n\u000f\u001bnhjlyjlu__,20s_>.shkubeh  #twoweapon\n__. s<#sit\n #turn\n#force\n__,s__,sP#chat\njai ai #offer\nhhlhl_>,20s  kkju20s zhlhlqd#enhance\n\u001b#sit\n\u001bljkllbnkl;m.#dip\nid_<,sujkjullnjhkkz;j,nklb_<..,\u0018\u001bulbk#twoweapon\n;n,lhlnlknhujjhn#enhance\n\u001bhkun"
+ },
+ "segments": [
+  {
+   "seed": 54055010,
+   "datetime": "20061024002015",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Tam\rnpefnmf*y   njubu<#terrain\n\u001b#untrap\nj,:#name\na\nunybcj#chat\nhbuullbnu__, \u001b>.s>lkbu#force\n\u000f\u001bnhjlyjlu__,20s_>.shkubeh  #twoweapon\n__. s<#sit\n #turn\n#force\n__,s__,sP#chat\njai ai #offer\nhhlhl_>,20s  kkju20s zhlhlqd#enhance\n\u001b#sit\n\u001bljkllbnkl;m.#dip\nid_<,sujkjullnjhkkz;j,nklb_<..,\u0018\u001bulbk#twoweapon\n;n,lhlnlknhujjhn#enhance\n\u001bhkun"
+  }
+ ]
+}

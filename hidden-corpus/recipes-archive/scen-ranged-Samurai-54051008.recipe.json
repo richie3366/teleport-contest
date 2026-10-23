@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u001720 darts\nQg\u0007grid bug\njfh fk fh \u0007soldier\nbfk flflfuhkn,#levelchange\n6\n    \u001715 shuriken\nQh\u0007dwarf\nufjfj fj fb FjFj \u00074 newt\nl fh   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 54051008,
+   "datetime": "20011011061828",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "\u001720 darts\nQg\u0007grid bug\njfh fk fh \u0007soldier\nbfk flflfuhkn,#levelchange\n6\n    \u001715 shuriken\nQh\u0007dwarf\nufjfj fj fb FjFj \u00074 newt\nl fh   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

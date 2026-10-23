@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Kael\ryy  ncj_m, \u001b:20s l n nu\u0018\u001b#conduct\n #chat\nj;_.#rub\n#name\no\n#wipe\n#terrain\nb\nkH#monster\n>.\u0018\u001bsP#name\ni\n#turn\n#twoweapon\nyhlbbubhkjlnu\u0018\u001bw-__,skhbuklbktajl#loot\nh>bjuk#ride\nj#sit\n\u001bz\u0018\u001bhbynWt$k#name\nf\n,hjlubkhlubhk_>,s_<,.__,sljbkulbbyjkn#invoke\n\u001b\\ _<,s__.s#terrain\nb\nw z;._<.shjkjnkyjjjkkol"
+ },
+ "segments": [
+  {
+   "seed": 54055000,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Kael\ryy  ncj_m, \u001b:20s l n nu\u0018\u001b#conduct\n #chat\nj;_.#rub\n#name\no\n#wipe\n#terrain\nb\nkH#monster\n>.\u0018\u001bsP#name\ni\n#turn\n#twoweapon\nyhlbbubhkjlnu\u0018\u001bw-__,skhbuklbktajl#loot\nh>bjuk#ride\nj#sit\n\u001bz\u0018\u001bhbynWt$k#name\nf\n,hjlubkhlubhk_>,s_<,.__,sljbkulbbyjkn#invoke\n\u001b\\ _<,s__.s#terrain\nb\nw z;._<.shjkjnkyjjjkkol"
+  }
+ ]
+}

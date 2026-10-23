@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "vault",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed Mjollnir\nwo\u0017blessed +3 cloak of magic resistance\nW\u001b\u001612\n\u0006\u0014 \u001b@HHHHhhk. ,20s20s Kroisos\n20s  s.s.s\u0016\u0006#twoweapon\n  \\  \u00167\n\u0006\u0014@LLLLLJljjjjjj. ,s10s20s Kroisos\n\u0017wand of digging\nzqjnhlhuj\u0018\u001bw-\u00163\n\u0006\u00164\n\u0006\u00169\n\u0006\u0018\u001b#dip\noh\u001610\n\u0006\u00164\n\u0006\u00166\n\u0006\u00162\n\u0006\u001617\n\u0006\u001615\n    \u0006\u0014@LLLLllllljjj. ,10ss10sss20s merlin\n  \u0014;\u001615\n\u0006\u00165\n\u0006\u0014@HHHHHhhhkk. ,20s merlin\n  d$slsuysususunsu   \u001617\n\u0006\u001618\n \u0006\\  wo\u00164\n\u0006#monster\nb\u001621\n\u0006\u0014@HHHHHjjjjj.,sss20s10s20s merlin\n  nyssussbss  nsn  ny  nysssl  nn  nk  ny  nkssssn  nsssh  njssyjysss\u00162\n\u00169\n\u0006#wipe\n#invoke\no\u001610\n\u000610s,\u00165\n   \u0006\u00169\n\u0006\u001621\n\u0006\u0014@LLJlllljjjjj. ,10s  20sss10s20s20ssn :#tip\n\u001brl y  n \u00167\n\u001611\n\u0006\u0014@LLLLllllljj. ,ssss10s10sss me"
+ },
+ "segments": [
+  {
+   "seed": 54050011,
+   "datetime": "20030328213020",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed Mjollnir\nwo\u0017blessed +3 cloak of magic resistance\nW\u001b\u001612\n\u0006\u0014 \u001b@HHHHhhk. ,20s20s Kroisos\n20s  s.s.s\u0016\u0006#twoweapon\n  \\  \u00167\n\u0006\u0014@LLLLLJljjjjjj. ,s10s20s Kroisos\n\u0017wand of digging\nzqjnhlhuj\u0018\u001bw-\u00163\n\u0006\u00164\n\u0006\u00169\n\u0006\u0018\u001b#dip\noh\u001610\n\u0006\u00164\n\u0006\u00166\n\u0006\u00162\n\u0006\u001617\n\u0006\u001615\n    \u0006\u0014@LLLLllllljjj. ,10ss10sss20s merlin\n  \u0014;\u001615\n\u0006\u00165\n\u0006\u0014@HHHHHhhhkk. ,20s merlin\n  d$slsuysususunsu   \u001617\n\u0006\u001618\n \u0006\\  wo\u00164\n\u0006#monster\nb\u001621\n\u0006\u0014@HHHHHjjjjj.,sss20s10s20s merlin\n  nyssussbss  nsn  ny  nysssl  nn  nk  ny  nkssssn  nsssh  njssyjysss\u00162\n\u00169\n\u0006#wipe\n#invoke\no\u001610\n\u000610s,\u00165\n   \u0006\u00169\n\u0006\u001621\n\u0006\u0014@LLJlllljjjjj. ,10s  20sss10s20s20ssn :#tip\n\u001brl y  n \u00167\n\u001611\n\u0006\u0014@LLLLllllljj. ,ssss10s10sss me"
+  }
+ ]
+}

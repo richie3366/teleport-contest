@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Nox\ryy  n__. \u001b,.qd#conduct\n ,\u0014ulb nynhknbyjjkbkPZb\n#untrap\nu#rub\n10s  PlhlkE- Vlad was here\nf \u001bhkhbKhllbbhkunyjjhjnln_>.s#name\nm\n#invoke\n@.okb_<.snlhb#twoweapon\n#conduct\n #twoweapon\n#conduct\n _>..z,_m,s#wipe\n<yy\u001by  y y n _"
+ },
+ "segments": [
+  {
+   "seed": 54055022,
+   "datetime": "20011007134341",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Nox\ryy  n__. \u001b,.qd#conduct\n ,\u0014ulb nynhknbyjjkbkPZb\n#untrap\nu#rub\n10s  PlhlkE- Vlad was here\nf \u001bhkhbKhllbbhkunyjjhjnln_>.s#name\nm\n#invoke\n@.okb_<.snlhb#twoweapon\n#conduct\n #twoweapon\n#conduct\n _>..z,_m,s#wipe\n<yy\u001by  y y n _"
+  }
+ ]
+}

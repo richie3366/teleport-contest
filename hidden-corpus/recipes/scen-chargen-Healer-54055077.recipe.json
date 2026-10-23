@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "Jun\ryy    nhu bn#force\n#turn\n yjjl_<, \u001bm,.nlhh__.sbuhlh,#tip\n\u001b#tip\n\u001bkubu #sit\n\u001bef#tip\n\u001b#chat\nn#dip\nid\u0014_<.s__..:#twoweapon\nbkjj_>,slhul;k.#force\nbhkkuunk_>,slbbuP\u0004n_>,.qd#chat\nn#sit\n\u001bi\u001b_<.20sWlynyk10s_>,s_>,sjunhhnukhnub#invoke\n\u001b20s#conduct\n i\u001b,#jump\n#turn\n #turn\n _<,.z;.\u000f\u001b#offer\n#wipe\nrh y #untrap\nk#tip\n\u001blblh#jump\n#monster\n,<ynlhhnyk#rub\n\u0014kujl#untrap\nhoh#rub\n#"
+ },
+ "segments": [
+  {
+   "seed": 54055077,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Jun\ryy    nhu bn#force\n#turn\n yjjl_<, \u001bm,.nlhh__.sbuhlh,#tip\n\u001b#tip\n\u001bkubu #sit\n\u001bef#tip\n\u001b#chat\nn#dip\nid\u0014_<.s__..:#twoweapon\nbkjj_>,slhul;k.#force\nbhkkuunk_>,slbbuP\u0004n_>,.qd#chat\nn#sit\n\u001bi\u001b_<.20sWlynyk10s_>,s_>,sjunhhnukhnub#invoke\n\u001b20s#conduct\n i\u001b,#jump\n#turn\n #turn\n _<,.z;.\u000f\u001b#offer\n#wipe\nrh y #untrap\nk#tip\n\u001blblh#jump\n#monster\n,<ynlhhnyk#rub\n\u0014kujl#untrap\nhoh#rub\n#"
+  }
+ ]
+}

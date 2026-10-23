@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj   \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007dwarf\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nkl \u001b#offer\n#pray\ny y #chat\nj#jump\n#wizidentify\n\u001bFhFh 20ss_ \u001b>.q#vanquished\n #genocided\nogre king\n\u000f\u001b#name\na\n#adjust\na\u001b#chat\ny#turn\n#jump\n#wizidentify\n\u001bFyFyFyFy,__,#chat\nl\u0007gnome\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizdetect\n\u0006Fb s#enhance\nyq\nm\n\u001b\u0016?\n>>N       wand of teleportation\n\u0006\u0007acid blob\n#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\nu#chat\nu     #chat\nh#wizintrinsic\nsa\n  Fy    Fu      n  Fk     Fu            n \u00164\n_oooo,,      n #overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\nh\u001b         n   #ride\nhy#turn\n#sit\n       n#wizintrinsic\nq\n Fu        FyFh    n      #twoweapon\n__.#chat\nh\u0007sewer rat\n#vanquished\n #genocided\ngray ooze\ny       n\u0018\u001b#dip\nm#offer\n#pray\ny y                          #chat\nk         #wizdetect\n\u0006Fy  Fh   n      #sit\n__,#c"
+ },
+ "segments": [
+  {
+   "seed": 54050051,
+   "datetime": "20201215064052",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=autodig\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed ring of free action\nPir\u0017blessed +3 speed boots\nWj   \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n #levelchange\n12\n           \u0007dwarf\n#overview\n\u001b#conduct\n \u000f\u001b#dip\nkl \u001b#offer\n#pray\ny y #chat\nj#jump\n#wizidentify\n\u001bFhFh 20ss_ \u001b>.q#vanquished\n #genocided\nogre king\n\u000f\u001b#name\na\n#adjust\na\u001b#chat\ny#turn\n#jump\n#wizidentify\n\u001bFyFyFyFy,__,#chat\nl\u0007gnome\n#chronicle\n  #terrain\n\u001bi\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #wizdetect\n\u0006Fb s#enhance\nyq\nm\n\u001b\u0016?\n>>N       wand of teleportation\n\u0006\u0007acid blob\n#version\n  #history\n                  #annotate\nFido\n\u000f\u001b#wipe\n#loot\nu#chat\nu     #chat\nh#wizintrinsic\nsa\n  Fy    Fu      n  Fk     Fu            n \u00164\n_oooo,,      n #overview\n\u001b#conduct\n #annotate\n\u001b\u000f\u001b#tip\nh\u001b         n   #ride\nhy#turn\n#sit\n       n#wizintrinsic\nq\n Fu        FyFh    n      #twoweapon\n__.#chat\nh\u0007sewer rat\n#vanquished\n #genocided\ngray ooze\ny       n\u0018\u001b#dip\nm#offer\n#pray\ny y                          #chat\nk         #wizdetect\n\u0006Fy  Fh   n      #sit\n__,#c"
+  }
+ ]
+}

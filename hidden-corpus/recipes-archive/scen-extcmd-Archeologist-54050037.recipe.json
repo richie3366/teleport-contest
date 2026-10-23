@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007kobold\n#levelchange\n11\n          FuFu  _ \u001b.#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\nll#offer\n#pray\ny y #chat\nj#wizdetect\n\u0006ulbi\u001b\u00161\n\u0006#vanquished\n #genocided\nblue jelly\n#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizmap\n\u0006lyb_<,_,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\nq\n Fl .ss_>._,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nb#chat\ny#jump\n#wizidentify\n\u001bjub_<,Fl _,#overview\n\u001b#conduct\n \u0018\u001b#tip\nh\u001b#ride\nly#turn\n#sit\n#levelchange\n17\n     uhn\u001617\n\u0006\u0007soldier\n#vanquished\n #genocided\nwood nymph\ne \u0018\u001b#dip\nhl #offer\n#pray\ny y  #chat\nu#wizidentify\n\u001bFuFu Fu Fu_{,q\u0007soldier\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nl #turn\n#jump\n#wizintrinsic\nf\n FuFu__.#chat\nu\u0007gnome\n#version\n  #history\n                  \u0018\u001b#twoweapon\n #invoke\n\u001b#sit\n#pray\ny y         #jump\n#polyself\npurple worm\n  #monster\nsh .m. FlFl FlFl ;l:  __.#chat\n#ove"
+ },
+ "segments": [
+  {
+   "seed": 54050037,
+   "datetime": "20240308042611",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed +3 gray dragon scale mail\nW\u001b\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n \u0007kobold\n#levelchange\n11\n          FuFu  _ \u001b.#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\nll#offer\n#pray\ny y #chat\nj#wizdetect\n\u0006ulbi\u001b\u00161\n\u0006#vanquished\n #genocided\nblue jelly\n#annotate\nfoo\ni\u001b#name\n\u001b#adjust\nl\u001b#chat\nn#turn\n#jump\n#wizmap\n\u0006lyb_<,_,#chronicle\n  #terrain\n\u001b\u000f\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y #wizintrinsic\nq\n Fl .ss_>._,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nb#chat\ny#jump\n#wizidentify\n\u001bjub_<,Fl _,#overview\n\u001b#conduct\n \u0018\u001b#tip\nh\u001b#ride\nly#turn\n#sit\n#levelchange\n17\n     uhn\u001617\n\u0006\u0007soldier\n#vanquished\n #genocided\nwood nymph\ne \u0018\u001b#dip\nhl #offer\n#pray\ny y  #chat\nu#wizidentify\n\u001bFuFu Fu Fu_{,q\u0007soldier\n#chronicle\n  #terrain\n\u001b\u0018\u001b#name\nm\n#adjust\n>.#chat\nl #turn\n#jump\n#wizintrinsic\nf\n FuFu__.#chat\nu\u0007gnome\n#version\n  #history\n                  \u0018\u001b#twoweapon\n #invoke\n\u001b#sit\n#pray\ny y         #jump\n#polyself\npurple worm\n  #monster\nsh .m. FlFl FlFl ;l:  __.#chat\n#ove"
+  }
+ ]
+}

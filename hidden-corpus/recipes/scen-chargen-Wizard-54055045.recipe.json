@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Quill\rnphfly  nhkulbuljnnhkbyjuylju#enhance\n\u001bs_<, \u001b;sbkjujynn__.slh ll#name\nm\n#terrain\nm.Fido\nl20slllnubnkwayhjkhhhbj__.20s_m.sjjnn_m..E- Elbereth Elbereth\n\\ okyybjynjk\\ #ride\nbP_>,.nnbubunyljuh#name\nm\n.#turn\nefH_m,s#jump\n#loot\n_<..\u000f\u001bkhynkjlyjljj_<,20sZ\u001b#jump\nylhk#twoweapon\n:ykkuhhlkZ\u001b#wipe\nkhbuyjynujny\u0004hag #untrap\nh;<.#turn\n#monster\nbnnj_m,sjkjnjknhnbjhkjkynhlj,i\u001b_m,s__.sukjlljly_>,.;j;_m,20sag P#pray"
+ },
+ "segments": [
+  {
+   "seed": 54055045,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\rnphfly  nhkulbuljnnhkbyjuylju#enhance\n\u001bs_<, \u001b;sbkjujynn__.slh ll#name\nm\n#terrain\nm.Fido\nl20slllnubnkwayhjkhhhbj__.20s_m.sjjnn_m..E- Elbereth Elbereth\n\\ okyybjynjk\\ #ride\nbP_>,.nnbubunyljuh#name\nm\n.#turn\nefH_m,s#jump\n#loot\n_<..\u000f\u001bkhynkjlyjljj_<,20sZ\u001b#jump\nylhk#twoweapon\n:ykkuhhlkZ\u001b#wipe\nkhbuyjynujny\u0004hag #untrap\nh;<.#turn\n#monster\nbnnj_m,sjkjnjknhnbjhkjkynhlj,i\u001b_m,s__.sukjlljly_>,.;j;_m,20sag P#pray"
+  }
+ ]
+}

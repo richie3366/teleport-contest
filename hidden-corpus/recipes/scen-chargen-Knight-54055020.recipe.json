@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Orr\ryy  y   huljubjulbjy#ride\nj\u000f\u001b#sit\n\u001b#invoke\n\u001bt\u001bfnujhyblulhbk#monster\n\u0014nyny#pray\ny #rub\njlyu#name\nm\n >.\u0004k_<.20s__,shlub#loot\n#rub\n#jump\n10snjhh_<,.PPlujkyubyljuj>\u0014_<.sbjlk#force\n,iZ_>.skbkbunblok\\ ynhyjyuljbylhhbyuhlu,#force\nkbjulyllnknh_>,s#invoke\n\u001bbyhlyllj_>,sjjuj20s_<.20suhuj__,.jhkkjbnyt\u001bquyhb>t\u001b_>,20s#pray\ny  ,nnhyhuyyjkln#offer\n#twoweapon\nbjuyylbuLq\u0018\u001b#terrain\nb\nr #enhance\n\u001bZi\u001bbujj\u0014ckyyjklnkh#jump\nkljyh#monster\n#loot\nlhbh#untrap\nh:_m,.cj"
+ },
+ "segments": [
+  {
+   "seed": 54055020,
+   "datetime": "20060622115129",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Orr\ryy  y   huljubjulbjy#ride\nj\u000f\u001b#sit\n\u001b#invoke\n\u001bt\u001bfnujhyblulhbk#monster\n\u0014nyny#pray\ny #rub\njlyu#name\nm\n >.\u0004k_<.20s__,shlub#loot\n#rub\n#jump\n10snjhh_<,.PPlujkyubyljuj>\u0014_<.sbjlk#force\n,iZ_>.skbkbunblok\\ ynhyjyuljbylhhbyuhlu,#force\nkbjulyllnknh_>,s#invoke\n\u001bbyhlyllj_>,sjjuj20s_<.20suhuj__,.jhkkjbnyt\u001bquyhb>t\u001b_>,20s#pray\ny  ,nnhyhuyyjkln#offer\n#twoweapon\nbjuyylbuLq\u0018\u001b#terrain\nb\nr #enhance\n\u001bZi\u001bbujj\u0014ckyyjklnkh#jump\nkljyh#monster\n#loot\nlhbh#untrap\nh:_m,.cj"
+  }
+ ]
+}

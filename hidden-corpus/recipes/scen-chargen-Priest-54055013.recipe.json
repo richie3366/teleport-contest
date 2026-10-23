@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Lark\rnrofy   nkhuh#enhance\n\u001bW20sqd  _<. \u001b@.shlkuhbujnbkb#force\n\u0014__..#untrap\nj#terrain\n\u001b,\u000f\u001b#wipe\nukjb\u0018\u001b#loot\nk#untrap\nk#dip\nfnuky#sit\n\u001b#invoke\n\u001bbnub#loot\n#force\nlyhu#force\n20szqlylhljhuhhljjuynhhkn,#force\njkbjlkhl#name\nm\n#twoweapon\n,r\u001bdabnub\u000f\u001bq__..qchkjkuykhjlnjhlkkh__,.kjnyjujh_<,s_>..kbuyubny#terra"
+ },
+ "segments": [
+  {
+   "seed": 54055013,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Lark\rnrofy   nkhuh#enhance\n\u001bW20sqd  _<. \u001b@.shlkuhbujnbkb#force\n\u0014__..#untrap\nj#terrain\n\u001b,\u000f\u001b#wipe\nukjb\u0018\u001b#loot\nk#untrap\nk#dip\nfnuky#sit\n\u001b#invoke\n\u001bbnub#loot\n#force\nlyhu#force\n20szqlylhljhuhhljjuynhhkn,#force\njkbjlkhl#name\nm\n#twoweapon\n,r\u001bdabnub\u000f\u001bq__..qchkjkuykhjlnjhlkkh__,.kjnyjujh_<,s_>..kbuyubny#terra"
+  }
+ ]
+}

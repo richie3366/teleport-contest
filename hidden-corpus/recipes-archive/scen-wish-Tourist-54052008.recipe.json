@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017eucalyptus leaf\n\u0007succubus\nejsy.m.  y    \u0017uncursed scroll of genocide\nrk  violet fungus\n\u0017wand of secret door detection\nzl\u0017amulet of flying\nPms20sssR\u0017blessed potion of confusion\n\u0007gecko\nqn\u001b#dip\nae sh.m. "
+ },
+ "segments": [
+  {
+   "seed": 54052008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017eucalyptus leaf\n\u0007succubus\nejsy.m.  y    \u0017uncursed scroll of genocide\nrk  violet fungus\n\u0017wand of secret door detection\nzl\u0017amulet of flying\nPms20sssR\u0017blessed potion of confusion\n\u0007gecko\nqn\u001b#dip\nae sh.m. "
+  }
+ ]
+}

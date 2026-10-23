@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "Pim\rnmfln*dmy  n#tip\nh\u001b\\ ybbh#tip\nh\u001b#name\n\u001b>#pray\ny juhn\u000f\u001b<hlkjz#conduct\n hnkk#loot\n\u0004hkylh;l, \u001b>.#offer\n\u0014#dip\nb#invoke\n\u001b20s#enhance\n\u001b#ride\nlnyjj\u0018\u001br\u001bjnku_<,s\u000f\u001b#pray\ny bhln10s_m,s#terrain\n\u001b:#pray\ny   t\u001b,P#terrain\n\u001b,kjjh#turn\n:ubkybkkbujhj__,.,#dip\nfulhjq#jump\ns#wipe\n#chat\nhr\u001b#wipe\n>uublnkjkbkybjulk_>,._<.20s#offer\n#pray\ny  20s#tip\nh\u001byjnhjkhyZckllhhhnkbw-jlhuh"
+ },
+ "segments": [
+  {
+   "seed": 54055025,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\rnmfln*dmy  n#tip\nh\u001b\\ ybbh#tip\nh\u001b#name\n\u001b>#pray\ny juhn\u000f\u001b<hlkjz#conduct\n hnkk#loot\n\u0004hkylh;l, \u001b>.#offer\n\u0014#dip\nb#invoke\n\u001b20s#enhance\n\u001b#ride\nlnyjj\u0018\u001br\u001bjnku_<,s\u000f\u001b#pray\ny bhln10s_m,s#terrain\n\u001b:#pray\ny   t\u001b,P#terrain\n\u001b,kjjh#turn\n:ubkybkkbujhj__,.,#dip\nfulhjq#jump\ns#wipe\n#chat\nhr\u001b#wipe\n>uublnkjkbkybjulk_>,._<.20s#offer\n#pray\ny  20s#tip\nh\u001byjnhjkhyZckllhhhnkbw-jlhuh"
+  }
+ ]
+}

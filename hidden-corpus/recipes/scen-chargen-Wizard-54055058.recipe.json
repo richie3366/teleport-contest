@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Nox\ryy  nhklkyb juny_<. \u001b;skjujhlkjybyh_<.st\u001b#wipe\neclhunyhbyuPdl ;_.__,.hbhjllluynln__,srm nn#sit\n\u001byujj_m,syubbe#wipe\nkyhl#rub\n#offer\nhhbbuhjh#invoke\n\u001b\u0018\u001b#monster\n#name\nd\n#enhance\n\u001b#name\nf\nkyynjynn_slukjhujjubub_>,s#ride\nuan\u001bkyjbuknj_m,s"
+ },
+ "segments": [
+  {
+   "seed": 54055058,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Nox\ryy  nhklkyb juny_<. \u001b;skjujhlkjybyh_<.st\u001b#wipe\neclhunyhbyuPdl ;_.__,.hbhjllluynln__,srm nn#sit\n\u001byujj_m,syubbe#wipe\nkyhl#rub\n#offer\nhhbbuhjh#invoke\n\u001b\u0018\u001b#monster\n#name\nd\n#enhance\n\u001b#name\nf\nkyynjynn_slukjhujjubub_>,s#ride\nuan\u001bkyjbuknj_m,s"
+  }
+ ]
+}

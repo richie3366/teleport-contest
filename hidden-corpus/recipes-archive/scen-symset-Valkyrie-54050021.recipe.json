@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "O>l\u001b\nmO>>>j\u001b\nZ#untrap\nk mOa\u001b\nh\u001buk nb\u0017throne\n#sit\n #sit\n      #sit\n y    buj \u0017melting ice\nuy uu \u0017magic fountain\nqy   n  #dip\ney y   n  uj h\u001b\u0017pool\n#terrain\nb\n\u001b;LZ#ride\nl \u00168\nmO>>s\u001b\ntby 10s\u0006_>,Fb_.Fj>FbFj_>.Fn_>FbFj_>,Fu_,Fn>FjFuFj>P\u0006_>>.Fj_.Fb>FjFj_>>.Fu_.Fb>FnFn_>>.Fy_.Fj>FnFnFuFbFb\u0006_>,Fj_,Fn>FjFnFnE- Elbereth Elbereth\nW\u0006_>.Fj_.Fn>FyFjFn\u0006_>>.Fn_>FjFb_>>.Fj_.Fj>FjFu_>>,Fj_,Fj>FnFub FjFuFb#twoweapon\ndc<\u0006_>>.Fj_,Fj>FuFj_>>.Fj_,Fn>FnFjFh<\u0006_>.Fn_>FjFj_>,Fj_,Fj>FjFb_>.Fn_,Fn>FbFuu Fu\u0007little dog\n\u0017newt corpse\ntbj 10s\u0017magic whistle\njub yag    \u0017apple\ntbn \u0017magic whistle\nlk jlk ai   #ch"
+ },
+ "segments": [
+  {
+   "seed": 54050021,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:AmigaFont\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=autodig\nOPTIONS=runmode:run\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\nOPTIONS=number_pad:2\nMSGTYPE=stop \"You feel\"\nBIND=v:inventory\n",
+   "moves": "O>l\u001b\nmO>>>j\u001b\nZ#untrap\nk mOa\u001b\nh\u001buk nb\u0017throne\n#sit\n #sit\n      #sit\n y    buj \u0017melting ice\nuy uu \u0017magic fountain\nqy   n  #dip\ney y   n  uj h\u001b\u0017pool\n#terrain\nb\n\u001b;LZ#ride\nl \u00168\nmO>>s\u001b\ntby 10s\u0006_>,Fb_.Fj>FbFj_>.Fn_>FbFj_>,Fu_,Fn>FjFuFj>P\u0006_>>.Fj_.Fb>FjFj_>>.Fu_.Fb>FnFn_>>.Fy_.Fj>FnFnFuFbFb\u0006_>,Fj_,Fn>FjFnFnE- Elbereth Elbereth\nW\u0006_>.Fj_.Fn>FyFjFn\u0006_>>.Fn_>FjFb_>>.Fj_.Fj>FjFu_>>,Fj_,Fj>FnFub FjFuFb#twoweapon\ndc<\u0006_>>.Fj_,Fj>FuFj_>>.Fj_,Fn>FnFjFh<\u0006_>.Fn_>FjFj_>,Fj_,Fj>FjFb_>.Fn_,Fn>FbFuu Fu\u0007little dog\n\u0017newt corpse\ntbj 10s\u0017magic whistle\njub yag    \u0017apple\ntbn \u0017magic whistle\nlk jlk ai   #ch"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Dax\ryy    nkuyjjyun__. \u001bm.sbhlbjkubE- I am a fish\n#enhance\n\u001bjkjj#chat\nl,jkkk_>,s#conduct\n cjah\u001b>jkuuw-#turn\nch,njhy#dip\ne Hw-dguhllhhlujnlj#tip\nh\u001bf a yyhjk__,s_>,sHk#terrain\n\u001bP#name\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 54050055,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Dax\ryy    nkuyjjyun__. \u001bm.sbhlbjkubE- I am a fish\n#enhance\n\u001bjkjj#chat\nl,jkkk_>,s#conduct\n cjah\u001b>jkuuw-#turn\nch,njhy#dip\ne Hw-dguhllhhlujnlj#tip\nh\u001bf a yyhjk__,s_>,sHk#terrain\n\u001bP#name\n\u001b"
+  }
+ ]
+}

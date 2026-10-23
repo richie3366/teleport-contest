@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Fen\ryy    n#terrain\nc\n\u001b<.#enhance\n\u001bluuynnjlyhuu_>,szy__.s#tip\n\u001bqi_m,.jbjn10seb #invoke\n\u001brk,#twoweapon\n:\u0014\u0018\u001bohllykqi#invoke\n\u001bbnuyjyjlukjjhlkb#monster\n\u0014_>,20s _m,20synkjkjyn\u0004hL#sit\n\u001bank\u0004 #jump\nokqjrjylhy#terrain\nb\n#turn\n:kkjjz#loot\nnyjlljkhhkkj_>,.kjynkhlhnkhlhhlyjkkj_<.2"
+ },
+ "segments": [
+  {
+   "seed": 54055019,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\n",
+   "moves": "Fen\ryy    n#terrain\nc\n\u001b<.#enhance\n\u001bluuynnjlyhuu_>,szy__.s#tip\n\u001bqi_m,.jbjn10seb #invoke\n\u001brk,#twoweapon\n:\u0014\u0018\u001bohllykqi#invoke\n\u001bbnuyjyjlukjjhlkb#monster\n\u0014_>,20s _m,20synkjkjyn\u0004hL#sit\n\u001bank\u0004 #jump\nokqjrjylhy#terrain\nb\n#turn\n:kkjjz#loot\nnyjlljkhhkkj_>,.kjynkhlhnkhlhhlyjkkj_<.2"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n               \u0007tame saddled mumak\n#ride\nhn#ride\nun  #ride\n #ride\nln\u0007tame saddled warhorse\n#ride\nhn#ride\nln#ride\nln#ride\nyn\u0007horse\n\u0017scroll of taming\nrk\u0017saddle\nalj#ride\n.n#ride\nbn#ride\nkn#ride\nnn\u0007lichen\n20sFh20snybuSy\u001b ny#enhance\nyj\nb\n\u001bqd   zE- Vlad was here\n     #tip\n\u001b\u000f\u001b#tip\n\u001b,#conduct\n #levelchange\n6\n   n      b     u b     ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 54051004,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n               \u0007tame saddled mumak\n#ride\nhn#ride\nun  #ride\n #ride\nln\u0007tame saddled warhorse\n#ride\nhn#ride\nln#ride\nln#ride\nyn\u0007horse\n\u0017scroll of taming\nrk\u0017saddle\nalj#ride\n.n#ride\nbn#ride\nkn#ride\nnn\u0007lichen\n20sFh20snybuSy\u001b"
+  },
+  {
+   "seed": 54551004,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " ny#enhance\nyj\nb\n\u001bqd   zE- Vlad was here\n     #tip\n\u001b\u000f\u001b#tip\n\u001b,#conduct\n #levelchange\n6\n   n      b     u b     "
+  }
+ ]
+}

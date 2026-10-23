@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Tam\ryy   naf\u001bZnlhu__, \u001bm.. nkjk,\u0014nuhynnlb_>,sz#tip\nf\u001bnbhk#untrap\nuckhnllhlhuoj#wipe\njhyn#dip\nfd\u0004k#name\n\u001b#untrap\nh__,slknybhhns\\ _>,20s   #name\n\u001bP#turn\n#sit\n\u001beWky kl_<,s_>,20s#tip\nf\u001br\u001bnhnylnynnybluhyhljbn_<,.njbululyjjjkn#chat\nj10s#offer\njujnW#name\n\u001b__.s\u0004u#conduct\n _>.s10s dcjjbntbnaf\u001bklyn,klllllukjkjbnw-#jump\n#dip\nb#untrap\ny n j u #ride\nZ _ s b "
+ },
+ "segments": [
+  {
+   "seed": 54055024,
+   "datetime": "20211106232327",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Tam\ryy   naf\u001bZnlhu__, \u001bm.. nkjk,\u0014nuhynnlb_>,sz#tip\nf\u001bnbhk#untrap\nuckhnllhlhuoj#wipe\njhyn#dip\nfd\u0004k#name\n\u001b#untrap\nh__,slknybhhns\\ _>,20s   #name\n\u001bP#turn\n#sit\n\u001beWky kl_<,s_>,20s#tip\nf\u001br\u001bnhnylnynnybluhyhljbn_<,.njbululyjjjkn#chat\nj10s#offer\njujnW#name\n\u001b__.s\u0004u#conduct\n _>.s10s dcjjbntbnaf\u001bklyn,klllllukjkjbnw-#jump\n#dip\nb#untrap\ny n j u #ride\nZ _ s b "
+  }
+ ]
+}

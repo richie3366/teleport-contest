@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b,,:_ooooooo.,\u0014;s._ooooooooo._ooo.,$_oooo,_o,,#chat\nu_ooo.,p_ooooo.,p_{.Fl_, qd\u0016?\ncnyb\u0016?\n>w\u0006_ooooooo.,\u0017flint stone\ndk_oo.,$\u00167\nubn\u0016?\n>w\u0006_{.Fb_,>.Fbqd  nyly#chat\nl_oo,,$__._,#chat\nl#pray\ny y klk#chat\nynhn#chat\nk_oooooooo.,pknl#chat\nu_{._..qd_oo.,$kbl#chat\nu_oo.,\u0017amulet of change\ndl_oooooo.,\u0017dilithium crystal\ndm_ooooo._..,\u001b: \u0016?\nckln\u0016?\n>w\u0006__. Fn_.Fn#chat\nn__.Fk _.Fk#chat\ny_oooo,,$_ooooo._._ooo.,\u001b\u0017ruby\ndn__,Fl_.   n #chat\nu__,Fj_,Fj#chat\nj   n#pray\ny y      Fb  Fb Fb Fb Fb Fb"
+ },
+ "segments": [
+  {
+   "seed": 54050019,
+   "datetime": "20120301230229",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u00178000 gold pieces\n\u0017blessed +3 helm of telepathy\nWi\u0017blessed amulet of reflection\nPj\u0016?\n>w\u0006_ \u001b,,:_ooooooo.,\u0014;s._ooooooooo._ooo.,$_oooo,_o,,#chat\nu_ooo.,p_ooooo.,p_{.Fl_, qd\u0016?\ncnyb\u0016?\n>w\u0006_ooooooo.,\u0017flint stone\ndk_oo.,$\u00167\nubn\u0016?\n>w\u0006_{.Fb_,>.Fbqd  nyly#chat\nl_oo,,$__._,#chat\nl#pray\ny y klk#chat\nynhn#chat\nk_oooooooo.,pknl#chat\nu_{._..qd_oo.,$kbl#chat\nu_oo.,\u0017amulet of change\ndl_oooooo.,\u0017dilithium crystal\ndm_ooooo._..,\u001b: \u0016?\nckln\u0016?\n>w\u0006__. Fn_.Fn#chat\nn__.Fk _.Fk#chat\ny_oooo,,$_ooooo._._ooo.,\u001b\u0017ruby\ndn__,Fl_.   n #chat\nu__,Fj_,Fj#chat\nj   n#pray\ny y      Fb  Fb Fb Fb Fb Fb"
+  }
+ ]
+}

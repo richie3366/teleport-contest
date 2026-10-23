@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "mO>>>>>c\nyes\n\u0018\u001baOn\n\u000f\u001bmO>n\n ed zOen\n\u0018\u001b#sit\nOjie\ne\n20si\u001bO>l\ntbne.20sOcmd\n#force\n Okg\nn\n#twoweapon\n\u000f\u001bOi\nh\n>#pray\ny O>pel\n\u0014ss"
+ },
+ "segments": [
+  {
+   "seed": 54051011,
+   "datetime": "20090514110401",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pettype:horse\n",
+   "moves": "mO>>>>>c\nyes\n\u0018\u001baOn\n\u000f\u001bmO>n\n ed zOen\n\u0018\u001b#sit\nOjie\ne\n20si\u001bO>l\ntbne.20sOcmd\n#force\n Okg\nn\n#twoweapon\n\u000f\u001bOi\nh\n>#pray\ny O>pel\n\u0014ss"
+  }
+ ]
+}

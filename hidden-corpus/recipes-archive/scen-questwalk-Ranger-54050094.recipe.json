@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh \u0016?\n>z  \u00162\n\u0006_ \u001b;FuFkFlFkFl\u00163\n  \u0006,\u00164\n\u0006#chat\ny;k,\u00165\n\u0006jyhb_>._,   >\u0006,_>.Fk    _.m,Fh  >\u0006_m.  Fh   _,Fh s   \u001b.s  n Fl    Fl    \u00163\n\u0006,_>.Fh  _, Fk    >\u0006__.  n    Fj       n       _.  Fj    n \u001612\n  _>,>\u0006__.\u00166\n\u0006_mmmmm.20s..\u00162\n\u0006jjkb_>,Fb_, Fu >\u0006#chat\nl     ;l,\u00164\n\u0006,_>. Fl      _,    Fl   n   >\u0006_<.  Fl     _.    n    Fh    \u00164\n\u00166\n \u0006jkjjh\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z_>.>\u0016?\n>z\u0006__.\u00163\n\u0016?\n>z\u0006_m.FuFuFu_>.Fb_.,Fb>\u0016?\n>z\u0006_mmmm.FbFbFjFhFhFb\u00165\n\u0016?\n>z\u0006,_>.Fj_,m.Fj>\u0016?\n>z\u0006,_>.Fh_.@.Fb>\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mm.FjFhFbFj\u00164\n\u0016?\n>z\u0006_mm.FbFbFbFjFbFj\u00165\n\u0016?\n>z\u0006_m. _. .s s.\u00166\n\u0016?\n>z\u0006yunn nhb\u00162\n\u0016?\n>z\u0006_mmm,s.20s 20s \u00163\n\u0016?\n>z\u0006_mm,_. Fy Fy FyFy  Fy      nFb  \u00164\n\u0016?\n>z\u0006_>.  Fb _.Fh\u00165\n\u0016?\n>z\u0006_mmmm, Fh_,. . 20s Fh      \u00166\n\u0016?\n>z\u0006#chat\nl     ;l;\u0016?\n>>\u001b\u0016?\n>y#chat\nl   n    \u0016?\n>z\u00162\n\u0016?\n>z\u0006k      l     uj kj    n \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006y ybnhu l \u00165\n\u0016?\n>z\u0006#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 54050094,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed amulet of reflection\nPg\u0017blessed Mjollnir\nwh \u0016?\n>z  \u00162\n\u0006_ \u001b;FuFkFlFkFl\u00163\n  \u0006,\u00164\n\u0006#chat\ny;k,\u00165\n\u0006jyhb_>._,   >\u0006,_>.Fk    _.m,Fh  >\u0006_m.  Fh   _,Fh s   \u001b.s  n Fl    Fl    \u00163\n\u0006,_>.Fh  _, Fk    >\u0006__.  n    Fj       n       _.  Fj    n \u001612\n  _>,>\u0006__.\u00166\n\u0006_mmmmm.20s..\u00162\n\u0006jjkb_>,Fb_, Fu >\u0006#chat\nl     ;l,\u00164\n\u0006,_>. Fl      _,    Fl   n   >\u0006_<.  Fl     _.    n    Fh    \u00164\n\u00166\n \u0006jkjjh\u0016?\n>>\u001b\u0016?\n>y  #chat\nu\u0016?\n>z_>.>\u0016?\n>z\u0006__.\u00163\n\u0016?\n>z\u0006_m.FuFuFu_>.Fb_.,Fb>\u0016?\n>z\u0006_mmmm.FbFbFjFhFhFb\u00165\n\u0016?\n>z\u0006,_>.Fj_,m.Fj>\u0016?\n>z\u0006,_>.Fh_.@.Fb>\u0016?\n>z\u0006,\u00163\n\u0016?\n>z\u0006_mm.FjFhFbFj\u00164\n\u0016?\n>z\u0006_mm.FbFbFbFjFbFj\u00165\n\u0016?\n>z\u0006_m. _. .s s.\u00166\n\u0016?\n>z\u0006yunn nhb\u00162\n\u0016?\n>z\u0006_mmm,s.20s 20s \u00163\n\u0016?\n>z\u0006_mm,_. Fy Fy FyFy  Fy      nFb  \u00164\n\u0016?\n>z\u0006_>.  Fb _.Fh\u00165\n\u0016?\n>z\u0006_mmmm, Fh_,. . 20s Fh      \u00166\n\u0016?\n>z\u0006#chat\nl     ;l;\u0016?\n>>\u001b\u0016?\n>y#chat\nl   n    \u0016?\n>z\u00162\n\u0016?\n>z\u0006k      l     uj kj    n \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006y ybnhu l \u00165\n\u0016?\n>z\u0006#chat\n"
+  }
+ ]
+}

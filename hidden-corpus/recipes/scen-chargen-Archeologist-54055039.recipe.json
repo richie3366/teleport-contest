@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Gale\rnRhfny   n__, \u001bm.20s   _m.20sbhhluyljE- Elbereth\n#enhance\n\u001b<\\ #name\nf\n_sP#invoke\n\u001bck#turn\nyjybklhnhjknl kjn\u000f\u001bHdf#pray\ny uukkkybluhhnjukbhljnhylu#terrain\nb\n#tip\nm.ojW\u0018\u001be_>,._>,s_>,skjjhbkjk_<..\\ #jump\nbllj_m,20s,#sit\n\u001bz<,\u0018\u001bllyj\\ #n"
+ },
+ "segments": [
+  {
+   "seed": 54055039,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Gale\rnRhfny   n__, \u001bm.20s   _m.20sbhhluyljE- Elbereth\n#enhance\n\u001b<\\ #name\nf\n_sP#invoke\n\u001bck#turn\nyjybklhnhjknl kjn\u000f\u001bHdf#pray\ny uukkkybluhhnjukbhljnhylu#terrain\nb\n#tip\nm.ojW\u0018\u001be_>,._>,s_>,skjjhbkjk_<..\\ #jump\nbllj_m,20s,#sit\n\u001bz<,\u0018\u001bllyj\\ #n"
+  }
+ ]
+}

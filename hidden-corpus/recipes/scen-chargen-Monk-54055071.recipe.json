@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Jun\rnro*y  negZ10s\u0014ylhyujub_<. \u001b;20s;_.f by k_<.20s#terrain\n\u001b,#ride\ny#offer\nullj\\ wb  njbhbubj:Pjjkj_m, .\u000f\u001bs#enhance\n\u001b>kjjk__,.kjklb ujk W>blbjjjbljjll\u0018\u001b#wipe\n#invoke\n\u001b#"
+ },
+ "segments": [
+  {
+   "seed": 54055071,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Jun\rnro*y  negZ10s\u0014ylhyujub_<. \u001b;20s;_.f by k_<.20s#terrain\n\u001b,#ride\ny#offer\nullj\\ wb  njbhbubj:Pjjkj_m, .\u000f\u001bs#enhance\n\u001b>kjjk__,.kjklb ujk W>blbjjjbljjll\u0018\u001b#wipe\n#invoke\n\u001b#"
+  }
+ ]
+}

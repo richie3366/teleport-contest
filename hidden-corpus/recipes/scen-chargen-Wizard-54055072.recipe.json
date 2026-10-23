@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Elin\rnmm*y  nuj kh\u0004bt\u001bqe#dip\nielybbkklnaj olPoj#force\nckukkyjkkjjnhu#untrap\nl#offer\nlllhhhbn10s ckynyhhbkk#loot\negP#turn\nbuhb,ck_m, \u001b:s_m,20sZa\n,E\u001b10s E\u001b\\  ykkjjknj_m,sujhb__,slhkbluhbdezyuhuynkn_m.20sf \u001b:kjkkyubjbhhkkhjb _m,20syknk_>..\u0014#enhance\n\u001bhkujjkyhbkj"
+ },
+ "segments": [
+  {
+   "seed": 54055072,
+   "datetime": "20110922183455",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Elin\rnmm*y  nuj kh\u0004bt\u001bqe#dip\nielybbkklnaj olPoj#force\nckukkyjkkjjnhu#untrap\nl#offer\nlllhhhbn10s ckynyhhbkk#loot\negP#turn\nbuhb,ck_m, \u001b:s_m,20sZa\n,E\u001b10s E\u001b\\  ykkjjknj_m,sujhb__,slhkbluhbdezyuhuynkn_m.20sf \u001b:kjkkyubjbhhkkhjb _m,20syknk_>..\u0014#enhance\n\u001bhkujjkyhbkj"
+  }
+ ]
+}

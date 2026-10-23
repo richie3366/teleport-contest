@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n     \u0017blessed spellbook of sleep\nris\u0017blessed spellbook of restore ability\nrj   s+b\nZb\nZb\nZa\nZa\nZb\n#turn\n#enhance\nn\u001b\u0007tame pony\ndds20s.\u0007acid blob\ns20s  sss20s  dh20s  s20s\u0007grid bug\nsm.20s ss.20s \u0007kobold\nsm. sssss\u00166\n#levelchange\n10\n    \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b;_oo. _,,\u0014,_{.Fl_.Fy q#dip\nb_{.Fy _.Fhqy#dip\niy_dd,Fk _.,Fk   \u0004jZ\u001bu,\u0017blessed ring of polymorph control\nPll #polyself\nmind flayer\n #monster\n 20s .m.\u0007mastodon\nFk  Fj    Fjsm.  n.m.sm.  n #polyself\nAngel\n black pudding\n #monster\ns   sm.  \u0007scorpion\nFj   n  Fk   nFj sm.s20s   n #polyself\njackal\n sj     n sb\u0007balrog\nFk Fj    n Fj       nsm. sm.     n 20s #polyself\nwarhorse\n#monster\n20s sk      n20s sm.   n  sm.    n\u00162\n\u0018\u001b\u00165\n\u0016?\n>y  _mmmm,#chat\nj_mmmm.#chat\nb_m,Fh  _.#chat\nh \u0016?\n>zrj nyzl\u001625\n\u0018\u001b\u0016?\n>y_mmm.Fb_,#chat\nb;b._mmm.Fb_.#chat\nb;b;_m.Fb_.#chat\nb  n;b,ol,>#levelchange\n6\n \u0017dagger\nwm FbFb Fb\u0007vampire lord\nFjFjFj Fj    n  Fj  Fj  n   sm.  n  sm.   yy\u001by   y y y\u001b  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 54050015,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n     \u0017blessed spellbook of sleep\nris\u0017blessed spellbook of restore ability\nrj   s+b\nZb\nZb\nZa\nZa\nZb\n#turn\n#enhance\nn\u001b\u0007tame pony\ndds20s.\u0007acid blob\ns20s  sss20s  dh20s  s20s\u0007grid bug\nsm.20s ss.20s \u0007kobold\nsm. sssss\u00166\n#levelchange\n10\n    \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqk \u001b;_oo. _,,\u0014,_{.Fl_.Fy q#dip\nb_{.Fy _.Fhqy#dip\niy_dd,Fk _.,Fk   \u0004jZ\u001bu,\u0017blessed ring of polymorph control\nPll #polyself\nmind flayer\n #monster\n 20s .m.\u0007mastodon\nFk  Fj    Fjsm.  n.m.sm.  n #polyself\nAngel\n black pudding\n #monster\ns   sm.  \u0007scorpion\nFj   n  Fk   nFj sm.s20s   n #polyself\njackal\n sj     n sb\u0007balrog\nFk Fj    n Fj       nsm. sm.     n 20s #polyself\nwarhorse\n#monster\n20s sk      n20s sm.   n  sm.    n\u00162\n\u0018\u001b\u00165\n\u0016?\n>y  _mmmm,#chat\nj_mmmm.#chat\nb_m,Fh  _.#chat\nh \u0016?\n>zrj nyzl\u001625\n\u0018\u001b\u0016?\n>y_mmm.Fb_,#chat\nb;b._mmm.Fb_.#chat\nb;b;_m.Fb_.#chat\nb  n;b,ol,>#levelchange\n6\n \u0017dagger\nwm FbFb Fb\u0007vampire lord\nFjFjFj Fj    n  Fj  Fj  n   sm.  n  sm.   yy\u001by   y y y\u001b  \u0007"
+  }
+ ]
+}

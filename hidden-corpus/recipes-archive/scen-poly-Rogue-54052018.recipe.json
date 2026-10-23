@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "poly",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgr  \u0017gauntlets of power\nWh20ss20s#polyself\nelf\n#monster\nsm.sm.ss20s#polyself\nblue jelly\n  #monster\n20s                  .m.  \u0007ettin\nFl   Fh   Fl    20s   .m.   yy\u001bny ny\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 54052018,
+   "datetime": "20161220110532",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u0017blessed ring of polymorph control\nPgr  \u0017gauntlets of power\nWh20ss20s#polyself\nelf\n#monster\nsm.sm.ss20s#polyself\nblue jelly\n  #monster\n20s                  .m.  \u0007ettin\nFl   Fh   Fl    20s   .m.   yy\u001bny ny\u001by  2"
+  }
+ ]
+}

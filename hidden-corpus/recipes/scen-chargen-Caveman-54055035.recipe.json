@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Ash\rnt*y  n10s,unkh_>, \u001b@.20sjnhkbuyhjbnj\u0018\u001b#terrain\n\u001b#untrap\nk#turn\njjjnhnjj#invoke\n\u001bZ;l,#ride\nlbnly#ride\nhecllkk\u000f\u001bebjjljubkbulby;m,<#monster\nE- Elbereth Elbereth\nyhnuaink#monster\n#ride\nj#enhance\n\u001bfl#terrain\n\u001b#jump\ns\u000f\u001bhyjjnhjl#twoweapon\n#monster\n#turn\n#turn\nyhuyunnu#monster\n#enhance\n\u001blbhl10sKjnuh_m,s>Z#terrain\n\u001b#untrap\njlnyh_m,s<rg<#turn\n:#rub\n_>,   s_>,.njjkbhyk#tip\n\u001b#terrain\n\u001bjbklkkhnhulbnlyy#dip\nef\u0014#turn\ned  jubydf,njlu__.s#i"
+ },
+ "segments": [
+  {
+   "seed": 54055035,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Ash\rnt*y  n10s,unkh_>, \u001b@.20sjnhkbuyhjbnj\u0018\u001b#terrain\n\u001b#untrap\nk#turn\njjjnhnjj#invoke\n\u001bZ;l,#ride\nlbnly#ride\nhecllkk\u000f\u001bebjjljubkbulby;m,<#monster\nE- Elbereth Elbereth\nyhnuaink#monster\n#ride\nj#enhance\n\u001bfl#terrain\n\u001b#jump\ns\u000f\u001bhyjjnhjl#twoweapon\n#monster\n#turn\n#turn\nyhuyunnu#monster\n#enhance\n\u001blbhl10sKjnuh_m,s>Z#terrain\n\u001b#untrap\njlnyh_m,s<rg<#turn\n:#rub\n_>,   s_>,.njjkbhyk#tip\n\u001b#terrain\n\u001bjbklkkhnhulbnlyy#dip\nef\u0014#turn\ned  jubydf,njlu__.s#i"
+  }
+ ]
+}

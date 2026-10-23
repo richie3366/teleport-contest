@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "Rook\ryy   nklu b u nb y_<, \u001b;.#twoweapon\n#loot\nujybkbjunlhlhqdzyyjbujlhs10s#rub\nah n20shlun_<,si\u001b,__,s__.sZb\n#dip\nau n j l _ s k u k u #terrain\n#rub\n#ride\nbllhuch#tip\n\u001b#untrap\nlh#force\n#turn\nynnkcj#tip\n\u001b_m,.#force\n#terrain\nc\nm.#terrain\nb\n#turn\n@.k"
+ },
+ "segments": [
+  {
+   "seed": 54055026,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Rook\ryy   nklu b u nb y_<, \u001b;.#twoweapon\n#loot\nujybkbjunlhlhqdzyyjbujlhs10s#rub\nah n20shlun_<,si\u001b,__,s__.sZb\n#dip\nau n j l _ s k u k u #terrain\n#rub\n#ride\nbllhuch#tip\n\u001b#untrap\nlh#force\n#turn\nynnkcj#tip\n\u001b_m,.#force\n#terrain\nc\nm.#terrain\nb\n#turn\n@.k"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPn\u0017blessed +3 speed boots\nWo  \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007acid blob\n_ \u001b:#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\neq#offer\n#pray\ny y #chat\nk#wizidentify\n\u001bFyFl Fy#conduct\n \u00166\n\u0006\u0007gnome\n#vanquished\n #genocided\ngreen-elf\ni\u001b#name\nf\n#adjust\n@.#chat\n#turn\n#wizintrinsic\nr\n FkFkFjFj__.#chat\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y#jump\n#levelchange\n2\n Fj s#dip\nqq_oo,,#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n #chat\n#chat\n#levelchange\n17\n               FjFj<\u0016?\n>>M     tin of lizard meat\n\u0006.\u0007owlbear\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\njy#turn\n#sit\n\u001b#jump\n#polyself\nleprechaun\n #monster\n.s   s .u k    n k    \u0016?\n\u001b\u0006<.\u0007bugbear\n#vanquished\n #genocided\nearth elemental\n          \u0018\u001b#dip\nfq   n  #offer\n#pray\ny y          #chat\nb   #wizmap\nm.\u0006,Fj     n Fb      #rub\n_>.#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nl\u001b#chat\ny#turn\n#polyself\nfog cloud\ns      nsy     Fj      n  Fk    "
+ },
+ "segments": [
+  {
+   "seed": 54050009,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPn\u0017blessed +3 speed boots\nWo  \u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n#levelchange\n8\n      \u0007acid blob\n_ \u001b:#chat\ny#overview\n\u001b#conduct\n \u0018\u001b#dip\neq#offer\n#pray\ny y #chat\nk#wizidentify\n\u001bFyFl Fy#conduct\n \u00166\n\u0006\u0007gnome\n#vanquished\n #genocided\ngreen-elf\ni\u001b#name\nf\n#adjust\n@.#chat\n#turn\n#wizintrinsic\nr\n FkFkFjFj__.#chat\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n#pray\ny y#jump\n#levelchange\n2\n Fj s#dip\nqq_oo,,#version\n  #history\n                  \u000f\u001b#wipe\n #loot\n #chat\n#chat\n#levelchange\n17\n               FjFj<\u0016?\n>>M     tin of lizard meat\n\u0006.\u0007owlbear\n#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\njy#turn\n#sit\n\u001b#jump\n#polyself\nleprechaun\n #monster\n.s   s .u k    n k    \u0016?\n\u001b\u0006<.\u0007bugbear\n#vanquished\n #genocided\nearth elemental\n          \u0018\u001b#dip\nfq   n  #offer\n#pray\ny y          #chat\nb   #wizmap\nm.\u0006,Fj     n Fb      #rub\n_>.#chronicle\n  #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\nl\u001b#chat\ny#turn\n#polyself\nfog cloud\ns      nsy     Fj      n  Fk    "
+  }
+ ]
+}

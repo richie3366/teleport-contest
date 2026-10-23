@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Hob\ryy  nnlhh_<, \u001b.20sr\u001b\u0014eZz<#loot\n#sit\n\u001b#jump\n\\    tbnhylkkuyhhhhbkhnjnlnkhhhl_>.._m,sllnlkbul20stcnynknunyhlbulhhjlbyllwdy#force\nuhbyjnju;n,oh#monster\n#name\nf\nlkjjjhly#invoke\n<.<_<,20skkjb#monster\n#loot\n,#jump\nnlhhknyklylkPr\u001b#turn\ns_>.skhnj#dip\ndehubj<:_<,.u#dip\nd#tip\n\u001bWnbuykhkynyhhhllh\\    #pray\ny #monster\nHljnjllln_m,20sbnbj<oj,Zyhynch#dip\nab>"
+ },
+ "segments": [
+  {
+   "seed": 54055047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Hob\ryy  nnlhh_<, \u001b.20sr\u001b\u0014eZz<#loot\n#sit\n\u001b#jump\n\\    tbnhylkkuyhhhhbkhnjnlnkhhhl_>.._m,sllnlkbul20stcnynknunyhlbulhhjlbyllwdy#force\nuhbyjnju;n,oh#monster\n#name\nf\nlkjjjhly#invoke\n<.<_<,20skkjb#monster\n#loot\n,#jump\nnlhhknyklylkPr\u001b#turn\ns_>.skhnj#dip\ndehubj<:_<,.u#dip\nd#tip\n\u001bWnbuykhkynyhhhllh\\    #pray\ny #monster\nHljnjllln_m,20sbnbj<oj,Zyhynch#dip\nab>"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " kbnl\u0017falling rock trap\nu^b#untrap\nbj\u0017sleeping gas trap\nynssyl\u0017pit\nh^ll..h\u0017rust trap\nhl20s .k\u0014 \u001b,fuE- Vlad was here\nlunl\u0017trap door\nyn s20skj\u0017arrow trap\nu\u0007newt\n20s.by .k  yy\u001bnnny\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 54051001,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " kbnl\u0017falling rock trap\nu^b#untrap\nbj\u0017sleeping gas trap\nynssyl\u0017pit\nh^ll..h\u0017rust trap\nhl20s .k\u0014 \u001b,fuE- Vlad was here\nlunl\u0017trap door\nyn s20skj\u0017arrow trap\nu\u0007newt\n20s.by .k  yy\u001bnnny\u001by  s"
+  }
+ ]
+}

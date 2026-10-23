@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Rook\rn*fy  n_>. \u001b<.s,#chat\nl_<,.knbuef   l _m.20s yjhu\u0014\u0018\u001b__,.jylhjnyynkhk__,s#monster\n\u0018\u001bnhkj#tip\n\u001b;m._>,s__.s_<,slnyuaoj#turn\nddhynhlhnljybukhkj__,sE- I am a fish\nW10sq#terrain\nb\nd#terrain\nm.<10s#offer\n#monster\nqkhlubhbu_>,si\u001b\\    lkkkkjkjjkuk_m,20sklbubklh__,s>#invoke\n\u001bjkjj#untrap\nb__,20skuhl#conduct\n #tip\n\u001bbubu#force\n_>,._>.20sbjhuE- I a"
+ },
+ "segments": [
+  {
+   "seed": 54055065,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Rook\rn*fy  n_>. \u001b<.s,#chat\nl_<,.knbuef   l _m.20s yjhu\u0014\u0018\u001b__,.jylhjnyynkhk__,s#monster\n\u0018\u001bnhkj#tip\n\u001b;m._>,s__.s_<,slnyuaoj#turn\nddhynhlhnljybukhkj__,sE- I am a fish\nW10sq#terrain\nb\nd#terrain\nm.<10s#offer\n#monster\nqkhlubhbu_>,si\u001b\\    lkkkkjkjjkuk_m,20sklbubklh__,s>#invoke\n\u001bjkjj#untrap\nb__,20skuhl#conduct\n #tip\n\u001bbubu#force\n_>,._>.20sbjhuE- I a"
+  }
+ ]
+}

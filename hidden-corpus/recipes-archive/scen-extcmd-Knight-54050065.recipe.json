@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n\u0007kobold\nFyFlFlFy\u0018\u001b\u001611\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nml \u001b#offer\n#pray\ny y    #chat\nl#jump\n \u001bm,#levelchange\n13\n            Fk FhFhFh rm__.#chat\ny#vanquished\n #genocided\nstraw golem\n\u0018\u001b#name\n\u001b#adjust\nj\u001b#chat\ny#turn\n   #wizidentify\n\u001bFy Fy \u001623\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #jump\n.#polyself\nfog cloud\n   #monster\n.sFk  FkFkFkFkFk#name\nm\n_,#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#wipe\n#loot\n#chat\nb#chat\nn#levelchange\n10\n kjyh\u0016?\n>C\u0006#overview\n\u001b#conduct\n #annotate\nFido\ni"
+ },
+ "segments": [
+  {
+   "seed": 54050065,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed +3 speed boots\nWj\u0017long sword\n\u0017potion of water\n \u0017scroll of identify\n\u0007kobold\nFyFlFlFy\u0018\u001b\u001611\n\u0006#overview\n\u001b#conduct\n \u000f\u001b#dip\nml \u001b#offer\n#pray\ny y    #chat\nl#jump\n \u001bm,#levelchange\n13\n            Fk FhFhFh rm__.#chat\ny#vanquished\n #genocided\nstraw golem\n\u0018\u001b#name\n\u001b#adjust\nj\u001b#chat\ny#turn\n   #wizidentify\n\u001bFy Fy \u001623\n\u0006#chronicle\n  #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y  #jump\n.#polyself\nfog cloud\n   #monster\n.sFk  FkFkFkFkFk#name\nm\n_,#version\n  #history\n                  #annotate\nFido\n\u0018\u001b#wipe\n#loot\n#chat\nb#chat\nn#levelchange\n10\n kjyh\u0016?\n>C\u0006#overview\n\u001b#conduct\n #annotate\nFido\ni"
+  }
+ ]
+}

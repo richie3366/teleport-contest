@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\nj\u0006\u0017leather drum\naf yuafbydan#rub\ncb#levelchange\n10\n         \u0016?\nj\u0006\u0017leather drum\nag nyaghh\u0004k>#tip\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 54051017,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\nj\u0006\u0017leather drum\naf yuafbydan#rub\ncb#levelchange\n10\n         \u0016?\nj\u0006\u0017leather drum\nag nyaghh\u0004k>#tip\n\u001b"
+  }
+ ]
+}

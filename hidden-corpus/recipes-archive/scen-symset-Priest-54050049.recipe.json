@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n        yhu\u0017iron bars\nj\u0017magic fountain\nqy qy  :#wipe\n   #monster\n#force\nv i\u001b\u00164\nFkFuFkFkFhFbFjFnFjFkFuFuFnFyFlFh Fl  FyFjFbFy FlFbFnFl  n FnFlFkFnFuFnFyFnFuFu FnFk FlFkFhFhFnFjFnFlFjFbFkFkFlFhFkFnFnFyFbFyFyFlFkFyFnFnFyFbFjFkFlFlFuFyFkFyFbFhFhFlFjFlFbFlFlFbFuFbFyFjFuFhFbFlFlFlFuFjFlFyFhFhFjFhFlFbFkFjFjFbFnFjFkFkFyFhFyFnFjFkFbFuFn\u001612\nFbFu  Fu   Fj  Fk     n  Fb     Fk     nFh    Fh     n Fl       n  Fh  Fu   Fb  n    Fk      n  Fu    Fh     n Fu    Fu     #pray\ny y                            #pray\ny y               "
+ },
+ "segments": [
+  {
+   "seed": 54050049,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:RogueEpyx\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\nOPTIONS=msg_window:reversed\nMSGTYPE=stop \"You kill\"\n",
+   "moves": "  #levelchange\n10\n        yhu\u0017iron bars\nj\u0017magic fountain\nqy qy  :#wipe\n   #monster\n#force\nv i\u001b\u00164\nFkFuFkFkFhFbFjFnFjFkFuFuFnFyFlFh Fl  FyFjFbFy FlFbFnFl  n FnFlFkFnFuFnFyFnFuFu FnFk FlFkFhFhFnFjFnFlFjFbFkFkFlFhFkFnFnFyFbFyFyFlFkFyFnFnFyFbFjFkFlFlFuFyFkFyFbFhFhFlFjFlFbFlFlFbFuFbFyFjFuFhFbFlFlFlFuFjFlFyFhFhFjFhFlFbFkFjFjFbFnFjFkFkFyFhFyFnFjFkFbFuFn\u001612\nFbFu  Fu   Fj  Fk     n  Fb     Fk     nFh    Fh     n Fl       n  Fh  Fu   Fb  n    Fk      n  Fu    Fh     n Fu    Fu     #pray\ny y                            #pray\ny y               "
+  }
+ ]
+}

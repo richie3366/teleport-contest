@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                      \u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b@.Fh Fn Fn _>,Fb_. Fu>\u0006#chat\nu;u.\u00164\n\u0006_m.20sFlFlFlFl\u00165\n  \u0006_>,\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z_>.>\u0016?\n>z\u0006_<._>,Fl_.Fl>\u0016?\n>z\u0006kuj  hb  nhhk\u00163\n\u0016?\n>z\u0006__.Fl_,,Fl_>,Fl_.m. Fl   n >\u0016?\n>z\u0006#chat\nl;h.\u00165\n\u0016?\n>z\u0006_mmmm. Fl_, Fh   nFh FhFh\u00166\n\u0016?\n>z\u0006_<. Fh _,  Fh   n  \u00162\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nk  \u0016?\n>z\u00163\n\u0016?\n>z\u0006_m,    nFh _.FkFk Fk  Fh\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmm.   n  Fy  _.<.Fh Fn   n  Fh    n Fh   Fh   n  Fn    n  Fl   \u00168\n\u00166\n\u0016?\n>z\u0006#chat\nl;l;_>,   n  Fl    n _.  Fh>\u0016?\n>z\u0006k   n j  k  ul  n\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00164\n\u00163\n\u0016?\n>z\u0006__,Fb_.;.Fh\u00164\n\u0016?\n>z\u0006_mmmmm.Fy_. FyFhFyFy  n_>."
+ },
+ "segments": [
+  {
+   "seed": 54050066,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                      \u0017blessed +3 gauntlets of power\nW\u001b\u0016?\n>z  \u00162\n\u0006_ \u001b@.Fh Fn Fn _>,Fb_. Fu>\u0006#chat\nu;u.\u00164\n\u0006_m.20sFlFlFlFl\u00165\n  \u0006_>,\u0016?\n>>\u001b\u0016?\n>y  #chat\nb\u0016?\n>z_>.>\u0016?\n>z\u0006_<._>,Fl_.Fl>\u0016?\n>z\u0006kuj  hb  nhhk\u00163\n\u0016?\n>z\u0006__.Fl_,,Fl_>,Fl_.m. Fl   n >\u0016?\n>z\u0006#chat\nl;h.\u00165\n\u0016?\n>z\u0006_mmmm. Fl_, Fh   nFh FhFh\u00166\n\u0016?\n>z\u0006_<. Fh _,  Fh   n  \u00162\n\u0016?\n>z\u0006,\u0016?\n>>\u001b\u0016?\n>y#chat\nk  \u0016?\n>z\u00163\n\u0016?\n>z\u0006_m,    nFh _.FkFk Fk  Fh\u00164\n\u0016?\n>z\u0006,\u00165\n\u0016?\n>z\u0006_mmm.   n  Fy  _.<.Fh Fn   n  Fh    n Fh   Fh   n  Fn    n  Fl   \u00168\n\u00166\n\u0016?\n>z\u0006#chat\nl;l;_>,   n  Fl    n _.  Fh>\u0016?\n>z\u0006k   n j  k  ul  n\u0016?\n>>\u001b\u0016?\n>y#chat\nh\u0016?\n>z\u00164\n\u00163\n\u0016?\n>z\u0006__,Fb_.;.Fh\u00164\n\u0016?\n>z\u0006_mmmmm.Fy_. FyFhFyFy  n_>."
+  }
+ ]
+}

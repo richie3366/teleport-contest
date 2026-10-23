@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "normal",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "Pw-#tip\n\u001b#rub\nca#dip\nbsW\u0018\u001bq#conduct\n kaPP#chat\nj\u0014 \u001b,eaw-ch#untrap\njPa"
+ },
+ "segments": [
+  {
+   "seed": 54052016,
+   "datetime": "20110121170420",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "Pw-#tip\n\u001b#rub\nca#dip\nbsW\u0018\u001bq#conduct\n kaPP#chat\nj\u0014 \u001b,eaw-ch#untrap\njPa"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Pim\rnadfy  y   jjyh#name\nm\n :qklbu>Z\\ #sit\n\u001b#enhance\n\u001b#dip\n\u001bh#ride\nhblyj#ride\n.#enhance\n\u001b_>.20s_>,.kkjnuylh_<.s\u0004bbkkl_m,20su#enhance\n\u001bhjjjjkukd\u001b#chat\nhhlhj_>.snhjkz,_>,20sqzukjlhkbn__,20sujhnsP,zyyjnujkl_m,._<,20s#loot\n#loot\nllbunkylyklhhjkbkhbujknkhljlkbubhylb#s"
+ },
+ "segments": [
+  {
+   "seed": 54055066,
+   "datetime": "20131009092253",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=pettype:cat\n",
+   "moves": "Pim\rnadfy  y   jjyh#name\nm\n :qklbu>Z\\ #sit\n\u001b#enhance\n\u001b#dip\n\u001bh#ride\nhblyj#ride\n.#enhance\n\u001b_>.20s_>,.kkjnuylh_<.s\u0004bbkkl_m,20su#enhance\n\u001bhjjjjkukd\u001b#chat\nhhlhj_>.snhjkz,_>,20sqzukjlhkbn__,20sujhnsP,zyyjnujkl_m,._<,20s#loot\n#loot\nllbunkylyklhhjkbkhbujknkhljlkbubhylb#s"
+  }
+ ]
+}

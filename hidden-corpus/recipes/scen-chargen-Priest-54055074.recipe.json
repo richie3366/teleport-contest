@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Gale\rn*omnph*nn*f*y   n_m, \u001b,s_>,.#sit\n#dip\ncddf#sit\nyybkhbynf \u001b,jhkyjknkbkjl_<.20sqd ri y  lllhdg#sit\n <#chat\nk_m.shynykbyjhbuklnjy#enhance\n\u001bw\u001bhjkujbylylhn\u0014Z\u001b_>,sllub#dip\ncdE\u001bdc\u0014cj#sit\nkhjb#sit\n\u001blh"
+ },
+ "segments": [
+  {
+   "seed": 54055074,
+   "datetime": "20090328005005",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Gale\rn*omnph*nn*f*y   n_m, \u001b,s_>,.#sit\n#dip\ncddf#sit\nyybkhbynf \u001b,jhkyjknkbkjl_<.20sqd ri y  lllhdg#sit\n <#chat\nk_m.shynykbyjhbuklnjy#enhance\n\u001bw\u001bhjkujbylylhn\u0014Z\u001b_>,sllub#dip\ncdE\u001bdc\u0014cj#sit\nkhjb#sit\n\u001blh"
+  }
+ ]
+}

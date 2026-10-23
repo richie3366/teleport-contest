@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Bree\rnvdy  n#name\no\nr\u001bE- X marks the spot\nck_m. \u001b.20saok\u0004n#rub\n#rub\n#rub\nlnkh#tip\n\u001bf bned \u0018\u001b#invoke\n\u001b\u0014bjllq#dip\nb lknk__.s#jump\nr\u001bkjhbkuhlnhlnyujk#jump\na_m,s#name\ni\ne_m.sbynulhkbbyyn#pray\ny  #loot\njylu#sit\n\u001b\u0004blbjynylujllk_<,20sljnh__..#sit\n\u001bnylblszuubhf bn#wipe\nnyhy__,s10s  #twoweapon\njkjn\u0018\u001b#jump\nynhuL #rub\nbhlhck#conduct\n unkkjbhh#jump\n10sck\\   _m.sjyhj>#rub\nklbhkylhnnlknyhl__,s#offer\n\u0014hbuhtbjZ#enh"
+ },
+ "segments": [
+  {
+   "seed": 54055064,
+   "datetime": "20260902141554",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Bree\rnvdy  n#name\no\nr\u001bE- X marks the spot\nck_m. \u001b.20saok\u0004n#rub\n#rub\n#rub\nlnkh#tip\n\u001bf bned \u0018\u001b#invoke\n\u001b\u0014bjllq#dip\nb lknk__.s#jump\nr\u001bkjhbkuhlnhlnyujk#jump\na_m,s#name\ni\ne_m.sbynulhkbbyyn#pray\ny  #loot\njylu#sit\n\u001b\u0004blbjynylujllk_<,20sljnh__..#sit\n\u001bnylblszuubhf bn#wipe\nnyhy__,s10s  #twoweapon\njkjn\u0018\u001b#jump\nynhuL #rub\nbhlhck#conduct\n unkkjbhh#jump\n10sck\\   _m.sjyhj>#rub\nklbhkylhnnlknyhl__,s#offer\n\u0014hbuhtbjZ#enh"
+  }
+ ]
+}

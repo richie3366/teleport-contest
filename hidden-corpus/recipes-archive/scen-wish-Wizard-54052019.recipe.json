@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n8\n      \u0017cursed amulet versus poison\nPm.s.s\u0017blessed +3 dunce cap\nWn  20sss\u0017blessed ring of free action\nPor..20sFhs\u0017blessed potion of confusion\n\u0007kraken\nqpFhFh\u0017blessed scroll of confuse monster\nrq   \u001bFhsss"
+ },
+ "segments": [
+  {
+   "seed": 54052019,
+   "datetime": "20020918053931",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n8\n      \u0017cursed amulet versus poison\nPm.s.s\u0017blessed +3 dunce cap\nWn  20sss\u0017blessed ring of free action\nPor..20sFhs\u0017blessed potion of confusion\n\u0007kraken\nqpFhFh\u0017blessed scroll of confuse monster\nrq   \u001bFhsss"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "shop",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b@.,pFbFbFbFbFbFb\u0016?\nclkh\u0016?\n>w\u0006_ooooooo.,\u0014m,s.jjh#chat\nj\u00163\nyjy\u0016?\n>w\u0006yhj#chat\nu_oooooooo.,pkkj#chat\nj_ooooo,,\u0017amulet of restful sleep\ndl_oooo,,plyl#chat\nu_oooooooo,,#chat\nl__._..#chat\nl#pray\ny y hll#chat\nl_{.Fl_,Flq_oooooo,,\u0017loadstone\n dm_{. Fl_.  n  Fl  q_ooooooo.,:_ooooooooo.,p__,Fl _,  Fl  n#chat\nl #pray\ny y     Fl FlFlFl Fl  n Fl_ooooo.,:\u00167\nhhh\u0016?\n>w\u0006_oooo,,\u0017amulet of reflection\n dn _oo.,  :_{.Fl   n_.Fl q__. Fl  n _.Fl #chat\nl    n\u00162\nFh  FhFh  nFh FhFh  n\u00163\n_ooooo,Fk_, Fk  n ,  #chat\nu   n\u00161\n_oooooooo.Fh_,  nFh ,\u0017cheap plastic imitation of the Amulet of Yendor\ndo _{,  Fh  n_,Fh q_{. Fl  n  _. Fl  n   q\u00163\n_oooooo.,#chat\nh _ooo.   n Fh   yy\u001by "
+ },
+ "segments": [
+  {
+   "seed": 54050061,
+   "datetime": "20210601022829",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u00175000 gold pieces\n\u0017blessed ring of free action\nPjl\u0017blessed +3 gray dragon scale mail\nW\u001b\u0016?\n>w\u0006_ \u001b@.,pFbFbFbFbFbFb\u0016?\nclkh\u0016?\n>w\u0006_ooooooo.,\u0014m,s.jjh#chat\nj\u00163\nyjy\u0016?\n>w\u0006yhj#chat\nu_oooooooo.,pkkj#chat\nj_ooooo,,\u0017amulet of restful sleep\ndl_oooo,,plyl#chat\nu_oooooooo,,#chat\nl__._..#chat\nl#pray\ny y hll#chat\nl_{.Fl_,Flq_oooooo,,\u0017loadstone\n dm_{. Fl_.  n  Fl  q_ooooooo.,:_ooooooooo.,p__,Fl _,  Fl  n#chat\nl #pray\ny y     Fl FlFlFl Fl  n Fl_ooooo.,:\u00167\nhhh\u0016?\n>w\u0006_oooo,,\u0017amulet of reflection\n dn _oo.,  :_{.Fl   n_.Fl q__. Fl  n _.Fl #chat\nl    n\u00162\nFh  FhFh  nFh FhFh  n\u00163\n_ooooo,Fk_, Fk  n ,  #chat\nu   n\u00161\n_oooooooo.Fh_,  nFh ,\u0017cheap plastic imitation of the Amulet of Yendor\ndo _{,  Fh  n_,Fh q_{. Fl  n  _. Fl  n   q\u00163\n_oooooo.,#chat\nh _ooo.   n Fh   yy\u001by "
+  }
+ ]
+}

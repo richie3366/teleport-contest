@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      bhkj\u0017fire trap\nuby   ..un\u0017pit\nl^hhssyy\u0017hole\nlhy  . 20s#terrain\n\u001b#monster\n\u0014 \u001bm,_>.20s"
+ },
+ "segments": [
+  {
+   "seed": 54051021,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      bhkj\u0017fire trap\nuby   ..un\u0017pit\nl^hhssyy\u0017hole\nlhy  . 20s#terrain\n\u001b#monster\n\u0014 \u001bm,_>.20s"
+  }
+ ]
+}

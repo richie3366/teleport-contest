@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "wish",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u00173 wand of secret door detection\nzizi\u00173 tripe ration\n efss20ss\u0017scroll of create monster\nrk hill orc\n\u0017blessed Grimtooth\n\u0007bugbear\nwlFl FlFl#invoke\nlj20s20s"
+ },
+ "segments": [
+  {
+   "seed": 54052015,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=showexp,time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u00173 wand of secret door detection\nzizi\u00173 tripe ration\n efss20ss\u0017scroll of create monster\nrk hill orc\n\u0017blessed Grimtooth\n\u0007bugbear\nwlFl FlFl#invoke\nlj20s20s"
+  }
+ ]
+}

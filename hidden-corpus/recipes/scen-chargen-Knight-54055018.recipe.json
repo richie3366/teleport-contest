@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "Ivo\rnv*ny   n#pray\ny E- Elbereth\ni\u001bwanhlk<ed ,:_m, \u001bm.s_>.s#terrain\nc\n>.#force\n;m.20s   #monster\n#loot\n>#invoke\n\u001b#chat\nnykjuubljkhjy#chat\nu,#offer\n\\   ZLjyujynbk__..hbln#chat\nhw"
+ },
+ "segments": [
+  {
+   "seed": 54055018,
+   "datetime": "20080901150708",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Ivo\rnv*ny   n#pray\ny E- Elbereth\ni\u001bwanhlk<ed ,:_m, \u001bm.s_>.s#terrain\nc\n>.#force\n;m.20s   #monster\n#loot\n>#invoke\n\u001b#chat\nnykjuubljkhjy#chat\nu,#offer\n\\   ZLjyujynbk__..hbln#chat\nhw"
+  }
+ ]
+}

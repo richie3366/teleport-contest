@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hallu",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed 20 daggers\nQi#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of lightning\nzjbzjyzjlzjuzj\u0007kobold\n\u0007gnome\nFkFnsss.;. \u001b,E- X marks the spot\n#chat\nj\u0017potion of acid\nqks#wizintrinsic\nh\n\u0017wand of teleportation\nzljzlkzllzllzlb\u0017scroll of teleportation\nrm : \u0017glob of green slime\nen #wizintrinsic\nh\n\u0017wand of light\nzozozozo\u0017potion of speed\nqp 20s      n   \u0017potion of healing\nqq  s20s\u0017potion of booze\nqr 20s   sm.#wizintrinsic\nh\n \u0007sewer rat\nFb Fls20s20s20s20s\u0007gnome lord\n\u0007gnome lord\nFj Fj  Fb  Fj Fj20ss\u0017blessed spellbook of slow monster\nrssZa\n: #wizintrins"
+ },
+ "segments": [
+  {
+   "seed": 54050078,
+   "datetime": "20210919153538",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed leash\n\u0017blessed magic harp\n\u0017blessed +3 helm of telepathy\nWh\u0017blessed 20 daggers\nQi#levelchange\n26\n                         #wizintrinsic\nh\n \u0017wand of lightning\nzjbzjyzjlzjuzj\u0007kobold\n\u0007gnome\nFkFnsss.;. \u001b,E- X marks the spot\n#chat\nj\u0017potion of acid\nqks#wizintrinsic\nh\n\u0017wand of teleportation\nzljzlkzllzllzlb\u0017scroll of teleportation\nrm : \u0017glob of green slime\nen #wizintrinsic\nh\n\u0017wand of light\nzozozozo\u0017potion of speed\nqp 20s      n   \u0017potion of healing\nqq  s20s\u0017potion of booze\nqr 20s   sm.#wizintrinsic\nh\n \u0007sewer rat\nFb Fls20s20s20s20s\u0007gnome lord\n\u0007gnome lord\nFj Fj  Fb  Fj Fj20ss\u0017blessed spellbook of slow monster\nrssZa\n: #wizintrins"
+  }
+ ]
+}

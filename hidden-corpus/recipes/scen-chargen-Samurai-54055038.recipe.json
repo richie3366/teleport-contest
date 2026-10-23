@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Orr\rnRg*y  n__. \u001b.s#turn\nWjullzda_<,.#loot\nhck#jump\n,\u0018\u001bE- Vlad was here\n#name\nm\nyullhhlu_20s#ride\nj#rub\nz\u0014#force\nslnlynyny#sit\n\u001b#conduct\n _m.sbubhlnhy_m,s_m,20sr\u001b20s __,sjkjjjhhllybuZ#invoke\n\u001b__..nhhlZa\u0004b\u000f\u001b_>..hlkbluyjnhkk#terrain\nc\n>.#name\ni\nnkkk#name\no\n#wipe\n#terrain\nc\nm.a#sit\n\u001b:jbnbhhlhz\u0018\u001bl"
+ },
+ "segments": [
+  {
+   "seed": 54055038,
+   "datetime": "20260327065324",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Orr\rnRg*y  n__. \u001b.s#turn\nWjullzda_<,.#loot\nhck#jump\n,\u0018\u001bE- Vlad was here\n#name\nm\nyullhhlu_20s#ride\nj#rub\nz\u0014#force\nslnlynyny#sit\n\u001b#conduct\n _m.sbubhlnhy_m,s_m,20sr\u001b20s __,sjkjjjhhllybuZ#invoke\n\u001b__..nhhlZa\u0004b\u000f\u001b_>..hlkbluyjnhkk#terrain\nc\n>.#name\ni\nnkkk#name\no\n#wipe\n#terrain\nc\nm.a#sit\n\u001b:jbnbhhlhz\u0018\u001bl"
+  }
+ ]
+}

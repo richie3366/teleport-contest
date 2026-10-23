@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "Hob\rnp*my  y   kbyb,,knkl#twoweapon\n#monster\nknlk#untrap\n.w\u001bhjbj;_. \u001b;10syjuylyjbe\u0004yjkjj\u000f\u001b#jump\nf#force\n,20slluh<qjhhlz#untrap\nhE\u001bi_>.20s#twoweapon\niuhku_>."
+ },
+ "segments": [
+  {
+   "seed": 54055031,
+   "datetime": "20170310160111",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "Hob\rnp*my  y   kbyb,,knkl#twoweapon\n#monster\nknlk#untrap\n.w\u001bhjbj;_. \u001b;10syjuylyjbe\u0004yjkjj\u000f\u001b#jump\nf#force\n,20slluh<qjhhlz#untrap\nhE\u001bi_>.20s#twoweapon\niuhku_>."
+  }
+ ]
+}

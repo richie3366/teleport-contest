@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Pim\rn**fy   nkhjnubyuzfl u#dip\nde H#sit\n\u001bt$y_<, \u001b,s_>.._m.20s_m,snynbuynblhynyjlynuukjkbu#monster\n#name\nd\nah #tip\n\u001b#rub\n#name\no\n#name\na\ndjkkjk#tip\n\u001b\u000f\u001bjkuhyknj#rub\nchuhjj#loot\ns"
+ },
+ "segments": [
+  {
+   "seed": 54055062,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=!autopickup\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\rn**fy   nkhjnubyuzfl u#dip\nde H#sit\n\u001bt$y_<, \u001b,s_>.._m.20s_m,snynbuynblhynyjlynuukjkbu#monster\n#name\nd\nah #tip\n\u001b#rub\n#name\no\n#name\na\ndjkkjk#tip\n\u001b\u000f\u001bjkuhyknj#rub\nchuhjj#loot\ns"
+  }
+ ]
+}

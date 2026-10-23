@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questwalk",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 helm of telepathy\nWm\u0017blessed amulet of reflection\nPn\u0016?\n>z _ \u001b.>\u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00163\n\u0016?\n>z\u0006_<._>,_.   >\u0016?\n>z\u0006_mm.Fh _.Fy FlFl  Fh  Fk  \u00165\n\u0016?\n>z\u0006_mm,  Fy  _.Fh  Fu   Fk   Fy  Fk  Fu  \u00166\n\u0016?\n>z\u0006ll  u  yhh      n  b ynn \u00162\n\u0016?\n>z\u0006jk yyh  l  l   n     l \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006b    b h_>,   Fk  _,    Fk  >\u0016?\n>z\u0006hhy\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m,   Fu _.Fn FuFn   \u0016?\n>>\u001b\u0016?\n>y#chat\nn    \u0016?\n>z\u00163\n\u0016?\n>z\u0006_mmm,    Fu   _,Fk  Fk Fn  \u00164\n\u0016?\n>z\u0006_mmmmm.  Fl   n     _.   Fn   Fu Fk   Fn    \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmmmm,   Fy _.Fl  Fk      Fh  Fn  Fh     F"
+ },
+ "segments": [
+  {
+   "seed": 54050038,
+   "datetime": "20101231192427",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0017blessed +3 silver dragon scale mail\nWl\u0017blessed +3 helm of telepathy\nWm\u0017blessed amulet of reflection\nPn\u0016?\n>z _ \u001b.>\u0006,\u0016?\n>>\u001b\u0016?\n>y #chat\ny\u0016?\n>z\u00163\n\u0016?\n>z\u0006_<._>,_.   >\u0016?\n>z\u0006_mm.Fh _.Fy FlFl  Fh  Fk  \u00165\n\u0016?\n>z\u0006_mm,  Fy  _.Fh  Fu   Fk   Fy  Fk  Fu  \u00166\n\u0016?\n>z\u0006ll  u  yhh      n  b ynn \u00162\n\u0016?\n>z\u0006jk yyh  l  l   n     l \u00163\n\u0016?\n>z\u0006,\u00164\n\u0016?\n>z\u0006b    b h_>,   Fk  _,    Fk  >\u0016?\n>z\u0006hhy\u00166\n\u0016?\n>z\u0006,\u00162\n\u0016?\n>z\u0006_m,   Fu _.Fn FuFn   \u0016?\n>>\u001b\u0016?\n>y#chat\nn    \u0016?\n>z\u00163\n\u0016?\n>z\u0006_mmm,    Fu   _,Fk  Fk Fn  \u00164\n\u0016?\n>z\u0006_mmmmm.  Fl   n     _.   Fn   Fu Fk   Fn    \u00165\n\u0016?\n>z\u0006,\u00166\n\u0016?\n>z\u0006_mmmmm,   Fy _.Fl  Fk      Fh  Fn  Fh     F"
+  }
+ ]
+}

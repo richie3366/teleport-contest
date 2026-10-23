@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "Pim\ryy  y   lkjykjyb>,,Z_<. \u001b<.20sjkklbhknkbjk#force\n#conduct\n klbl#dip\n\u001b#twoweapon\ns>#conduct\n \u0014yjul_>,s_>.sblyl_<..q#dip\n\u001bjhkbnylublkn_>.20slyhjhylj#sit\n\u001bzjhlh_>,20sllbyuyjlbE\u001b#twoweapon\n20sjknnkkjjynul"
+ },
+ "segments": [
+  {
+   "seed": 54055069,
+   "datetime": "20020217231046",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Pim\ryy  y   lkjykjyb>,,Z_<. \u001b<.20sjkklbhknkbjk#force\n#conduct\n klbl#dip\n\u001b#twoweapon\ns>#conduct\n \u0014yjul_>,s_>.sblyl_<..q#dip\n\u001bjhkbnylublkn_>.20slyhjhylj#sit\n\u001bzjhlh_>,20sllbyuyjlbE\u001b#twoweapon\n20sjknnkkjjynul"
+  }
+ ]
+}

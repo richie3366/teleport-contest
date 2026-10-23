@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b@._ooooo._.@.,p_ooooo._, _ooo, Fk_,;>.Fk,p_oo._.m.,$_{,Fj _.>.qz#jump\n#terrain\n\u001b\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqh>._dd,_,m,\u0004k_oo._,.,:_oooo,_.;m._ooo._.<.,$_d._,:\u0004h_oo._..,df_ooooo,_.@.,p10sab  .#dip\ne"
+ },
+ "segments": [
+  {
+   "seed": 54051022,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>w\u0006\u0017blessed potion of object detection\nqg \u001b@._ooooo._.@.,p_ooooo._, _ooo, Fk_,;>.Fk,p_oo._.m.,$_{,Fj _.>.qz#jump\n#terrain\n\u001b\u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqh>._dd,_,m,\u0004k_oo._,.,:_oooo,_.;m._ooo._.<.,$_d._,:\u0004h_oo._..,df_ooooo,_.@.,p10sab  .#dip\ne"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "Corin\ryy   nnlunhbyh#monster\nf  ujlhl#enhance\n\u001b#tip\n\u001b#wipe\na_m. \u001bm,.__.s__.subbb_<.s_>.s,yhnynjnhb20s#name\nf\nz,kklk>#untrap\nh#untrap\nh<nnnhu  blu_>,20shbyjhhlua,uujk\u0014#enhance\n\u001bjnjl10s#chat\nlkk jyuhhn_m,._m..,#dip\nf<#turn\nynnlbuylr\u001b#pray\ny  bbkjylhu#rub\n<ynjnblhu10s,_m.sjkjy#dip\ne :\u0004b;h;yluuljblllyn#force\n#monster\n#loot\n\u000f\u001bylnbtck ddqP,Kljhb__.sWz_>.20sz#dip\na hyuh_>,sm. ylbkbky"
+ },
+ "segments": [
+  {
+   "seed": 54050083,
+   "datetime": "20081029052642",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\n",
+   "moves": "Corin\ryy   nnlunhbyh#monster\nf  ujlhl#enhance\n\u001b#tip\n\u001b#wipe\na_m. \u001bm,.__.s__.subbb_<.s_>.s,yhnynjnhb20s#name\nf\nz,kklk>#untrap\nh#untrap\nh<nnnhu  blu_>,20shbyjhhlua,uujk\u0014#enhance\n\u001bjnjl10s#chat\nlkk jyuhhn_m,._m..,#dip\nf<#turn\nynnlbuylr\u001b#pray\ny  bbkjylhu#rub\n<ynjnblhu10s,_m.sjkjy#dip\ne :\u0004b;h;yluuljblllyn#force\n#monster\n#loot\n\u000f\u001bylnbtck ddqP,Kljhb__.sWz_>.20sz#dip\na hyuh_>,sm. ylbkbky"
+  }
+ ]
+}

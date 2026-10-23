@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "symset",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FyFjFjFhFuFyFnFhFnFjFnFhFjFhFuFjFhFyFjFnFjFnFhFuFuFuFjFkFuFuFyFyFjFhFyFuFkFlFuFjFyFyFjFjFnFnFhFu  nFhFyFnFkFhFhFuFyFnFl  nFjFyFnFlFhFlFuFyFyFk  nFuFkFjFjFnFkFlFnFyFuFu  nFhFjFjFjFyFhFnFkFkFnFk#pray\ny y     FuFhFuFkFlFhFnFhFhFyFlFjFhFuFyFuFlFjFlFuFlFuFlFhFkFuFn\u00162\n\u0006_ \u001bm.>FuFy_>,Fj_,Fk>FnFb_>,Fk_,> FnFhFj\u0006_>.Fy_.>.Fb>FjFy_>.Fj_,  nFl>FlFj_>.Fk_.Fj>FjFkFk FkFuah\u001b\u0004b\u0006_>.  nFb_,Fb>FnFn_>.  nFl_,Fj>FuFh_>.Fl_.Fh>FjFy  nFhFyFh\u0006_>,Fy_.Fh>Fj  nFj_>,Fh_.Fb>Fn Fy_>.  nFb _.Fl>Fb   nFyFjFj Fj\u0018\u001b#turn\n\u0006_>.Fk  n_.Fl>FhFj_>.Fy_,  nFk>FnFb_>,Fb_,  nFk>FnFhFhFbFh\u0006_>.Fk_,  nFn>FjFy_>.Fb_.Fj>Fh  yy\u001by  y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 54050063,
+   "datetime": "20060817195334",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:RogueIBM\nOPTIONS=sortloot:loot\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nMSGTYPE=stop \"You see\"\nMENUCOLOR=\"a potion\"=brown\n",
+   "moves": " FyFjFjFhFuFyFnFhFnFjFnFhFjFhFuFjFhFyFjFnFjFnFhFuFuFuFjFkFuFuFyFyFjFhFyFuFkFlFuFjFyFyFjFjFnFnFhFu  nFhFyFnFkFhFhFuFyFnFl  nFjFyFnFlFhFlFuFyFyFk  nFuFkFjFjFnFkFlFnFyFuFu  nFhFjFjFjFyFhFnFkFkFnFk#pray\ny y     FuFhFuFkFlFhFnFhFhFyFlFjFhFuFyFuFlFjFlFuFlFuFlFhFkFuFn\u00162\n\u0006_ \u001bm.>FuFy_>,Fj_,Fk>FnFb_>,Fk_,> FnFhFj\u0006_>.Fy_.>.Fb>FjFy_>.Fj_,  nFl>FlFj_>.Fk_.Fj>FjFkFk FkFuah\u001b\u0004b\u0006_>.  nFb_,Fb>FnFn_>.  nFl_,Fj>FuFh_>.Fl_.Fh>FjFy  nFhFyFh\u0006_>,Fy_.Fh>Fj  nFj_>,Fh_.Fb>Fn Fy_>.  nFb _.Fl>Fb   nFyFjFj Fj\u0018\u001b#turn\n\u0006_>.Fk  n_.Fl>FhFj_>.Fy_,  nFk>FnFb_>,Fb_,  nFk>FnFhFhFbFh\u0006_>.Fk_,  nFn>FjFy_>.Fb_.Fj>Fh  yy\u001by  y y y\u001by  F"
+  }
+ ]
+}

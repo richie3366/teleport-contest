@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "Rook\rnRemy  n;n, \u001bm.#jump\nbkhbyhjunkhh_>..bhhl_>,20slnuknjjl h ulhybyh#offer\nr\u001b;m, ,lhhk_<,sdb>\u0014oj_<.ss\u000f\u001bujkjjblbynlhlulu\u0014#pray\ny   kjkj<\u0018\u001b>;b; #enhance\n\u001b\u0018\u001b_<,20s   #offer\n\u0004hP#dip\ndr\u001bKhblk_"
+ },
+ "segments": [
+  {
+   "seed": 54055027,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Rook\rnRemy  n;n, \u001bm.#jump\nbkhbyhjunkhh_>..bhhl_>,20slnuknjjl h ulhybyh#offer\nr\u001b;m, ,lhhk_<,sdb>\u0014oj_<.ss\u000f\u001bujkjjblbynlhlulu\u0014#pray\ny   kjkj<\u0018\u001b>;b; #enhance\n\u001b\u0018\u001b_<,20s   #offer\n\u0004hP#dip\ndr\u001bKhblk_"
+  }
+ ]
+}

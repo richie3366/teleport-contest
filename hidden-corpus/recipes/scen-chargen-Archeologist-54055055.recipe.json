@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "Quill\ryn*my    y   klhl10sr\u001bujhl_m, \u001b;skhjj_>.20s_<.skujbjubn#enhance\n\u001bs10sd\u001byjlykbub__.._m.20sbubk#chat\nht\u001b#untrap\nkch#terrain\nb\nyc \\   jlunknkbolche20slhkhbkbu_>..ybuubbyu#sit\n\u001bikbkl#terrain\nb\n#terrain\n<.hlnjbbknhknynllyhhnunluu_<.sjkkbnybbykjh__..lybn10s#monster\nllkl_m,20sllbuw\u001bP#dip\n\u001bWsHuujheols#nam"
+ },
+ "segments": [
+  {
+   "seed": 54055055,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Quill\ryn*my    y   klhl10sr\u001bujhl_m, \u001b;skhjj_>.20s_<.skujbjubn#enhance\n\u001bs10sd\u001byjlykbub__.._m.20sbubk#chat\nht\u001b#untrap\nkch#terrain\nb\nyc \\   jlunknkbolche20slhkhbkbu_>..ybuubbyu#sit\n\u001bikbkl#terrain\nb\n#terrain\n<.hlnjbbknhknynllyhhnunluu_<.sjkkbnybbykjh__..lybn10s#monster\nllkl_m,20sllbuw\u001bP#dip\n\u001bWsHuujheols#nam"
+  }
+ ]
+}

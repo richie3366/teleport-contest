@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sweep",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n12\n          \u0017blessed ring of polymorph control\nPfr\u0017gauntlets of dexterity\nWg.s20s#polyself\nlurker above\n s20s      \u0007master lich\nFuFl   Fn20s  .usk#polyself\ngiant eel\n#monster\n20s   sl \u0007flesh golem\nFyFy Fysm.  sm.20s  #polyself\ngnome\n#monster\n20s     n 20s   sm. snsm.  #polyself\nstone golem\n#monster\nsl  .m.    20s  20s     sm.   n \u00169\n#levelchange\n20\n        \u0007dust vortex\nFnFn Fks FkFh Fk FhFhFy#pray\ny yFk\u0006#levelchange\n12\n  \u0017cursed scroll of gold detection\nrh\u0017uncursed wand of opening\n\u0007giant beetle\nzih\u0017blessed potion of gain ability\nqj #dip\nisFk\u0017uncursed potion of oil\nqk\u00173 diamond\n\u0007jackal\nainn20s s\u0006\u0016?\ne\u000620sFbFbFb Fb    n Fk n \u001b.@.bu ;jsb\u0014@.   n m, <.\u0006\u001612\n#levelchange\n20\n       \u0016?\n>>N      scroll of enchant armor\n#sit\n\u001bZ#enhance\nyc\ng\n\u001b\u000620s   sb\u0016?\n\u001b\u0016?\n\u001b\u001617\n#levelchange\n16\n \u0016?\n\u001b\u001614\n_mmmmm.   Fb    n   _.#chat\nb      n _mmmmm,     Fh     n _,#chat\nj       _mmmmm,   n   Fj     n _.#chat\nb     n _mmm.#chat\nj      n ;h:\u0016?\n\u001b#monster\n:20s      n \u001612\n#levelchange\n30\n             \u00178 rocks\nQby\u0007gnome\nkfb  f \u001b\u001bf \u001b\u001bf \u001b\u001b\u0017potion of monster detection\ntch     n x#twoweapon\nFn   \u001b \u001b Fb b   n b   l,\u00168\n#levelchange\n14\n     \u0016?\n\u001b\u001614\n_mmmm,#chat\nb  n     ynnny y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 54050001,
+   "datetime": "20181122014924",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=mention_walls\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n12\n          \u0017blessed ring of polymorph control\nPfr\u0017gauntlets of dexterity\nWg.s20s#polyself\nlurker above\n s20s      \u0007master lich\nFuFl   Fn20s  .usk#polyself\ngiant eel\n#monster\n20s   sl \u0007flesh golem\nFyFy Fysm.  sm.20s  #polyself\ngnome\n#monster\n20s     n 20s   sm. snsm.  #polyself\nstone golem\n#monster\nsl  .m.    20s  20s     sm.   n \u00169\n#levelchange\n20\n        \u0007dust vortex\nFnFn Fks FkFh Fk FhFhFy#pray\ny yFk\u0006#levelchange\n12\n  \u0017cursed scroll of gold detection\nrh\u0017uncursed wand of opening\n\u0007giant beetle\nzih\u0017blessed potion of gain ability\nqj #dip\nisFk\u0017uncursed potion of oil\nqk\u00173 diamond\n\u0007jackal\nainn20s s\u0006\u0016?\ne\u000620sFbFbFb Fb    n Fk n \u001b.@.bu ;jsb\u0014@.   n m, <.\u0006\u001612\n#levelchange\n20\n       \u0016?\n>>N      scroll of enchant armor\n#sit\n\u001bZ#enhance\nyc\ng\n\u001b\u000620s   sb\u0016?\n\u001b\u0016?\n\u001b\u001617\n#levelchange\n16\n \u0016?\n\u001b\u001614\n_mmmmm.   Fb    n   _.#chat\nb      n _mmmmm,     Fh     n _,#chat\nj       _mmmmm,   n   Fj     n _.#chat\nb     n _mmm.#chat\nj      n ;h:\u0016?\n\u001b#monster\n:20s      n \u001612\n#levelchange\n30\n             \u00178 rocks\nQby\u0007gnome\nkfb  f \u001b\u001bf \u001b\u001bf \u001b\u001b\u0017potion of monster detection\ntch     n x#twoweapon\nFn   \u001b \u001b Fb b   n b   l,\u00168\n#levelchange\n14\n     \u0016?\n\u001b\u001614\n_mmmm,#chat\nb  n     ynnny y\u001b  _"
+  }
+ ]
+}

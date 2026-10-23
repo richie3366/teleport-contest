@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "extcmd",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017blessed amulet of reflection\nPl\u0017blessed +3 helm of telepathy\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n_ \u001b,#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\nee#offer\n#pray\ny y  #chat\nk#jump\n#polyself\nfire giant\n#monster\n.sFlsuju #monster\n\u0016?\n>I\u0006\u0007jackal\n#vanquished\n #genocided\nquantum mechanic\n#annotate\nshiny\ni\u001b#name\ni\n#adjust\nc\u001b#chat\nb #turn\n#jump\n#wizintrinsic\nr\n Fh Fb Fbt$u\u0016?\nd\u0006\u0007dwarf\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #levelchange\n8\n      bhn_oooo.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nh#jump\n#wizintrinsic\nas\n  kbl_oo.,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001byju_ooo.,#vanquished\n #genocided\nAleax\n\u001b\u000f\u001b#dip\ngf#offer\n#pray\ny y #chat\nj#polyself\nmind flayer\n s.ssbjk_<._.<.Fl    \u0007gnome\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\no\u001b#chat\nk #turn\n#wizintrinsic\nra\n  FkFl    Fl     Fl  _{._,qy\u0007hobbit\n#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y             #levelchange\n16\n        Fk         Fh     Fh    ri y   _<,Fh      _.  Fk    \u0007newt\n#overview\n\u001b#c"
+ },
+ "segments": [
+  {
+   "seed": 54050079,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017blessed amulet of reflection\nPl\u0017blessed +3 helm of telepathy\nWm\u0017long sword\n\u0017potion of water\n\u0017scroll of identify\n\u0007grid bug\n_ \u001b,#overview\n\u001b#conduct\n #annotate\nFido\n\u0018\u001b#dip\nee#offer\n#pray\ny y  #chat\nk#jump\n#polyself\nfire giant\n#monster\n.sFlsuju #monster\n\u0016?\n>I\u0006\u0007jackal\n#vanquished\n #genocided\nquantum mechanic\n#annotate\nshiny\ni\u001b#name\ni\n#adjust\nc\u001b#chat\nb #turn\n#jump\n#wizintrinsic\nr\n Fh Fb Fbt$u\u0016?\nd\u0006\u0007dwarf\n#chronicle\n #terrain\n\u001b\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n\u001b#pray\ny y #levelchange\n8\n      bhn_oooo.,#version\n  #history\n                  \u000f\u001b#wipe\n#loot\n#chat\nn#chat\nh#jump\n#wizintrinsic\nas\n  kbl_oo.,#overview\n\u001b#conduct\n \u000f\u001b#tip\n\u001b#ride\nhy#turn\n#sit\n\u001b#wizidentify\n\u001byju_ooo.,#vanquished\n #genocided\nAleax\n\u001b\u000f\u001b#dip\ngf#offer\n#pray\ny y #chat\nj#polyself\nmind flayer\n s.ssbjk_<._.<.Fl    \u0007gnome\n#chronicle\n #terrain\n\u001b\u0018\u001b#name\n\u001b#adjust\no\u001b#chat\nk #turn\n#wizintrinsic\nra\n  FkFl    Fl     Fl  _{._,qy\u0007hobbit\n#version\n  #history\n                  #annotate\nshiny\n\u0018\u001b#twoweapon\n#invoke\n\u001b#sit\n  #pray\ny y             #levelchange\n16\n        Fk         Fh     Fh    ri y   _<,Fh      _.  Fk    \u0007newt\n#overview\n\u001b#c"
+  }
+ ]
+}

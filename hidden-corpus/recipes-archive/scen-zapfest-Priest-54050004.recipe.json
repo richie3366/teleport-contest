@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "zapfest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017blessed amulet of life saving\nPj\u0017blessed +3 speed boots\nWk\u0017blessed ring of free action\nPll\u0017wand of fire\n\u0017wand of death\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007newt\nzohznh    .m.znk.m.zmyzojzmu20sznnzmy20szobszol\u00162\n\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of lightning\n\u0007giant rat\nzqlzpbzrj  n zphzpjzry.zqnzqnzpnzp. \u001b@.\u0017sling\nws\u001720 flint stones\nQt\u0007hobbit\nflttnfkfk\u0007mind flayer\n\u0007vampire\n\u0017wand of striking\nszub   zubzub   \u00165\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of cold\ns.  nzvh zvnzvk\u0017wand of death\n\u0017wand of lightning\n\u0007lichen\nzwb nzwyzwbzxlzwnzw20szxlzw\u0017crossbow\nwy\u001715 crossbow bolts\nQz\u0007newt\nfhfhfjfbfnfntan\u0017potion of full healing\ntsn\u0007red dragon\n.s   n20s.Fn Fl\u0017spellbook of light\nrB20s  n \u0017spellbook of sleep\n rCs\u0007master mind flayer\n\u0007aligned cleric\nnyZb\n  n   20s   n s    n Za\n  n Zb\n   n Zb\nZa\nZb\nZb\n\u00164\n\u00166\n\u00178 spears\nQD\u0007bugbear\ntzhtzhtzbfyfktzkfb\u0007lich\n\u0007succubus\n\u0007master lich\n\u0017wand of fire\n20"
+ },
+ "segments": [
+  {
+   "seed": 54050004,
+   "datetime": "20010121055616",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017blessed amulet of life saving\nPj\u0017blessed +3 speed boots\nWk\u0017blessed ring of free action\nPll\u0017wand of fire\n\u0017wand of death\n\u0017wand of polymorph\n\u0007yellow mold\n\u0007newt\nzohznh    .m.znk.m.zmyzojzmu20sznnzmy20szobszol\u00162\n\u0017wand of teleportation\n\u0017wand of death\n\u0017wand of lightning\n\u0007giant rat\nzqlzpbzrj  n zphzpjzry.zqnzqnzpnzp. \u001b@.\u0017sling\nws\u001720 flint stones\nQt\u0007hobbit\nflttnfkfk\u0007mind flayer\n\u0007vampire\n\u0017wand of striking\nszub   zubzub   \u00165\n\u0007kobold shaman\n\u0007gnomish wizard\n\u0017wand of cold\ns.  nzvh zvnzvk\u0017wand of death\n\u0017wand of lightning\n\u0007lichen\nzwb nzwyzwbzxlzwnzw20szxlzw\u0017crossbow\nwy\u001715 crossbow bolts\nQz\u0007newt\nfhfhfjfbfnfntan\u0017potion of full healing\ntsn\u0007red dragon\n.s   n20s.Fn Fl\u0017spellbook of light\nrB20s  n \u0017spellbook of sleep\n rCs\u0007master mind flayer\n\u0007aligned cleric\nnyZb\n  n   20s   n s    n Za\n  n Zb\n   n Zb\nZa\nZb\nZb\n\u00164\n\u00166\n\u00178 spears\nQD\u0007bugbear\ntzhtzhtzbfyfktzkfb\u0007lich\n\u0007succubus\n\u0007master lich\n\u0017wand of fire\n20"
+  }
+ ]
+}

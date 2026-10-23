@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "questtour",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh;m._mmmm.#chat\nn_mmm.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nl;<._mmm.#chat\nn_mm.#chat\nu\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmmmm.Fk_.ss.szkk ,#chat\nj      \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FjFks.zky,\u0016?\n>>\u001b\u0016?\n>y_mmm._.#chat\nu\u0016?\n>z\u0006_mm,Fb_.;m,Fbsss20s szky,\u0016?\n>A\u0006_mm, Fb _.   20sFb Fb  Fb Fb  Fb,\u0016?\n>>\u001b\u0016?\n>y_mm.  Fh _.:Fh #chat\nh\u0016?\n>A\u0006_mmm. Fk  _. .FuFu  nFuzku   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fu_.FuFks.sss20s,#chat\nu\u0016?\n>z\u0006_mmm.Fu  Fu.s.20s.,#chat\nk\u0016?\n>A\u0006_mmm,Fk_.FkFkFk  n Fk Fk Fk Fk Fk zk ,\u0016?\n>A\u0006_mmmmm.Fk_.Fks20ss20s 20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,s.ss20s zk,#cha"
+ },
+ "segments": [
+  {
+   "seed": 54050006,
+   "datetime": "20250804054925",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:none\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>>\u001b\u0016?\n>y  \u0006_ \u001bm,#chat\nh;m._mmmm.#chat\nn_mmm.#chat\nl#levelchange\n16\n               \u0016?\n>>\u001b\u0016?\n>y\u0006_mmmm.#chat\nl;<._mmm.#chat\nn_mm.#chat\nu\u0017blessed +3 helm of telepathy\nWh\u0017blessed +3 silver dragon scale mail\nW\u001b\u0017blessed amulet of life saving\nPj\u0017wand of magic missile\n\u0016?\n>A\u0006_mmmmmmm.Fk_.ss.szkk ,#chat\nj      \u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmm.FjFks.zky,\u0016?\n>>\u001b\u0016?\n>y_mmm._.#chat\nu\u0016?\n>z\u0006_mm,Fb_.;m,Fbsss20s szky,\u0016?\n>A\u0006_mm, Fb _.   20sFb Fb  Fb Fb  Fb,\u0016?\n>>\u001b\u0016?\n>y_mm.  Fh _.:Fh #chat\nh\u0016?\n>A\u0006_mmm. Fk  _. .FuFu  nFuzku   ,\u0016?\n>>\u001b\u0016?\n>z\u0006_mm.Fu_.FuFks.sss20s,#chat\nu\u0016?\n>z\u0006_mmm.Fu  Fu.s.20s.,#chat\nk\u0016?\n>A\u0006_mmm,Fk_.FkFkFk  n Fk Fk Fk Fk Fk zk ,\u0016?\n>A\u0006_mmmmm.Fk_.Fks20ss20s 20ss,\u0016?\n>>\u001b\u0016?\n>z\u0006_mmmmmmm,s.ss20s zk,#cha"
+  }
+ ]
+}

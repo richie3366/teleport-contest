@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "uky\u0017sink\nqy\u0017ring of protection from shape changers\ndf  \u001bl\u0004h \u0004hbu\u0017moat\nbu l\u0017fountain\nqy \u001bm.\u0017long sword\n#dip\ngy  yy\u001by  y y\u001by  z"
+ },
+ "segments": [
+  {
+   "seed": 54051020,
+   "datetime": "20061102131910",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "uky\u0017sink\nqy\u0017ring of protection from shape changers\ndf  \u001bl\u0004h \u0004hbu\u0017moat\nbu l\u0017fountain\nqy \u001bm.\u0017long sword\n#dip\ngy  yy\u001by  y y\u001by  z"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "Ash\ryy   y   jbhy_m, \u001b:20sr\u001bP_<.20snkyuunkbzr\u001bjhyubjjj#enhance\n\u001b#enhance\n\u001blyjlluhn__.sukubbbyh<W__..knjlhylkjbkknjhuhubj10s#chat\nbz\u0014kljkbuynubllnklj#enhance\n\u001bWlkyhukny__.s#terrain\nb\n#chat\n,lbnhhkjbW#tip\n\u001bbhlu__.s_>,20slllhhZ__.._<,sjk"
+ },
+ "segments": [
+  {
+   "seed": 54055034,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\nOPTIONS=disclose:-i -a -v -g -c -o\n",
+   "moves": "Ash\ryy   y   jbhy_m, \u001b:20sr\u001bP_<.20snkyuunkbzr\u001bjhyubjjj#enhance\n\u001b#enhance\n\u001blyjlluhn__.sukubbbyh<W__..knjlhylkjbkknjhuhubj10s#chat\nbz\u0014kljkbuynubllnklj#enhance\n\u001bWlkyhukny__.s#terrain\nb\n#chat\n,lbnhhkjbW#tip\n\u001bbhlu__.s_>,20slllhhZ__.._<,sjk"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017orcish bow\nwi\u001720 orcish arrows\nQj\u0007kobold\nylfhfl\u0007lichen\nnfl   fjFlFj\u0007grid bug\nbhfk fk fkfk x  #twoweapon\nFksjky,#enhance\nyf\nj\n\u001b\u00176 eggs\nQ-\u0007giant rat\nbjfffffFkFk\u0007yellow mold\nhhffFlFl\u0007troll\nhffl  n   h  yy\u001by  y y y\u001bn  k"
+ },
+ "segments": [
+  {
+   "seed": 54051028,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017orcish bow\nwi\u001720 orcish arrows\nQj\u0007kobold\nylfhfl\u0007lichen\nnfl   fjFlFj\u0007grid bug\nbhfk fk fkfk x  #twoweapon\nFksjky,#enhance\nyf\nj\n\u001b\u00176 eggs\nQ-\u0007giant rat\nbjfffffFkFk\u0007yellow mold\nhhffFlFl\u0007troll\nhffl  n   h  yy\u001by  y y y\u001bn  k"
+  }
+ ]
+}

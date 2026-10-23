@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "chargen",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "Ash\ryy   nlnhjknjhhu\u0004k#loot\nlkhbn#turn\n#turn\nbkkbylhyklnyed #terrain\nb\n\u001bm,__,s#enhance\n\u001bbuljkfnlbkjunlknfbhhbk#invoke\n\u001b\\ oj,_m.20sjluu__..#offer\nzlkhjbkkjkbny_m.s>wanyulhj_>,s#rub\n#invoke\n\u001b#offer\nZkbyb#enhance\n\u001bckbkylbynk__,20sbuby#turn\n,#invoke\n\u001b#untrap\nl<ujlyjt$n#ride\nl__.._<, .#terrain\nb\n20s nbbuluyn#chat\nh:nkjnkykbbbkkW\u000f\u001b__.subunklny#loot\nl#loot\nlb#monster\n>#ride\nn#terrain\nb\nc E- Elbereth Elbere"
+ },
+ "segments": [
+  {
+   "seed": 54055049,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=symset:DECgraphics\n",
+   "moves": "Ash\ryy   nlnhjknjhhu\u0004k#loot\nlkhbn#turn\n#turn\nbkkbylhyklnyed #terrain\nb\n\u001bm,__,s#enhance\n\u001bbuljkfnlbkjunlknfbhhbk#invoke\n\u001b\\ oj,_m.20sjluu__..#offer\nzlkhjbkkjkbny_m.s>wanyulhj_>,s#rub\n#invoke\n\u001b#offer\nZkbyb#enhance\n\u001bckbkylbynk__,20sbuby#turn\n,#invoke\n\u001b#untrap\nl<ujlyjt$n#ride\nl__.._<, .#terrain\nb\n20s nbbuluyn#chat\nh:nkjnkykbbbkkW\u000f\u001b__.subunklny#loot\nl#loot\nlb#monster\n>#ride\nn#terrain\nb\nc E- Elbereth Elbere"
+  }
+ ]
+}
