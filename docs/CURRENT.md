@@ -30,7 +30,7 @@ Score last measured: **2026-10-22** — full `sessions` on `be3c60cd0`
 | Metric | Value |
 |--------|------:|
 | **Held-out (judge 2026-10-22 07:15Z)** | **35 / 44**, 11,079 / 11,265 pts, RNG **99.5 %**, rngSteps 99.2 %, screens **98.3 %** (unchanged since 2026-10-21 13:09Z; rank 2, leader 11,264 at 43/44; the D-4219..D-4230 window is not scored yet) |
-| **Fresh cohort (§10.20, scored on arrival)** | 53850000 ×160 (Grow #28): **156/160 (97.5 %)**, RNG 99.5 %, screens 99.7 % |
+| **Fresh cohort (§10.20, scored on arrival)** | 54050000 ×160 (Grow #29): **159/160 (99.4 %)**, RNG 99.7 %, screens 99.5 % (worst chargen 5/6, RNG 76.5 %) |
 | **Corpus board (worked, regression fortress)** | full rescore 2026-10-22 (audit 3047–3070 @`be3c60cd0`): committed board **774/774** → rescore **774/774** (RNG 100.00 %, screens 100.0 %, 0 env-only), `record`: all sessions present, **0 PASS→FAIL** → archive 93 PASS → **681 entries** (669 active fortress: test 390 / family 183 / cover 96; `unrecorded` 0); `tier` → reserve 0; every family 100 % |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
@@ -46,10 +46,10 @@ RNG 93.5→96.9 %): the D-4042..D-4047 window moved the judge again
 held-out (judge), fresh cohort
 (`fresh-cohort.mjs`, the local generalization estimate), board (the
 fortress — it rises by construction). Fresh history: 79–100 %
-across 23 cohorts (Grow #5–28; prev 160/160).
-Fresh−held-out gap now 18.0 pts (97.5 % vs 79.5 % = 35/44), inside the §10.20
+across 24 cohorts (Grow #5–29; prev 156/160).
+Fresh−held-out gap now 19.9 pts (99.4 % vs 79.5 % = 35/44), inside the §10.20
 band — Grow #26 added the `vault` calibration family (probe 8/20, 35/80 authored; HIDDEN-PROXY §5c); Grow #27 probed `tutorwalk` 20/20, `chargen` 20/20 and a real-mount `ride` reshape 19/20 (all ≥ 85 %: not held-out shapes; §5c).
-**Corpus after Grow #28 (2026-10-22):** board 839/845 PASS (99.3 %; 4 owners: wiz_intrinsic ×3, throne_sit_effect, passive, chest_trap); 833 active + 0 reserve + 7342 archive.
+**Corpus after Grow #29 (2026-10-23):** board 920/926 PASS (99.4 %; 2 owners: genl_player_setup ×5, reveal_paths); 912 active + 2 reserve + 7501 archive.
 Reviews 1225–3070 (index; no row 1618). Audit 3047–3070: 16 ACCEPT / 6 WITH-DEBT / 2 QUALITY-RISK, 3 Must-fix (m_move wormno gate; P_BOW / ESCAPED / ASCENDED missing imports; process_menu_window count+ESC). Earlier totals to 3010: 1587 ACCEPT, 85 WITH-DEBT, 113 QUALITY-RISK (3001–3010: 7A/3D/0Q, 0 Must-fix; debt, all unreached → ledger partial: cond_menu/autopickup-exception headings drop menu_headings colour (menu_heading_attr), o_init.js rename_disco/doclassdisco hard-code ATR_INVERSE, use_crystal_ball non-fatal path never drains `_losehp_needs_rehumanize`).
 Live debts: review index WITH-DEBT rows; 52
 `scripts/*.test.mjs` fail on HEAD (stale after rewires; same set since D-3930).

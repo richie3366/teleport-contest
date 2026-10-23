@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-10-23 — Grow #29 @67ad0e29d: fresh 54050000 ×160 159/160 (99.4 %) on arrival
+
+**Fresh:** RNG 99.7 %, screens 99.5 %; worst chargen 5/6 (RNG 76.5 %); every other family 100 %. 1 folded (chargen genl_player_setup s8: role menu key `R` gives Rogue in JS where C picks Ranger), 159 archived, 0 reserved. The cliffs block was empty, so step 4 authored 80 chargen @54055000: 75/80 PASS, 4 more genl_player_setup and 1 reveal_paths (s0, the copyright banner); tier sent 2 to reserve. Board 920/926. Gap to held-out 19.9 pts, inside the band; no calibration.
+**Next:** the cliffs block holds 2 owners: genl_player_setup (5) heads it, then reveal_paths.
+
 ## 2026-10-22 — D-4237 tty show_topl (topl.c `:145–166`) paints an ATR_NOHISTORY message through addtopl → putsyms → topl_putsym, and topl_putsym breaks the line by itself: a character that would land at `curx == CO - 1` first emits `topl_putsym('\n')` (`:305–343`). An 84-character autodescribe line therefore shows 79 columns on row 0 and « ball» from row 1 column 0. js/display.js show_topl ran the same loop to set cw.curx / cury but handed the unbroken string to the painter, which breaks only on '\n' and clips at the right margin, so everything past column 79 was lost
 
 **C locus:** win/tty/topl.c show_topl `:145–166`, addtopl, putsyms, topl_putsym `:305–343`; pline.c putmesg `:75–77` (SUPPRESS_HISTORY → ATR_NOHISTORY with WC2_SUPPRESS_HIST); getpos.c auto_describe `:640–662`.
